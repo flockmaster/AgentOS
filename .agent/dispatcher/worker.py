@@ -31,7 +31,9 @@ class WorkerConfig:
     default_timeout: int = 600  # 默认超时秒数（10 分钟）
     working_dir: str | None = None  # 工作目录，None 则使用当前目录
     env_vars: dict[str, str] = field(default_factory=dict)  # 额外环境变量
-    approval_mode: str = "full-auto"  # 审批模式
+    # 2026-02-10: Windows 下必须使用 bypass 模式才能正常写入文件
+    bypass_sandbox: bool = True  # 绕过沙箱限制 (Windows 必须为 True)
+    approval_mode: str = "full-auto"  # 审批模式 (仅当 bypass_sandbox=False 时生效)
 
 
 class Worker:
@@ -171,9 +173,15 @@ class Worker:
             self.config.codex_bin,
             "exec",
             "--json",
-            f"--approval-mode={self.config.approval_mode}",
-            prompt,
         ]
+        
+        # 2026-02-10: Windows 下必须使用 bypass 模式才能正常写入文件
+        if self.config.bypass_sandbox:
+            cmd.append("--dangerously-bypass-approvals-and-sandbox")
+        else:
+            cmd.append(f"--approval-mode={self.config.approval_mode}")
+        
+        cmd.append(prompt)
         return cmd
 
     def _start_process(self, prompt: str) -> None:

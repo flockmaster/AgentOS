@@ -72,15 +72,33 @@ description: 自动派发 Codex 任务流水线
 
 ### Step 5: 启动 Codex Worker 🚀
 
+#### 5.0 ⚠️ Windows 沙箱问题 (2026-02-10 验证)
+
+**重要发现**：在 Windows 环境下，`--full-auto` 和 `--sandbox workspace-write` 均无法正常写入文件。
+必须使用 `--dangerously-bypass-approvals-and-sandbox` 参数才能确保 Codex 正常执行文件操作。
+
+```bash
+# ✅ Windows 正确调用方式 (已验证)
+codex exec --json --dangerously-bypass-approvals-and-sandbox "{Prompt}"
+
+# ❌ 以下方式在 Windows 上文件写入失败
+codex exec --json --full-auto "{Prompt}"                    # 失败
+codex exec --json --sandbox workspace-write "{Prompt}"      # 失败
+codex exec --json --sandbox danger-full-access "{Prompt}"   # 失败
+```
+
+> **安全提示**：`--dangerously-bypass-approvals-and-sandbox` 绕过所有安全检查，
+> 仅适用于受信任的自动化环境（如 Agent OS 内部调度）。
+
 #### 5.1 会话启动策略 (关键决策点)
 
 根据任务状态选择不同的 Codex 命令：
 
 | 场景 | 命令 | 说明 |
 |------|------|------|
-| **全新任务** | `codex exec --full-auto` | 干净上下文，零污染 |
-| **任务中断恢复** (同任务继续) | `codex exec resume --last --full-auto` | 保持完整对话历史，接着干 |
-| **任务中断恢复** (指定会话) | `codex exec resume {SESSION_ID} --full-auto` | 精确恢复到指定会话 |
+| **全新任务** | `codex exec --json --dangerously-bypass-approvals-and-sandbox` | 干净上下文，零污染，完整写入权限 |
+| **任务中断恢复** (同任务继续) | `codex exec resume --last --dangerously-bypass-approvals-and-sandbox` | 保持完整对话历史，接着干 |
+| **任务中断恢复** (指定会话) | `codex exec resume {SESSION_ID} --dangerously-bypass-approvals-and-sandbox` | 精确恢复到指定会话 |
 | **任务失败重试** (换策略) | `codex fork --last` | 继承上下文但走新分支，避免重复踩坑 |
 | **交互式调试** | `codex resume --last` | 手动介入，人机协作排查问题 |
 
@@ -135,10 +153,10 @@ codex fork {SESSION_ID}
 **适用场景**：新任务，无需任何历史上下文。
 
 ```bash
-# 非交互式 (推荐用于调度)
-codex exec --full-auto --json "{Prompt}"
+# 非交互式 (推荐用于调度) - Windows 验证通过
+codex exec --json --dangerously-bypass-approvals-and-sandbox "{Prompt}"
 
-# 交互式
+# 交互式 (手动开发)
 codex --full-auto "{Prompt}"
 ```
 
@@ -183,6 +201,7 @@ PM 应在 `active_context.md` 中记录每个任务的 Codex 会话 ID：
 codex exec [OPTIONS] [PROMPT]
 
 # 关键选项:
+--dangerously-bypass-approvals-and-sandbox  # ⭐ Windows 必须使用，绕过沙箱限制
 --full-auto                 # 全自动模式 (sandbox=workspace-write + approval=on-request)
 --json                      # JSONL 事件流输出，便于程序化监控
 -m, --model <MODEL>         # 指定模型 (如 o3, gpt-4.1 等)
@@ -193,6 +212,43 @@ codex exec [OPTIONS] [PROMPT]
 --skip-git-repo-check       # 允许在非 Git 仓库中运行
 --add-dir <DIR>             # 添加额外可写目录
 ```
+
+#### 5.8 PM 异步等待机制 (2026-02-10 验证)
+
+当 PM (Antigravity) 调用 Codex Worker 时，使用异步轮询机制等待结果：
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  1. run_command("codex exec ...", WaitMsBeforeAsync=500)       │
+│     ↓                                                          │
+│     命令启动 → 立即返回 CommandId (进入后台)                     │
+│                                                                 │
+│  2. command_status(CommandId, WaitDurationSeconds=60)          │
+│     ↓                                                          │
+│     长轮询等待，UI 显示: "Waiting for Codex Worker..."          │
+│     ├─ 任务完成 → 返回 DONE + JSONL 事件流                      │
+│     └─ 超时未完成 → 返回 RUNNING，可继续轮询                     │
+│                                                                 │
+│  3. 解析 JSONL 事件流                                           │
+│     ├─ thread.started → 记录 SESSION_ID                        │
+│     ├─ agent_message + "?" → 检测 QUESTION                     │
+│     ├─ command_execution → 记录进度                            │
+│     ├─ error → 判断是否可重试                                   │
+│     └─ turn.completed → 任务完成                                │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**JSONL 事件类型参考**：
+
+| 事件类型 | 含义 | PM 响应 |
+|----------|------|--------|
+| `thread.started` | 会话启动，包含 `thread_id` | 记录 SESSION_ID |
+| `turn.started` | 轮次开始 | 无需处理 |
+| `item.completed` (reasoning) | Codex 思考过程 | 可选记录 |
+| `item.completed` (command_execution) | 执行命令结果 | 检查 exit_code |
+| `item.completed` (agent_message) | Codex 输出消息 | 检测问题/完成 |
+| `turn.completed` | 轮次结束，包含 token 用量 | 任务完成 |
+| `error` | 执行错误 | 判断重试策略 |
 
 ### Step 6: 实时监控 👀
 
