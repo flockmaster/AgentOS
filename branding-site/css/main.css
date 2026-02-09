@@ -1,0 +1,6 @@
+/* Main Stylesheet - Layouts and Components Defined in T-003+ */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}

@@ -1,0 +1,7 @@
+/* Reset and Base Styles - Defined in T-002 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
