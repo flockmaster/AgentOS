@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 # ============================================================
 #  Antigravity Agent OS — 初始化向导 (Windows / PowerShell)
 #  用法: pwsh setup.ps1 [-TargetDir <path>]

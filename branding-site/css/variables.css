@@ -1,4 +1,41 @@
-/* CSS Variables - Defined in T-002 */
 :root {
-  /* Placeholder for T-002 */
+    /* Color Palette - Sky Blue Trust + Warm CTA */
+    --color-primary: #0EA5E9;
+    --color-secondary: #38BDF8;
+    --color-cta: #F97316;
+    --color-background: #F0F9FF;
+    /* Starts with light bg, but we will override for dark mode feel in sections */
+    --color-text: #0C4A6E;
+    --color-white: #ffffff;
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+    --color-glass-bg: rgba(255, 255, 255, 0.05);
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 300ms ease;
+}
+
+/* Dark Mode Overrides (Optional but recommended for "Premium" feel) */
+/* We will use specific classes for dark sections instead of global replacement for now to stick to Design System Palette */
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
 }

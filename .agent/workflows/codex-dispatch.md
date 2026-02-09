@@ -72,14 +72,127 @@ description: 自动派发 Codex 任务流水线
 
 ### Step 5: 启动 Codex Worker 🚀
 
-// turbo
+#### 5.1 会话启动策略 (关键决策点)
+
+根据任务状态选择不同的 Codex 命令：
+
+| 场景 | 命令 | 说明 |
+|------|------|------|
+| **全新任务** | `codex exec --full-auto` | 干净上下文，零污染 |
+| **任务中断恢复** (同任务继续) | `codex exec resume --last --full-auto` | 保持完整对话历史，接着干 |
+| **任务中断恢复** (指定会话) | `codex exec resume {SESSION_ID} --full-auto` | 精确恢复到指定会话 |
+| **任务失败重试** (换策略) | `codex fork --last` | 继承上下文但走新分支，避免重复踩坑 |
+| **交互式调试** | `codex resume --last` | 手动介入，人机协作排查问题 |
+
+#### 5.2 何时用 resume (恢复)
+
+**适用场景**：任务未完成，需要在 **同一上下文** 中继续执行。
+
 ```bash
-codex exec --full-auto --json "{Prompt}"
+# 非交互式：恢复最近会话并注入新指令
+codex exec resume --last --full-auto "继续完成之前的任务"
+
+# 非交互式：恢复指定会话
+codex exec resume {SESSION_ID} --full-auto "请继续"
+
+# 交互式：恢复最近会话，手动操作
+codex resume --last
+
+# 交互式：弹出选择器，选择历史会话
+codex resume
+
+# 查看所有会话（包括其他目录的）
+codex resume --all
 ```
 
-**参数说明**：
-- `--full-auto`: 全自动模式，无人工确认
-- `--json`: 输出 JSONL 事件流，便于监控
+**典型场景**：
+- Worker 执行到一半因超时被终止，需要接着做
+- PM 回答了 Worker 的 QUESTION 后，需要继续原任务
+- 网络断开后重连，恢复之前的工作
+
+#### 5.3 何时用 fork (分叉)
+
+**适用场景**：需要 **保留历史上下文** 但 **走不同的路径**。
+
+```bash
+# 交互式：分叉最近会话
+codex fork --last
+
+# 交互式：分叉并注入新方向
+codex fork --last "用方案 B 重新实现这个功能"
+
+# 交互式：选择历史会话分叉
+codex fork {SESSION_ID}
+```
+
+**典型场景**：
+- Worker 第 3 次尝试失败，PM 决定换一个技术方案
+- 同一个任务需要尝试两种不同实现，对比效果
+- 之前的对话积累了有价值的分析，但执行方向需要调整
+
+#### 5.4 何时用全新会话
+
+**适用场景**：新任务，无需任何历史上下文。
+
+```bash
+# 非交互式 (推荐用于调度)
+codex exec --full-auto --json "{Prompt}"
+
+# 交互式
+codex --full-auto "{Prompt}"
+```
+
+**典型场景**：
+- PRD 中的下一个独立任务 (无依赖关系)
+- 之前的任务已经完成并提交
+- 刻意需要"干净的大脑"来避免上下文污染
+
+#### 5.5 PM 调度决策流程图
+
+```
+任务开始
+    ↓
+检查是否有该任务的历史会话
+    ├─ 无 → 全新会话: codex exec --full-auto
+    └─ 有 → 检查历史会话状态
+              ├─ 会话成功完成 → 全新会话 (新任务)
+              ├─ 会话中断/超时 → resume (继续原任务)
+              ├─ 会话失败 (< 3次) → resume (重试)
+              └─ 会话失败 (≥ 3次) → fork (换策略重试)
+                                    └─ fork 也失败 → 标记 BLOCKED
+```
+
+#### 5.6 会话 ID 管理
+
+PM 应在 `active_context.md` 中记录每个任务的 Codex 会话 ID：
+
+```markdown
+## 活跃会话
+
+| 任务 ID | 会话 ID (SESSION_ID) | 状态 | 备注 |
+|---------|---------------------|------|------|
+| T-002 | a1b2c3d4-... | 执行中 | 第 1 次尝试 |
+| T-003 | e5f6g7h8-... | 已中断 | 待 resume |
+```
+
+使用 `--json` 输出时，会话 ID 会在事件流中返回，PM 需要捕获并记录。
+
+#### 5.7 exec 完整参数参考
+
+```bash
+codex exec [OPTIONS] [PROMPT]
+
+# 关键选项:
+--full-auto                 # 全自动模式 (sandbox=workspace-write + approval=on-request)
+--json                      # JSONL 事件流输出，便于程序化监控
+-m, --model <MODEL>         # 指定模型 (如 o3, gpt-4.1 等)
+-C, --cd <DIR>              # 指定工作目录
+-s, --sandbox <MODE>        # 沙箱策略: read-only | workspace-write | danger-full-access
+-o, --output-last-message <FILE>  # 将最后一条消息写入文件
+--output-schema <FILE>      # 指定输出 JSON Schema，约束返回格式
+--skip-git-repo-check       # 允许在非 Git 仓库中运行
+--add-dir <DIR>             # 添加额外可写目录
+```
 
 ### Step 6: 实时监控 👀
 
@@ -104,10 +217,21 @@ Agent 读取 Worker 的 stdout，解析 JSONL 事件：
 | 风险操作 (删除数据等) | 标记 BLOCKED，必须询问用户 |
 | 需求歧义 | 标记 BLOCKED，询问用户 |
 
-**回答问题的方式**（重启注入机制）：
+**回答问题的方式**（上下文恢复机制）：
+
+**方式 A: resume 恢复 (推荐)**
+1. 记录当前 Worker 的 SESSION_ID
+2. 等待 Worker 超时或手动终止
+3. 使用 `codex exec resume {SESSION_ID} --full-auto "补充答案: {答案内容}"` 恢复
+
+**方式 B: fork 分叉 (当需要换方向时)**
+1. 终止当前 Worker
+2. 使用 `codex fork {SESSION_ID} "之前的方案不行，改用: {新方案}"` 创建新分支
+
+**方式 C: 重启注入 (兜底方案)**
 1. 终止当前 Worker 进程
 2. 将答案追加到原 Prompt 的"上下文"部分
-3. 重新启动 Worker
+3. 使用 `codex exec --full-auto` 重新启动 Worker
 
 ### Step 8: 更新 PRD 状态 ✍️
 
@@ -131,13 +255,15 @@ Agent 读取 Worker 的 stdout，解析 JSONL 事件：
 4. 如果没有 → 通知用户所有待解决的阻塞问题
 
 ### ❌ Worker 失败
-1. 第 1-2 次失败: 自动重试
-2. 第 3 次失败: 标记 FAILED，询问用户
+1. 第 1-2 次失败: `codex exec resume {SESSION_ID} --full-auto "上次失败了，请检查错误并重试"` (恢复上下文重试)
+2. 第 3 次失败: `codex fork {SESSION_ID} "之前的方案多次失败，请换一种方案"` (分叉换策略)
+3. fork 也失败: 标记 FAILED，询问用户
 
 ### ⏰ 超时处理
 - 代码修改任务: 10 分钟超时
 - 测试/构建任务: 15-20 分钟超时
-- 超时后强制终止，标记 BLOCKED
+- 超时后: 优先 `codex exec resume --last --full-auto "请继续完成"` 恢复
+- 多次超时: 强制终止，标记 BLOCKED
 
 ---
 
@@ -195,5 +321,61 @@ Agent: T-004 执行中...
 | PRD 解析 | parser.py 硬编码 | Agent 自然语言理解 |
 | PRD 格式要求 | 严格表格格式 | 灵活，任意结构 |
 | 调度逻辑 | dispatch_loop.sh | Agent 思考判断 |
+| 上下文管理 | 每次全新启动 | resume/fork 智能恢复 |
 | 可扩展性 | 需改代码 | 直接改 Prompt |
 | 透明度 | 脚本黑盒 | Agent 每步可见 |
+
+---
+
+## Codex CLI 命令速查表
+
+### 会话生命周期
+
+```
+新任务 ──→ codex exec ──→ 执行中 ──→ 完成 ✅
+                              │
+                          中断/失败
+                              │
+                    ┌─────────┼─────────┐
+                    ▼         ▼         ▼
+                 resume     fork    全新 exec
+               (继续原路)  (换条路)  (从头来)
+```
+
+### 命令对照表
+
+| 目的 | 命令 | 典型用法 |
+|------|------|---------|
+| 全新任务 (非交互) | `codex exec --full-auto "{prompt}"` | PM 派发新任务 |
+| 全新任务 (交互) | `codex --full-auto "{prompt}"` | 手动开发 |
+| 恢复最近会话 (非交互) | `codex exec resume --last --full-auto "{追加指令}"` | 任务中断后继续 |
+| 恢复指定会话 (非交互) | `codex exec resume {ID} --full-auto "{追加指令}"` | 精确恢复 |
+| 恢复最近会话 (交互) | `codex resume --last` | 手动接管调试 |
+| 分叉最近会话 | `codex fork --last "{新方向}"` | 换策略重试 |
+| 分叉指定会话 | `codex fork {ID} "{新方向}"` | 对比实验 |
+| 代码审查 | `codex review` | 提交前审查 |
+| 查看所有历史会话 | `codex resume --all` | 找回旧会话 |
+
+### resume vs fork vs 新会话 决策树
+
+```
+需要执行任务
+    │
+    ├─ 全新任务，无历史 ──────────────→ codex exec (新会话)
+    │
+    └─ 有相关历史会话
+         │
+         ├─ 任务未完成，方向正确 ────→ codex resume (恢复)
+         │   • 超时中断
+         │   • 网络断开
+         │   • 需要补充信息后继续
+         │
+         ├─ 任务失败，需要换方案 ────→ codex fork (分叉)
+         │   • 多次重试失败
+         │   • PM 决定换技术方案
+         │   • 需要保留之前的分析但改执行路径
+         │
+         └─ 任务已完成/上下文pollution → codex exec (新会话)
+             • 上一个任务成功提交
+             • 历史上下文太杂，需要干净环境
+```
