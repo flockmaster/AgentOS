@@ -1,0 +1,15 @@
+---
+description: Zero-Touch Boot - 零触感启动，自动接力任务
+---
+
+# Start Workflow (Silent Boot)
+
+Agent 开窗后的第一反应，用于偷偷读取上下文。
+
+1. **Invoke Skill**: `context-manager` -> `read_context`
+   - **Check**: Look for PENDING tasks in `.agent/memory/active_context.md`.
+2. **Decision Point**:
+   - **IF PENDING**: Output "Detected unfinished task [Task-ID]. Resume?"
+   - **IF IDLE**: Output "System ready. What's next?"
+3. **Environment Check**:
+   - **Run**: `flutter doctor` (Silent check, only alert on error).
