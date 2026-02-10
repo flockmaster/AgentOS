@@ -128,6 +128,32 @@ else
     ok ".agent/ 已在当前目录，跳过复制"
 fi
 
+# 4.1.1 复制 .agents/（如果存在）
+AGENTS_SRC="$SCRIPT_DIR/.agents"
+AGENTS_DST="$TARGET_DIR/.agents"
+if [ -d "$AGENTS_SRC" ]; then
+    if [ -d "$AGENTS_DST" ]; then
+        rm -rf "$AGENTS_DST"
+    fi
+    cp -r "$AGENTS_SRC" "$AGENTS_DST"
+    ok "已复制 .agents/ → $AGENTS_DST"
+else
+    info "仓库中无 .agents/，跳过复制"
+fi
+
+# 4.1.2 复制 .github/（Copilot prompts）
+GITHUB_SRC="$SCRIPT_DIR/.github"
+GITHUB_DST="$TARGET_DIR/.github"
+if [ -d "$GITHUB_SRC" ]; then
+    if [ -d "$GITHUB_DST" ]; then
+        rm -rf "$GITHUB_DST"
+    fi
+    cp -r "$GITHUB_SRC" "$GITHUB_DST"
+    ok "已复制 .github/ → $GITHUB_DST"
+else
+    info "仓库中无 .github/，跳过复制"
+fi
+
 # 4.2 清除 __pycache__
 find "$AGENT_DST" -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 ok "已清理 __pycache__"
@@ -210,13 +236,21 @@ GITIGNORE_PATH="$TARGET_DIR/.gitignore"
 AGENT_IGNORE='
 # === Antigravity Agent OS ===
 # 动态文件 (不入库)
+# agent (legacy)
 .agent/memory/active_context.md
 .agent/memory/history/
 .agent/memory/evolution/workflow_metrics.md
 .agent/memory/evolution/learning_queue.md
 .agent/memory/evolution/reflection_log.md
+# agents (current)
+.agents/memory/active_context.md
+.agents/memory/history/
+.agents/memory/evolution/workflow_metrics.md
+.agents/memory/evolution/learning_queue.md
+.agents/memory/evolution/reflection_log.md
 # 编译缓存
-.agent/**/__pycache__/'
+.agent/**/__pycache__/
+.agents/**/__pycache__/'
 
 if [ -f "$GITIGNORE_PATH" ]; then
     if ! grep -q "Antigravity Agent OS" "$GITIGNORE_PATH"; then

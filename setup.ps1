@@ -134,6 +134,28 @@ if ($agentSrc -ne $agentDst) {
     Write-Ok ".agent/ 已在当前目录，跳过复制"
 }
 
+# 4.1.1 复制 .agents/（如果存在）
+$agentsSrc = Join-Path $ScriptDir ".agents"
+$agentsDst = Join-Path $TargetDir ".agents"
+if (Test-Path $agentsSrc) {
+    if (Test-Path $agentsDst) { Remove-Item $agentsDst -Recurse -Force }
+    Copy-Item $agentsSrc $agentsDst -Recurse -Force
+    Write-Ok "已复制 .agents/ → $agentsDst"
+} else {
+    Write-Info "仓库中无 .agents/，跳过复制"
+}
+
+# 4.1.2 复制 .github/（Copilot prompts）
+$githubSrc = Join-Path $ScriptDir ".github"
+$githubDst = Join-Path $TargetDir ".github"
+if (Test-Path $githubSrc) {
+    if (Test-Path $githubDst) { Remove-Item $githubDst -Recurse -Force }
+    Copy-Item $githubSrc $githubDst -Recurse -Force
+    Write-Ok "已复制 .github/ → $githubDst"
+} else {
+    Write-Info "仓库中无 .github/，跳过复制"
+}
+
 # 4.2 清除 __pycache__
 Get-ChildItem -Path $agentDst -Filter "__pycache__" -Recurse -Directory | Remove-Item -Recurse -Force
 Write-Ok "已清理 __pycache__"
@@ -225,8 +247,15 @@ $agentIgnoreBlock = @"
 .agent/memory/evolution/workflow_metrics.md
 .agent/memory/evolution/learning_queue.md
 .agent/memory/evolution/reflection_log.md
+# agents (current)
+.agents/memory/active_context.md
+.agents/memory/history/
+.agents/memory/evolution/workflow_metrics.md
+.agents/memory/evolution/learning_queue.md
+.agents/memory/evolution/reflection_log.md
 # 编译缓存
 .agent/**/__pycache__/
+.agents/**/__pycache__/
 "@
 
 if (Test-Path $gitignorePath) {
