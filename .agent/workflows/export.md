@@ -15,8 +15,10 @@ description: Export Command - 导出 Agent OS 系统为可移植压缩包
 用于创建新项目时的干净起点。
 
 **包含**:
-- `.agent/` 目录结构
-- `.gemini/GEMINI.md.example`
+- `.agent/` 目录结构（兼容旧结构）
+- `.agents/` 目录结构（当前主结构：memory/skills/workflows）
+- `.github/`（Copilot 配置与 Prompt Files）
+- `.gemini/GEMINI.md.example`（如存在）
 - `README.md`
 
 **清空/重置**:
@@ -46,19 +48,18 @@ description: Export Command - 导出 Agent OS 系统为可移植压缩包
 2. 默认为 `template`。
 
 ### Step 2: 创建临时目录
-```powershell
-$exportDir = "$env:TEMP\antigravity-export-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-New-Item -ItemType Directory -Path $exportDir
+```bash
+exportDir="$(mktemp -d -t antigravity-export-XXXXXXXX)"
+echo "Export temp dir: $exportDir"
 ```
 
 ### Step 3: 复制系统文件
-```powershell
-# 复制 .agent 目录
-Copy-Item -Recurse ".agent" "$exportDir\.agent"
-# 复制 .gemini 目录
-Copy-Item -Recurse ".gemini" "$exportDir\.gemini"
-# 复制 README.md
-Copy-Item "README.md" "$exportDir\README.md"
+```bash
+rsync -a .agent "$exportDir/" 2>/dev/null || true
+rsync -a .agents "$exportDir/" 2>/dev/null || true
+[ -d .github ] && rsync -a .github "$exportDir/"
+[ -d .gemini ] && rsync -a .gemini "$exportDir/"
+rsync -a README.md "$exportDir/"
 ```
 
 ### Step 4: Template 模式清理 (仅 template 模式)
@@ -77,14 +78,15 @@ Copy-Item "README.md" "$exportDir\README.md"
 4. 清空 `history/` 目录
 
 ### Step 5: 生成压缩包
-```powershell
-$zipPath = "antigravity-agent-os-$(Get-Date -Format 'yyyyMMdd').zip"
-Compress-Archive -Path "$exportDir\*" -DestinationPath $zipPath
+```bash
+zipName="antigravity-agent-os-$(date +%Y%m%d).zip"
+(cd "$exportDir" && zip -rq "$PWD/../$zipName" .)
+echo "Output: $zipName"
 ```
 
 ### Step 6: 清理临时目录
-```powershell
-Remove-Item -Recurse $exportDir
+```bash
+rm -rf "$exportDir"
 ```
 
 ### Step 7: 输出结果
@@ -106,8 +108,8 @@ Remove-Item -Recurse $exportDir
 
 ### Usage
 1. 解压到新项目根目录
-2. 编辑 `.agent/memory/project_decisions.md` 配置项目信息
-3. 复制 `.gemini/GEMINI.md.example` 内容到全局配置
+2. 编辑 `.agents/memory/project_decisions.md` 配置项目信息
+3. 如存在 `.gemini/GEMINI.md.example`，复制其内容到全局配置
 4. 输入 `/start` 开始使用
 ```
 

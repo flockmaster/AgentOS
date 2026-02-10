@@ -20,7 +20,7 @@ description: Panic Button - 错误智能分析与修复
 7. **模式匹配**: 
    - 检查 `project_decisions.md` 的 `Known Issues` 是否有类似错误。
    - **IF Match**: 直接应用历史修复方案。
-8. **外部搜索**: 调用 `search_web` (if needed) 查找报错信息。
+8. **外部搜索**: 如确需外部资料，优先让用户提供链接/关键词；在 Copilot 环境下可用 `fetch_webpage` 读取指定 URL 内容。
 9. **AI 推理**: 基于上下文分析可能的根因。
 
 ## Phase 4: Resolution (解决方案)
@@ -57,5 +57,5 @@ git diff checkpoint-YYYYMMDD-HHMMSS..HEAD --stat
 git reset --hard checkpoint-YYYYMMDD-HHMMSS
 
 # 查看错误历史
-cat .agent/memory/project_decisions.md | grep -A 20 "Known Issues"
+cat .agents/memory/project_decisions.md | grep -A 20 "Known Issues"
 ```

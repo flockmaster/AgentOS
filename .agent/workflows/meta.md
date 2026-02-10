@@ -16,10 +16,10 @@ description: Meta Command - 对 Agent OS 系统本身进行修改的入口
 | 可修改范围 | 文件路径 |
 |-----------|---------|
 | 工作流 | `.agent/workflows/*.md` |
-| 技能 | `.agent/skills/*/SKILL.md` |
-| 路由规则 | `.agent/rules/router.rule` |
-| 记忆模板 | `.agent/memory/*.md` |
-| 进化引擎 | `.agent/memory/evolution/*.md` |
+| 技能 | `.agents/skills/*/SKILL.md` |
+| 路由规则 | `.agents/rules/router.rule` |
+| 记忆模板 | `.agents/memory/*.md` |
+| 进化引擎 | `.agents/memory/evolution/*.md` |
 | 全局配置模板 | `.gemini/GEMINI.md.example` |
 | README | `README.md` (系统说明部分) |
 
@@ -49,7 +49,7 @@ description: Meta Command - 对 Agent OS 系统本身进行修改的入口
 
 ### Step 5: 提交变更
 // turbo
-1. 使用 Git 提交修改，commit message 前缀使用 `meta:`
+1. 使用 Git 提交修改（需用户明确允许），commit message 前缀使用 `meta:`
 2. 例如: `meta: optimize evolve workflow`
 
 ## Output Format

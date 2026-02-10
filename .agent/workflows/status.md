@@ -15,7 +15,7 @@ updated: 2026-02-09
 
 ### Step 1: 读取核心状态
 // turbo
-1. 读取 `.agent/memory/active_context.md`
+1. 读取 `.agents/memory/active_context.md`
 2. 解析 YAML frontmatter: `task_status`, `session_id`, `last_checkpoint`
 3. 读取 `.agent/config/agent_config.md` 获取 `ACTIVE_PROVIDER`
 
@@ -27,18 +27,18 @@ updated: 2026-02-09
 
 ### Step 3: 知识库 & 进化统计
 // turbo
-1. 读取 `.agent/memory/evolution/knowledge_base.md` — 统计知识条目数、分类分布
-2. 读取 `.agent/memory/evolution/pattern_library.md` — 统计模式数量
-3. 读取 `.agent/memory/evolution/learning_queue.md` — 统计待处理素材
+1. 读取 `.agents/memory/evolution/knowledge_base.md` — 统计知识条目数、分类分布
+2. 读取 `.agents/memory/evolution/pattern_library.md` — 统计模式数量
+3. 读取 `.agents/memory/evolution/learning_queue.md` — 统计待处理素材
 
 ### Step 4: 反思摘要
 // turbo
-1. 读取 `.agent/memory/evolution/reflection_log.md`
+1. 读取 `.agents/memory/evolution/reflection_log.md`
 2. 提取最近 5 条反思摘要 (日期 + Session 名 + 关键 Learning)
 
 ### Step 5: 工作流指标趋势
 // turbo
-1. 读取 `.agent/memory/evolution/workflow_metrics.md`
+1. 读取 `.agents/memory/evolution/workflow_metrics.md`
 2. 提取各工作流最近一次执行记录
 3. 计算全局统计 (总执行/成功率/平均耗时)
 

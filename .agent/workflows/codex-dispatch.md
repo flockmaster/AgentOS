@@ -28,7 +28,7 @@ description: 自动派发 Codex 任务流水线
 
 ### Step 2: 读取并理解 PRD 🧠
 
-使用 `view_file` 读取整个 PRD 文件。
+在 Copilot 环境中使用 `read_file` 读取 PRD 文件（必要时分段读取）。
 
 **Agent 思考要点**：
 1. 找到任务列表（通常是表格形式，但不强制）
@@ -182,7 +182,7 @@ codex --full-auto "{Prompt}"
 
 #### 5.6 会话 ID 管理
 
-PM 应在 `active_context.md` 中记录每个任务的 Codex 会话 ID：
+PM 应在 `.agents/memory/active_context.md` 中记录每个任务的 Codex 会话 ID：
 
 ```markdown
 ## 活跃会话
@@ -219,20 +219,19 @@ codex exec [OPTIONS] [PROMPT]
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  1. run_command("codex exec ...", WaitMsBeforeAsync=500)       │
+│  1. run_in_terminal("codex exec ...", isBackground=true)       │
 │     ↓                                                          │
-│     命令启动 → 立即返回 CommandId (进入后台)                     │
+│     命令启动 → 返回 terminalId (进入后台)                        │
 │                                                                 │
-│  2. command_status(CommandId, WaitDurationSeconds=60)          │
+│  2. await_terminal(terminalId, timeout=60000)                   │
 │     ↓                                                          │
-│     长轮询等待，UI 显示: "Waiting for Codex Worker..."          │
-│     ├─ 任务完成 → 返回 DONE + JSONL 事件流                      │
-│     └─ 超时未完成 → 返回 RUNNING，可继续轮询                     │
+│     长轮询等待（可重复调用）                                     │
+│     ├─ 任务完成 → 返回 exitCode + 输出（JSONL 事件流）           │
+│     └─ 超时未完成 → 返回 timeout，可继续轮询                     │
 │                                                                 │
-│  3. 解析 JSONL 事件流                                           │
-│     ├─ thread.started → 记录 SESSION_ID                        │
-│     ├─ agent_message + "?" → 检测 QUESTION                     │
-│     ├─ command_execution → 记录进度                            │
+│  3. 解析 JSONL 事件流（只提取关键事件 + 摘要）                   │
+│     ├─ thread.started → 记录 SESSION_ID                         │
+│     ├─ agent_message → 检测 QUESTION/完成                       │
 │     ├─ error → 判断是否可重试                                   │
 │     └─ turn.completed → 任务完成                                │
 └─────────────────────────────────────────────────────────────────┘
@@ -289,14 +288,67 @@ Agent 读取 Worker 的 stdout，解析 JSONL 事件：
 2. 将答案追加到原 Prompt 的"上下文"部分
 3. 使用 `codex exec --full-auto` 重新启动 Worker
 
-### Step 8: 更新 PRD 状态 ✍️
+### Step 8: 上下文压缩 🗜️ (防止上下文爆炸)
 
-任务完成后，使用 `replace_file_content` 更新 PRD 中对应行的状态：
+> **为什么需要这一步**: PM 在 Step 6 监控 JSONL 事件流时，Codex 的 reasoning、命令输出、
+> 回复消息会全部进入 PM 上下文。连续调度 4-5 个任务后，上下文可能逼近窗口上限。
+> 本步骤将原始监控数据压缩为结构化摘要，释放上下文空间。
+
+#### 8.1 压缩时机
+
+每个任务执行完毕（无论成功、失败、阻塞）后，**立即执行压缩**，再进入下一步。
+
+#### 8.2 压缩规则
+
+PM 将本次任务的所有 JSONL 监控数据压缩为以下格式的**一行摘要**，然后丢弃原始数据：
+
+```markdown
+📋 T-{ID} | {状态} | 改动: {文件列表} | 测试: {结果} | 耗时: {时长} | 备注: {关键信息}
+```
+
+**示例**：
+```
+📋 T-002 | ✅ DONE | 改动: src/api.dart, lib/models/user.dart | 测试: 3/3 通过 | 耗时: 3m42s | 备注: 无
+📋 T-003 | ❌ FAILED(2/3) | 改动: src/db.dart | 测试: 未执行 | 耗时: 5m10s | 备注: SQLite 版本不兼容
+📋 T-004 | 🚫 BLOCKED | 改动: 无 | 测试: 无 | 耗时: 1m20s | 备注: 需要用户确认删除策略
+```
+
+#### 8.3 需要保留的关键信息
+
+| 信息 | 是否保留 | 说明 |
+|------|---------|------|
+| 任务 ID 和最终状态 | ✅ 保留 | 后续调度需要 |
+| 修改的文件列表 | ✅ 保留 | 简要列出，不含内容 |
+| 测试结果 (通过/失败) | ✅ 保留 | 仅结论 |
+| SESSION_ID | ✅ 保留 | 写入 `.agents/memory/active_context.md`，不占对话上下文 |
+| Worker 提出的未解决问题 | ✅ 保留 | 一句话概括 |
+| Codex reasoning 过程 | ❌ 丢弃 | 占用大，无后续价值 |
+| 命令执行的完整输出 | ❌ 丢弃 | 占用大，结果已压缩 |
+| JSONL 原始事件流 | ❌ 丢弃 | 已提取关键信息 |
+
+#### 8.4 累积摘要管理
+
+PM 维护一个**滚动摘要窗口**，规则如下：
+
+- **最近 5 个任务**: 保留完整摘要行
+- **更早的任务**: 合并为一行统计 `📊 已完成 T-001~T-005 (5/5 成功)`
+- **失败/阻塞任务**: 无论多早，始终保留摘要（需要后续处理）
+
+#### 8.5 极端情况: 单任务输出过大
+
+如果单个任务的 JSONL 输出超过 PM 上下文的 20%（通过 token 用量估算）：
+1. 使用 `--output-last-message <FILE>` 将 Codex 结果写入文件
+2. PM 只读取文件中的最终结论，不读原始事件流
+3. 在摘要中标注 `详情见: .agents/logs/T-{ID}-result.md`
+
+### Step 9: 更新 PRD 状态 ✍️
+
+任务完成后，使用 `apply_patch` 更新 PRD 中对应行的状态：
 
 - PENDING (⏳) → DONE (✅) 
 - 更新时保留表格格式和其他列内容
 
-### Step 9: 循环继续 🔄
+### Step 10: 循环继续 🔄
 
 回到 **Step 3**，继续选择下一个任务，直到满足终止条件。
 
