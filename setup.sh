@@ -141,6 +141,26 @@ else
     info "仓库中无 .agents/，跳过复制"
 fi
 
+# 4.1.1.1 Flutter 规范包（可选）
+if [ "$SDK" = "Flutter" ]; then
+    prompt "是否下载 flutter-ai-advanced-template 规范包？(y/N): "
+    read -r install_flutter_template
+    if [ "$install_flutter_template" = "y" ] || [ "$install_flutter_template" = "Y" ]; then
+        if ! command -v git >/dev/null 2>&1; then
+            warn "未检测到 git，跳过规范包下载"
+        else
+            mkdir -p "$AGENTS_DST/templates"
+            if [ -d "$AGENTS_DST/templates/flutter-ai-advanced-template" ]; then
+                info "已存在 flutter-ai-advanced-template，跳过下载"
+            else
+                git clone --depth 1 https://github.com/flockmaster/flutter-ai-advanced-template.git \
+                    "$AGENTS_DST/templates/flutter-ai-advanced-template"
+                ok "已下载 flutter-ai-advanced-template"
+            fi
+        fi
+    fi
+fi
+
 # 4.1.2 复制 .github/（Copilot prompts）
 GITHUB_SRC="$SCRIPT_DIR/.github"
 GITHUB_DST="$TARGET_DIR/.github"

@@ -145,6 +145,27 @@ if (Test-Path $agentsSrc) {
     Write-Info "仓库中无 .agents/，跳过复制"
 }
 
+# 4.1.1.1 Flutter 规范包（可选）
+if ($stack.sdk -eq "Flutter") {
+    Write-Host "   是否下载 flutter-ai-advanced-template 规范包？(y/N): " -NoNewline -ForegroundColor Yellow
+    $installFlutterTemplate = Read-Host
+    if ($installFlutterTemplate -eq "y" -or $installFlutterTemplate -eq "Y") {
+        $gitCmd = Get-Command git -ErrorAction SilentlyContinue
+        if (-not $gitCmd) {
+            Write-Warn "未检测到 git，跳过规范包下载"
+        } else {
+            $templateDir = Join-Path $agentsDst "templates\flutter-ai-advanced-template"
+            if (Test-Path $templateDir) {
+                Write-Info "已存在 flutter-ai-advanced-template，跳过下载"
+            } else {
+                New-Item -ItemType Directory -Force -Path (Split-Path $templateDir) | Out-Null
+                git clone --depth 1 https://github.com/flockmaster/flutter-ai-advanced-template.git $templateDir
+                Write-Ok "已下载 flutter-ai-advanced-template"
+            }
+        }
+    }
+}
+
 # 4.1.2 复制 .github/（Copilot prompts）
 $githubSrc = Join-Path $ScriptDir ".github"
 $githubDst = Join-Path $TargetDir ".github"
