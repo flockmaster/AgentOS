@@ -20,7 +20,7 @@
 | T-006 | 功能便当盒组件 (Bento Grid) | ✅ DONE | 实现玻璃拟态卡片，展示记忆系统、技能矩阵、自进化引擎 | 2h | T-003 |
 | T-007 | 动态视觉终端组件 | ✅ DONE | 模拟 `/start` 启动流程的打字机效果及视觉反馈 | 1.5h | T-003 |
 | [x] T-008 | 全局滚动动画调优 | ✅ DONE | 对各 Section 增加背景视差、元素位移、透明度等 Scroll-Triggered 效果 | 2h | T-005 |
-| T-009 | 响应式适配与 A11y 优化 | ⏳ PENDING | 适配 375px/1440px，确保交互元素 cursor-pointer 及焦点可见 | 1h | T-008 |
+| [x] T-009 | 响应式适配与 A11y 优化 | ✅ DONE | 适配 375px/1440px，确保交互元素 cursor-pointer 及焦点可见 | 1h | T-008 |
 | T-010 | 性能审计与成品提交 | ⏳ PENDING | 优化加载速度，完成 UI/UX Checklist 最终检查 | 0.5h | T-009 |
 
 ## 3. 执行协议 (Worker Protocol)

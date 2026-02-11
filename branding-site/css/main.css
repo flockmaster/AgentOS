@@ -66,6 +66,18 @@
     /* For hover underline effect */
 }
 
+a,
+button {
+    cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
 .nav-links a:hover {
     color: var(--color-primary);
 }
@@ -529,6 +541,45 @@
 }
 
 @media (max-width: 640px) {
+    .navbar {
+        height: auto;
+        min-height: 80px;
+        padding: 10px 0;
+    }
+
+    .navbar-content {
+        height: auto;
+        flex-wrap: wrap;
+        row-gap: var(--space-sm);
+    }
+
+    .nav-links {
+        width: 100%;
+        order: 3;
+        justify-content: flex-start;
+        gap: var(--space-md);
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 2px;
+    }
+
+    .hero {
+        padding-top: 130px;
+        padding-bottom: var(--space-2xl);
+        min-height: auto;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        line-height: 1.15;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        color: #334155;
+        margin-bottom: var(--space-lg);
+    }
+
     .terminal-header {
         padding: 12px 14px;
     }
@@ -550,6 +601,20 @@
     .bento-card:nth-child(3),
     .bento-card:nth-child(4) {
         grid-column: span 1;
+    }
+}
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1280px;
+    }
+
+    .hero {
+        min-height: 82vh;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
     }
 }
 
