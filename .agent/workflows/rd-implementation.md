@@ -25,28 +25,16 @@ description: R&D Implementation Workflow - 研发交付流水线 (Manifest 驱�
 对每个分发的任务 (e.g., T-101)，执行以下 Prompt：
 
 ```bash
-codex exec --json --dangerously-bypass-approvals-and-sandbox "
-# Role
-你是一个资深的全栈工程师 (Codex Worker)。
+# 1. Generate Unique Prompt File
+# File: .agent/prompts/TASK_{SubTaskID}_{TIMESTAMP}.md
+# Content: (See codex-dispatch.md for template)
 
-# Task Context
-- **Task ID**: {SubTaskID}
-- **Artifacts**: 
-  1. Main Manifest: docs/tasks/{TaskID}/manifest.md
-  2. Sub-PRD: docs/tasks/{TaskID}/sub_prds/{SubTaskFile}
-
-# Instructions
-1. 阅读 Sub-PRD，理解需求。
-2. 编写/修改代码 (Write Code)。
-3. 编写/运行单元测试 (Run Tests)。
-4. 确保测试通过 (Pass Rate 100%)。
-5. 所有思考、注释和提交信息强制使用中文。
-
-# Output
-- 成功: TASK {SubTaskID} COMPLETED
-- 失败: BLOCKED (说明原因)
-"
+# 2. Execute via File Injection (Safe Pattern)
+codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/TASK_{SubTaskID}_{TIMESTAMP}.md"
 ```
+
+> **Note**: For the full implementation logic (monitoring, turn-based resume, manifest closure), refer to `codex-dispatch.md`.
+
 
 ### 2.3 状态同步
 - **[系统指令]**: 轮询 Worker 状态。

@@ -20,40 +20,74 @@ description: AI Expert Review Board Workflow - 多角色并行评审
 - 将当前 PRD 草稿写入 `.agent/memory/reviews/{session_id}/prd.md`。
 
 ## 3. 专家会诊 (Parallel Expert Review)
-- **[系统指令]**: 并行启动 4 个 Codex Worker 进程。请使用 `run_command` (WaitMsBeforeAsync=500) 分别执行以下命令：
+- **[系统指令]**: 为每个角色生成唯一的 Prompt 文件 (避免 CLI 参数转义问题)。
+  - Format: `.agent/prompts/REVIEW_{ROLE}_{SESSION_ID}.md`
 
-    **Worker 1 (UX Director)**:
-    ```bash
-    codex exec --json --dangerously-bypass-approvals-and-sandbox "请扮演体验总监 (UX Director)。任务：1. 读取 .agent/memory/reviews/{session_id}/prd.md; 2. 根据 .agent/skills/ai-expert-review-board/prompts/role_ux_director.md 的标准进行评审; 3. 将评审报告写入 .agent/memory/reviews/{session_id}/review_ux.md。注意：直接输出文件，不要聊天。"
-    ```
+### 3.1 角色定义与 Prompt 生成
+1. **UX Director**:
+   - File: `.agent/prompts/REVIEW_UX_{SESSION_ID}.md`
+   - Content:
+     ```markdown
+     # Role: Experience Director (UX)
+     # Context: Read .agent/memory/reviews/{session_id}/prd.md
+     # Standard: .agent/skills/ai-expert-review-board/prompts/role_ux_director.md
+     # Output: Write report to .agent/memory/reviews/{session_id}/review_ux.md
+     # Constraint: Direct output only.
+     ```
 
-    **Worker 2 (Domain Expert)**:
-    ```bash
-    codex exec --json --dangerously-bypass-approvals-and-sandbox "请扮演行业专家 (Domain Expert)。任务：1. 读取 .agent/memory/reviews/{session_id}/prd.md; 2. 根据 .agent/skills/ai-expert-review-board/prompts/role_domain_expert.md 的标准进行评审; 3. 将评审报告写入 .agent/memory/reviews/{session_id}/review_domain.md。注意：直接输出文件，不要聊天。"
-    ```
+2. **Domain Expert**:
+   - File: `.agent/prompts/REVIEW_DOMAIN_{SESSION_ID}.md`
+   - Content: (Similar structure, pointing to domain expert role)
 
-    **Worker 3 (The Critic)**:
-    ```bash
-    codex exec --json --dangerously-bypass-approvals-and-sandbox "请扮演批判者 (The Critic)。任务：1. 读取 .agent/memory/reviews/{session_id}/prd.md; 2. 根据 .agent/skills/ai-expert-review-board/prompts/role_critic.md 的标准进行评审; 3. 将评审报告写入 .agent/memory/reviews/{session_id}/review_critic.md。注意：直接输出文件，不要聊天。"
-    ```
+3. **The Critic**:
+   - File: `.agent/prompts/REVIEW_CRITIC_{SESSION_ID}.md`
+   - Content: (Similar structure, pointing to critic role)
 
-    **Worker 4 (Tech Lead)**:
-    ```bash
-    codex exec --json --dangerously-bypass-approvals-and-sandbox "请扮演技术专家 (Tech Lead)。任务：1. 读取 .agent/memory/reviews/{session_id}/prd.md; 2. 根据 .agent/skills/ai-expert-review-board/prompts/role_tech_lead.md 的标准进行评审; 3. 将评审报告写入 .agent/memory/reviews/{session_id}/review_tech.md。注意：直接输出文件，不要聊天。"
-    ```
+4. **Tech Lead**:
+   - File: `.agent/prompts/REVIEW_TECH_{SESSION_ID}.md`
+   - Content: (Similar structure, pointing to tech lead role)
 
-- **[系统指令]**: 使用 `command_status` 轮询检查这 4 个命令的状态，直到全部完成 (Status: done)。
+### 3.2 并行启动 (Parallel Launch)
+使用 `run_command` (WaitMsBeforeAsync=500) 并行启动 4 个 Worker：
+
+```bash
+# UX
+codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/REVIEW_UX_{SESSION_ID}.md"
+
+# Domain
+codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/REVIEW_DOMAIN_{SESSION_ID}.md"
+
+# Critic
+codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/REVIEW_CRITIC_{SESSION_ID}.md"
+
+# Tech
+codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/REVIEW_TECH_{SESSION_ID}.md"
+```
+
+### 3.3 监控与收割 (Harvesting)
+- **Loop**: 轮询检查上述 4 个 Command ID 的状态。
+- **Completion**: 只要检测到 `turn.completed` 或 `agent_message: COMPLETED`，即视为该角色完成。
+- **Cleanup**: 任务完成后，删除对应的临时 Prompt 文件。
 
 ## 4. 仲裁与定稿 (Arbitration & Finalize)
-- **[系统指令]**: 读取 `.agent/memory/reviews/{session_id}/` 下生成的 4 份评审报告。
-- **[系统指令]**: 扮演 **仲裁者 (Aggregator)**，依据 `role_aggregator.md`，汇总上述 4 份报告，生成《PRD 修订建议书》。
-  ```bash
-  codex exec --json --dangerously-bypass-approvals-and-sandbox "Role: Aggregator. Consolidate reviews in .agent/memory/reviews/{session_id}/ (review_ux.md, review_domain.md, review_critic.md, review_tech.md) and prd.md into a Final Review Summary. Output to .agent/memory/reviews/{session_id}/review_summary.md. IMPORTANT: The output MUST be in Chinese (Scientific Chinese)."
+- **[系统指令]**: 生成 `.agent/prompts/REVIEW_AGGREGATOR_{SESSION_ID}.md`。
+- **Content**:
+  ```markdown
+  # Role: Aggregator
+  # Input: .agent/memory/reviews/{session_id}/ (review_*.md) + prd.md
+  # Output: .agent/memory/reviews/{session_id}/review_summary.md (Scientific Chinese)
   ```
-- **[系统指令]**: 最后，请作为 PM，根据建议书重写并输出 **PRD 终稿**。
-  ```bash
-  codex exec --json --dangerously-bypass-approvals-and-sandbox "Role: PM. Rewrite .agent/memory/reviews/{session_id}/prd.md based on .agent/memory/reviews/{session_id}/review_summary.md. Output the final version to .agent/memory/reviews/{session_id}/prd_final.md. IMPORTANT: The output MUST be in Chinese (Scientific Chinese)."
-  ```
+- **Execute**: `codex exec ... "Execute task defined in ...AGGREGATOR..."`
 
-## 4. 结束
+- **[系统指令]**: 生成 `.agent/prompts/REVIEW_PM_{SESSION_ID}.md`。
+- **Content**:
+  ```markdown
+  # Role: PM
+  # Input: review_summary.md
+  # Output: .agent/memory/reviews/{session_id}/prd_final.md (Scientific Chinese)
+  ```
+- **Execute**: `codex exec ... "Execute task defined in ...PM..."`
+
+## 5. 结束
 - 提示用户 PRD 已就绪，询问是否进入开发阶段。
+
