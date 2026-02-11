@@ -1,126 +1,145 @@
 /* Main JavaScript - Scroll Engine (T-005) */
-(function initScrollEngine() {
-  console.log("[ScrollEngine] Script Loaded");
+(function initBrandingSite() {
+  const sections = document.querySelectorAll("section[id]");
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  const typewriterTarget = document.getElementById("typewriter-text");
+  const terminalLog = document.getElementById("terminal-log");
+  const heroSection = document.getElementById("hero");
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (typeof lucide !== "undefined" && typeof lucide.createIcons === "function") {
-    lucide.createIcons();
-    console.log("[ScrollEngine] Icons Initialized");
-  }
+  const revealConfigs = [
+    { selector: "#hero .hero-content", effect: "fade-up" },
+    { selector: "#visual-terminal .terminal-window", effect: "slide-in-right" },
+    { selector: "#bento-grid .bento-card", effect: "fade-up" },
+  ];
 
-  const sections = Array.from(document.querySelectorAll("section[id]"));
-  const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
-  console.log("[ScrollEngine] DOM Ready", {
-    sectionCount: sections.length,
-    navLinkCount: navLinks.length,
-  });
-
-  if (!sections.length) {
-    console.log("[ScrollEngine] No Sections Found, Abort");
-    return;
-  }
-
-  let activeSectionId = "";
-  const visibleRatios = new Map();
-
-  function applyActiveState(sectionId) {
-    if (!sectionId) {
-      return;
-    }
-    if (sectionId === activeSectionId) {
-      return;
-    }
-
-    activeSectionId = sectionId;
-
-    sections.forEach((section) => {
-      section.classList.toggle("active", section.id === sectionId);
-    });
-
-    navLinks.forEach((link) => {
-      const targetId = link.getAttribute("href")?.slice(1) || "";
-      link.classList.toggle("active", targetId === sectionId);
-    });
-
-    console.log("[ScrollEngine] Active Updated", { sectionId });
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.id;
-        if (!id) {
-          return;
-        }
-
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          visibleRatios.set(id, entry.intersectionRatio);
-          console.log("[ScrollEngine] Section >=50%", {
-            sectionId: id,
-            ratio: Number(entry.intersectionRatio.toFixed(3)),
-          });
-        } else {
-          visibleRatios.delete(id);
-          console.log("[ScrollEngine] Section <50% or Out", {
-            sectionId: id,
-            ratio: Number(entry.intersectionRatio.toFixed(3)),
-          });
-        }
-      });
-
-      let candidateId = "";
-      let maxRatio = 0;
-
-      visibleRatios.forEach((ratio, id) => {
-        if (ratio > maxRatio) {
-          maxRatio = ratio;
-          candidateId = id;
-        }
-      });
-
-      if (candidateId) {
-        applyActiveState(candidateId);
+  revealConfigs.forEach(({ selector, effect }) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      element.classList.add("scroll-reveal");
+      if (selector === "#bento-grid .bento-card") {
+        element.classList.add(index % 2 === 0 ? "slide-in-left" : "slide-in-right");
+        return;
       }
-    },
-    {
-      threshold: [0, 0.5, 0.75, 1],
-    },
-  );
-
-  sections.forEach((section) => {
-    observer.observe(section);
-    console.log("[ScrollEngine] Observing Section", { sectionId: section.id });
+      element.classList.add(effect);
+    });
   });
-  console.log("[ScrollEngine] Observer Started");
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const targetId = link.getAttribute("href")?.slice(1);
-      console.log("[ScrollEngine] Nav Clicked", { targetId: targetId || null });
+  const revealElements = document.querySelectorAll(".scroll-reveal");
 
-      if (!targetId) {
-        console.log("[ScrollEngine] Invalid TargetId");
+  if (sections.length > 0 || revealElements.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries, activeObserver) => {
+        entries.forEach((entry) => {
+          const target = entry.target;
+
+          if (target.matches("section[id]")) {
+            const id = target.id;
+            const isActive = entry.isIntersecting && entry.intersectionRatio > 0.5;
+
+            if (isActive) {
+              target.classList.add("active");
+              console.log(`Section ${id} active`);
+            } else {
+              target.classList.remove("active");
+            }
+          }
+
+          if (target.classList.contains("scroll-reveal")) {
+            const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.1;
+
+            if (isVisible) {
+              target.classList.add("is-visible");
+              activeObserver.unobserve(target);
+            }
+          }
+        });
+      },
+      {
+        threshold: [0, 0.1, 0.5, 1],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    revealElements.forEach((element) => observer.observe(element));
+  }
+
+  if (heroSection && !reduceMotion) {
+    let ticking = false;
+
+    const applyParallax = () => {
+      const offset = Math.min(window.scrollY * 0.2, 120);
+      heroSection.style.setProperty("--hero-parallax", `${offset}px`);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) {
         return;
       }
 
-      const targetSection = document.getElementById(targetId);
-      if (!targetSection) {
-        console.log("[ScrollEngine] Target Section Not Found", { targetId });
+      ticking = true;
+      window.requestAnimationFrame(applyParallax);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    applyParallax();
+  }
+
+  anchorLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href") || "";
+      const targetId = href.slice(1);
+      const target = document.getElementById(targetId);
+
+      if (!target) {
         return;
       }
 
       event.preventDefault();
-      targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.pushState(null, "", `#${targetId}`);
-      console.log("[ScrollEngine] Smooth Scroll Triggered", { targetId });
-      applyActiveState(targetId);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.pushState(null, "", href);
     });
   });
-  console.log("[ScrollEngine] Nav Events Bound");
 
-  const initialIdFromHash = window.location.hash.replace("#", "");
-  const initialId = initialIdFromHash || sections[0].id;
-  if (initialId) {
-    console.log("[ScrollEngine] Initial Active Resolve", { initialId });
-    applyActiveState(initialId);
+  if (typewriterTarget && terminalLog) {
+    const startupCommand = "/start --mode evolution";
+    const startupLogs = [
+      "Memory context loaded",
+      "Skill matrix initialized",
+      "Workflow gates validated",
+      "Execution ready",
+    ];
+
+    if (reduceMotion) {
+      typewriterTarget.textContent = startupCommand;
+      startupLogs.forEach((line) => {
+        const item = document.createElement("li");
+        item.textContent = line;
+        item.classList.add("is-visible");
+        terminalLog.appendChild(item);
+      });
+      return;
+    }
+
+    let charIndex = 0;
+    const typewriterTimer = window.setInterval(() => {
+      if (charIndex >= startupCommand.length) {
+        window.clearInterval(typewriterTimer);
+        startupLogs.forEach((line, index) => {
+          window.setTimeout(() => {
+            const item = document.createElement("li");
+            item.textContent = line;
+            terminalLog.appendChild(item);
+            window.requestAnimationFrame(() => item.classList.add("is-visible"));
+          }, 300 * (index + 1));
+        });
+        return;
+      }
+
+      typewriterTarget.textContent += startupCommand.charAt(charIndex);
+      charIndex += 1;
+    }, 65);
   }
 })();

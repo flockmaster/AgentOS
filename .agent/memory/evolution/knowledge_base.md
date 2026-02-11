@@ -37,6 +37,9 @@ last_updated: 2026-02-09
 | k-023 | Project Structure Convention | architecture | 0.85 | 2026-02-09 | active |
 | k-024 | CI/CD Pipeline Best Practices | workflow | 0.8 | 2026-02-09 | active |
 | k-025 | Documentation Standards | workflow | 0.8 | 2026-02-09 | active |
+| k-026 | Codex CLI Best Practices (Windows) | tooling | 0.95 | 2026-02-12 | active |
+| k-027 | Async Interaction Pattern (Turn-Based Resume) | pattern | 0.9 | 2026-02-12 | active |
+| k-028 | Unique Artifact Injection Pattern | architecture | 0.95 | 2026-02-12 | active |
 
 ## 2. 分类统计 (Category Stats)
 
