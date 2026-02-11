@@ -5,6 +5,34 @@
 > 本配置文件定义 Codex 作为编码执行者的行为规范和工作协议。
 
 ---
+<!-- AUTO-GENERATED CONTEXT START -->
+## 📌 项目上下文 (自动同步)
+
+### 技术栈- SDK: Flutter (Core App)
+- Website: Vanilla HTML5/CSS3/JS (Branding Site)
+- Style: Tailwind CSS (Utility classes)
+
+### 架构设计- App: MVVM
+- Site: Component-based Vanilla JS
+
+### 编码规范- Lint: flutter_lints
+- Formatting: dart format / Prettier (JS)
+
+
+## ⚙️ 用户偏好 (自动同步)
+
+### 沟通风格- **语言**: 强制中文 (Chinese Mandatory)。
+- **啰嗦程度**: 极简 (Extreme Briefness)。
+  - 禁止解释标准库用法 (如 `Container` 是什么)。
+  - 禁止复述显而易见的代码变更。
+  - 直接输出 `diff` 或 `code`，除非有高风险操作需要警告。
+- **反馈**: 遇到模糊需求强制反问（需求澄清门禁）。
+
+### 开发习惯- **PRD**: 生成 PRD 后必须等待确认 (Gate 1)。
+- **Git**: 编译成功必须自动提交 (Gate 2)。
+- **测试**: 原子任务完成后必须自测。
+<!-- AUTO-GENERATED CONTEXT END -->
+
 
 ## 0. 强制语言规则 (Mandatory)
 - **语言**: 全程使用中文对话，包括代码注释、提交信息、任务描述、思考过程
