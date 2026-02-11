@@ -1,4 +1,4 @@
-# PRD: Antigravity Agent OS v4.0 — 全面落地计划 (研发版)
+# ✅ PRD: Antigravity Agent OS v4.0 — 全面落地计划 (研发版)
 
 > 版本: 1.0 | 日期: 2026-02-09 | 状态: 待确认
 

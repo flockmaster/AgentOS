@@ -47,7 +47,13 @@ description: AI Expert Review Board Workflow - 多角色并行评审
 ## 4. 仲裁与定稿 (Arbitration & Finalize)
 - **[系统指令]**: 读取 `.agent/memory/reviews/{session_id}/` 下生成的 4 份评审报告。
 - **[系统指令]**: 扮演 **仲裁者 (Aggregator)**，依据 `role_aggregator.md`，汇总上述 4 份报告，生成《PRD 修订建议书》。
+  ```bash
+  codex exec --json --dangerously-bypass-approvals-and-sandbox "Role: Aggregator. Consolidate reviews in .agent/memory/reviews/{session_id}/ (review_ux.md, review_domain.md, review_critic.md, review_tech.md) and prd.md into a Final Review Summary. Output to .agent/memory/reviews/{session_id}/review_summary.md. IMPORTANT: The output MUST be in Chinese (Scientific Chinese)."
+  ```
 - **[系统指令]**: 最后，请作为 PM，根据建议书重写并输出 **PRD 终稿**。
+  ```bash
+  codex exec --json --dangerously-bypass-approvals-and-sandbox "Role: PM. Rewrite .agent/memory/reviews/{session_id}/prd.md based on .agent/memory/reviews/{session_id}/review_summary.md. Output the final version to .agent/memory/reviews/{session_id}/prd_final.md. IMPORTANT: The output MUST be in Chinese (Scientific Chinese)."
+  ```
 
 ## 4. 结束
 - 提示用户 PRD 已就绪，询问是否进入开发阶段。

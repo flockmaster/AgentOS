@@ -1,6 +1,6 @@
-# PRD: Codex Task Dispatcher (用户版)
+# ✅ PRD: Codex Task Dispatcher (用户版)
 
-> 版本: 3.0 | 日期: 2026-02-09 | 状态: 进行中
+> 版本: 3.0 | 日期: 2026-02-11 | 状态: 已完成
 
 ## 1. 项目概述
 

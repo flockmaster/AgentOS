@@ -20,11 +20,11 @@ graph TD
     ClarityCheck -.-> |"❌ 不清晰: 追问细节"| User
     User -.-> |"2. 补充反馈"| PM
     
-    ClarityCheck --> |"✅ Yes: 达标"| PRD["📄 PRD 初稿 &<br/>📊 业务流程图 (.md)"]:::artifact
+    ClarityCheck --> |"✅ Yes: 达标"| PRD["📄 PRD 初稿 (粗设) &<br/>📊 业务流程图 (.md)"]:::artifact
 
     subgraph "Phase 1.5: AI 专家评审团 (Parallel Review)"
         direction TB
-        PRD --> Dispatcher{{"🚀 并行分发"}}:::process
+        PRD --> Dispatcher{{"🚀 并行分发<br/>(粗设评审)"}}:::process
         
         %% 知识库输入
         Memory["📚 项目知识库/决策/偏好"]:::memory
@@ -64,11 +64,24 @@ graph TD
     TechReport --> Aggregator
 
     Aggregator --> |"3. 整合意见&仲裁冲突"| PMFix["🔄 PM 修订 PRD &<br/>📊 更新流程图"]:::process
-    PMFix --> FinalArtifacts["📄 PRD 终稿 &<br/>📊 最终流程图"]:::artifact
+    PMFix --> FinalArtifacts["📄 PRD 终稿 (粗设) &<br/>📊 最终流程图"]:::artifact
     FinalArtifacts --> Gate1{{"Gate 1: 用户最终确认"}}:::gate
     
-    Gate1 --> |"✅ Pass"| Next["进入开发阶段"]
+    %% Post-Approval: 交付开发准备
+    Gate1 --> |"✅ Pass"| WorkloadCheck{{"⏱️ 工期评估<br/>(>1 人日?)"}}:::gate
+    
+    %% Path A: 小任务直接开发
+    WorkloadCheck -- "No (≤ 1 Day)" --> DirectDev["📦 交付开发<br/>(单任务 PRD)"]:::artifact
+    
+    %% Path B: 大任务进入拆解流程
+    WorkloadCheck -- "Yes (> 1 Day)" --> CallSubFlow[["🔗 调用子流程: PRD 拆解<br/>(docs/prd_decomposition_workflow.md)"]]:::subflow
+    
+    CallSubFlow --> TaskManifest["📦 交付开发<br/>(任务清单 + Sub-PRDs +<br/>业务全景图/关键图表)"]:::artifact
+
     Gate1 --> |"❌ Reject"| PM
+    
+    %% 样式 - Subflow
+    classDef subflow fill:#e0f2f1,stroke:#00695c,stroke-width:3px,stroke-dasharray: 5 5;
 
     %% 技术否决回流
     TechReject -.-> |"严重技术风险/成本过高"| PM

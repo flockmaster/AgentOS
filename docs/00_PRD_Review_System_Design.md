@@ -42,7 +42,7 @@
 *   **输入**: 用户原始需求 + `project_summary` (项目核心定位)。
 *   **逻辑**: 
     1.  判断需求是否严重偏离产品核心定位（防止“在电商App里做个操作系统”）。
-    2.  判断是否存在明显的伦理、法律或物理限制风险。
+    2.  判断是否存在明显的技术天花板（如：P=NP问题）或高危风险。
 *   **输出**: 
     *   `Pass`: 进入下一步。
     *   `Reject`: 返回拒绝理由 (Structured Reason) + 改进建议。
@@ -55,11 +55,11 @@
     *   如果分数 < 90%，Agent 生成 `Clarification Questions`。
     *   用户回答后，系统更新需求描述，**重新触发** 清晰度检查 (Max Retries = 3)。
 *   **输出**:
-    *   `Pass`: 生成 PRD 初稿。
+    *   `Pass`: 生成 PRD 初稿 (粗设) 及初步业务流程图。
 
 ### 3.2 阶段二：AI 专家评审团 (Phase 2: The Expert Board)
 
-本阶段由 `Dispatcher` 触发，并行调用四个 specialized agents (或 prompts)。
+本阶段由 `Dispatcher` 触发，**并行**处理 **PRD 初稿 (粗设)**。
 
 #### 3.2.1 角色定义 (Roles)
 
@@ -94,8 +94,42 @@
     3.  生成《最终修订建议书》。
 
 #### 3.3.2 自动修订 (PM Fix)
-*   **行为**: PM Agent 读取《最终修订建议书》，对 `PRD 初稿` 进行 rewrite。
-*   **产出**: `PRD 终稿` (v1.0)。
+*   **行为**: PM Agent 读取《最终修订建议书》，对 `PRD 初稿` (粗设) 进行 rewrite。
+*   **产出**: `PRD 终稿` (v1.0) 及其对应的最终流程图。
+*   **Gate 1**: 用户最终确认。
+
+### 3.4 阶段四：交付准备与拆解 (Phase 4: Decomposition & Prep)
+
+**触发条件**: 用户通过 Gate 1 确认 PRD 终稿。
+
+#### 3.4.1 工作量评估 (Workload Check)
+*   **逻辑**: 评估 PRD 终稿的开发工作量是否 **> 1 人日 (8h)**。
+*   **分支判定**:
+    *   **Path A (≤ 1 Day)**: 进入 **🚀 快速通道 (Fast Track)**。
+        *   PM 自审或直接生成单一任务 Spec。
+        *   跳过繁琐拆解，直接进入开发。
+    *   **Path B (> 1 Day)**: 进入 **🔪 PRD 拆解子流程 (Sub-Workflow 02)**。
+
+#### 3.4.2 PRD 拆解子流程 (Decomposition Logic)
+*   **流程源**: `docs/02_Workflow_Task_Decomposition.md`
+*   **执行步骤**:
+    1.  **建立目录**: `docs/tasks/T-{ID}/`.
+    2.  **初始化清单 (Init Manifest)**: 
+        *   **Top**: 绘制业务全景图 (Business Panorama) 或关键流程图。
+        *   **Bottom**: 列出子任务列表 (Checklist)，状态为 `[ ] Pending`。
+    3.  **填充内容 (Write Content)**: 
+        *   逐个撰写 Sub-PRD 文档。
+        *   根据需求复杂度，决定是否绘制局部流程图 (Optional)。
+    4.  **PM 终审 (Final Audit)**:
+        *   一致性检查 (Consistency) & 自洽性检查 (Self-Consistency)。
+    5.  **用户简报 (User Brief)**:
+        *   生成 `summary.md` (含进度摘要 + Manifest 链接)。
+        *   **Gate 2**: 用户确认进入研发阶段。
+
+*   **输出**: 
+    *   `docs/tasks/T-{ID}/summary.md` (简报)
+    *   `docs/tasks/T-{ID}/manifest.md` (任务清单 & 全景图)
+    *   `docs/tasks/T-{ID}/sub_prds/*.md` (子文档)
 
 ---
 
@@ -108,7 +142,8 @@
     *   新增 `role_tech_lead.md`
     *   更新 `pm_agent.md` (增加 Gatekeeper 逻辑)
 2.  **Workflow 定义**:
-    *   新建 `.agent/workflows/expert-review.md` (或集成进 `prd-crafter-pro`)。
+    *   新建 `.agent/workflows/expert-review.md` (主流程)。
+    *   新建 `docs/prd_decomposition_workflow.md` (拆解子流程)。
 3.  **POC 工具链**:
     *   支持 Agent 在沙箱环境中快速运行临时代码 (Snippet Execution)。
 
@@ -116,9 +151,12 @@
 
 1.  **拦截测试**: 故意提出离谱需求，系统应能拒绝。
 2.  **模糊测试**: 提出模糊需求，系统应能追问细节。
-3.  **专家测试**: 查看评审报告，必须包含 UX、业务、安全、技术四个维度的实质性建议。
-4.  **POC 测试**: (高危) 验证 POC Runner 的沙箱逃逸防护能力。
-5.  **循环测试**: 验证“追问 -> 回答 -> 通过”的闭环流程。
+3.  **专家测试**: 验证粗设 PRD 经过了四大角色的实质性评审。
+4.  **拆解测试**: 
+    *   对于 > 1 天的任务，系统必须生成独立的 Sub-PRD 文件夹结构。
+    *   Sub-PRD 必须包含指向父 PRD 的引用，且逻辑不冲突。
+    *   必须包含全局视角的流程图。
+5.  **POC 测试**: (高危) 验证 POC Runner 的沙箱逃逸防护能力。
 
 ---
 

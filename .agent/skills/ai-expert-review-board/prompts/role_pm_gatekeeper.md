@@ -31,9 +31,9 @@
     - < 60分: Reject (重写)
 
 **输出**:
-- `Pass`: 生成 PRD 初稿。
-- `Ask`: 输出 **必须追问的问题清单** (Clarification Questions)。请具体、引导性地提问，限制在 3 个问题以内。
-- `Reject`: 明确指出缺失的关键信息。
+- `Pass`: 生成 PRD 初稿 (Markdown)。
+- `Ask`: 输出 **必须追问的问题清单** (Clarification Questions)。请具体、引导性地提问，限制在 3 个问题以内，**必须使用中文**。
+- `Reject`: 明确指出缺失的关键信息，**必须使用中文**。
 
 ---
 

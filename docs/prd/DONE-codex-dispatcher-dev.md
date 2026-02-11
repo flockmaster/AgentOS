@@ -1,6 +1,6 @@
-# PRD: Codex Task Dispatcher (研发版)
+# ✅ PRD: Codex Task Dispatcher (研发版)
 
-> 版本: 3.0 | 日期: 2026-02-09 | 状态: 进行中
+> 版本: 3.0 | 日期: 2026-02-11 | 状态: 已完成
 
 ## 1. 技术背景
 
@@ -44,12 +44,12 @@ Dispatcher v3.0 采用 **Agent 原生 (PM ↔ Worker)** 模式。
 | ID | 任务 | 状态 | 描述 | 预估 | 依赖 |
 |----|------|------|------|-----|------|
 | T-001 | **定义核心数据结构** | ✅ DONE | Task/WorkerResult 数据类 (core.py) | 0.5h | - |
-| T-002 | **实现 Worker 封装器** | ⏳ PENDING | 封装 `codex exec` 调用，支持 JSONL 解析和超时控制 | 2h | T-001 |
-| T-003 | **实现"重启注入"机制** | ⏳ PENDING | 终止进程，构造新 Prompt (含答案)，重启 Worker | 2h | T-002 |
-| T-004 | **集成 Git 自动提交** | ⏳ PENDING | 任务完成后自动执行 git commit | 1h | T-002 |
-| T-005 | **实现 PRD 状态回写工具** | ⏳ PENDING | 提供辅助方法更新 Markdown 表格状态 (可选) | 1h | - |
+| T-002 | **实现 Worker 封装器** | ✅ DONE | 封装 `codex exec` 调用，支持 JSONL 解析和超时控制 | 2h | T-001 |
+| T-003 | **实现"重启注入"机制** | ✅ DONE | 终止进程，构造新 Prompt (含答案)，重启 Worker | 2h | T-002 |
+| T-004 | **集成 Git 自动提交** | ✅ DONE | 任务完成后自动执行 git commit | 1h | T-002 |
+| T-005 | **实现 PRD 状态回写工具** | ✅ DONE | 提供辅助方法更新 Markdown 表格状态 (可选) | 1h | - |
 | T-006 | **编写 Agent 调度 Workflow** | ✅ DONE | codex-dispatch.md v3.0 (Agent 原生调度) | 1h | - |
-| T-007 | **端到端测试与文档** | ⏳ PENDING | 验证完整流程，更新用户手册 | 2h | T-002, T-006 |
+| T-007 | **端到端测试与文档** | ✅ DONE | 验证完整流程，更新用户手册 | 2h | T-002, T-006 |
 
 ---
 
