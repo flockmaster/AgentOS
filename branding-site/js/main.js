@@ -1,5 +1,9 @@
 /* Main JavaScript - Scroll Engine (T-005) */
 (function initBrandingSite() {
+  if (window.lucide && typeof window.lucide.createIcons === "function") {
+    window.lucide.createIcons();
+  }
+
   const sections = document.querySelectorAll("section[id]");
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
   const typewriterTarget = document.getElementById("typewriter-text");
