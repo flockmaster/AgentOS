@@ -57,7 +57,11 @@ graph TD
 ### 1. 任务调度 (Task Dispatching)
 - **DAG 分析**: 系统基于 `manifest.md` 解析任务依赖图。
 - **并行分发 (Batch Dispatch)**: 
-    -   识别当前所有 `入度=0` (无未完成前置依赖) 且 **互无隐式冲突** 的任务集合。
+    -   **影响集交集检查 (Impact Set Intersection)**: 
+        - 识别所有 `入度=0` 的 Pending 任务。
+        - 检查各任务的 `Affected Files` 列表。
+        - **准则**: 若 $Files(T_A) \cap Files(T_B) \neq \emptyset$，则 $T_A, T_B$ 必须串行。
+    -   **全局串行锁 (Global Lock)**: 针对 `pubspec.yaml`, `package.json`, `AGENTS.md` 等核心配置文件，任何修改这些文件的任务均不参与并行，强制串行。
     -   **Max Limit**: 每次最多并行启动 **3** 个任务。
     -   **执行指令**: 使用 Agent 原生命令启动 Worker:
         ```bash
@@ -73,12 +77,13 @@ graph TD
     -   不要直接写代码。
     -   先用伪代码或注释定义核心类、接口签名。
 3.  **Coding**: 实现业务逻辑。
-4.  **Testing & Review**:
-    -   编写对应的 Unit Test (Pass Rate 100%)。
-    -   通过 AI Review 后方可合并。
+4.  **Testing & Review (证据驱动型门禁)**:
+    -   **执行**: Worker 负责编写并运行单元测试 (Test Runner)。
+    -   **审计**: PM (Antigravity) 负责解析 Worker 的 Terminal Log，验证 `exitCode == 0` 并匹配测试成功的字符串证据（如 `All tests passed`）。
+    -   **通过**: 只有满足“证据匹配”后，方可由 PM 进行 Git 合并。
 
 ### 3. 代码同步与提交
-- **分支管理**: 建议每个 Task 在独立 Feature Branch 开发，完成后 Merge 到主开发分支。
+- **原子性提交**: 每个 Task 完成后，PM 立即执行 `git commit`。这保证了并行任务后续的 `resume` 或新任务启动时，能获得最新且一致的代码快照。
 - **Commit 规范**: `feat(T-xxx): Summary`。
 - **Manifest 更新**: Merge 后立即勾选清单，触发下一轮调度。
 

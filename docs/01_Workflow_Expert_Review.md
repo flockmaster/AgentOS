@@ -29,24 +29,29 @@ graph TD
         %% 知识库输入
         Memory["📚 项目知识库/决策/偏好"]:::memory
         Memory -.-> RoleUX
+        Memory -.-> RolePD
         Memory -.-> RoleDomain
         Memory -.-> RoleCritic
         Memory -.-> RoleTech
 
         %% 角色 1: 体验总监
-        Dispatcher --> |"Role: 体验总监"| RoleUX["🕵️ 产品总监<br/>(体验/流程)<br/>(调用 Codex)"]:::role
+        Dispatcher --> |"Role: 体验总监"| RoleUX["🕵️ 体验总监<br/>(体验/流程)"]:::role
         RoleUX --> |"输出"| ReviewUX["📝 体验评审单"]:::artifact
+
+        %% 角色 1.5: 产品总监
+        Dispatcher --> |"Role: 产品总监"| RolePD["👔 产品总监<br/>(战略/对齐)"]:::role
+        RolePD --> |"输出"| ReviewPD["📝 战略评审单"]:::artifact
         
         %% 角色 2: 行业专家
-        Dispatcher --> |"Role: 行业专家"| RoleDomain["👨‍🏫 行业专家<br/>(业务价值)<br/>(调用 Codex)"]:::role
+        Dispatcher --> |"Role: 行业专家"| RoleDomain["👨‍🏫 行业专家<br/>(业务价值)"]:::role
         RoleDomain --> |"输出"| ReviewDomain["📝 行业评审单"]:::artifact
         
         %% 角色 3: 批判者
-        Dispatcher --> |"Role: 批判者"| RoleCritic["🙅 批判者<br/>(漏洞/边缘)<br/>(调用 Codex)"]:::role
+        Dispatcher --> |"Role: 批判者"| RoleCritic["🙅 批判者<br/>(漏洞/边缘)"]:::role
         RoleCritic --> |"输出"| ReviewCritic["📝 漏洞报告"]:::artifact
         
         %% 角色 4: 技术专家 (含分支流程)
-        Dispatcher --> |"Role: 技术专家"| RoleTech["👨‍💻 技术专家<br/>(可行性/成本)<br/>(调用 Codex)"]:::role
+        Dispatcher --> |"Role: 技术专家"| RoleTech["👨‍💻 技术专家<br/>(可行性/成本)"]:::role
         
         RoleTech --> CostCheck{{"💰 开发成本/颠覆性检查<br/>(Risk & ROI)"}}:::gate
         CostCheck -- "❌ 成本过高/颠覆架构" --> TechReject["🚫 技术否决<br/>(建议重构需求)"]:::process
@@ -59,6 +64,7 @@ graph TD
 
     %% 第一轮汇聚
     ReviewUX --> Aggregator["⚖️ 评审仲裁 Agent"]:::actor
+    ReviewPD --> Aggregator
     ReviewDomain --> Aggregator
     ReviewCritic --> Aggregator
     TechReport --> Aggregator

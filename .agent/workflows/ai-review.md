@@ -47,6 +47,17 @@ description: AI Expert Review Board Workflow - 多角色并行评审
    - File: `.agent/prompts/REVIEW_TECH_{SESSION_ID}.md`
    - Content: (Similar structure, pointing to tech lead role)
 
+5. **Product Director**:
+   - File: `.agent/prompts/REVIEW_PD_{SESSION_ID}.md`
+   - Content:
+     ```markdown
+     # Role: Product Director (PD)
+     # Context: Read .agent/memory/reviews/{session_id}/prd.md
+     # Standard: .agent/skills/ai-expert-review-board/prompts/role_product_director.md
+     # Output: Write report to .agent/memory/reviews/{session_id}/review_pd.md
+     # Constraint: Direct output only.
+     ```
+
 ### 3.2 并行启动 (Parallel Launch)
 使用 `run_command` (WaitMsBeforeAsync=500) 并行启动 4 个 Worker：
 
@@ -62,10 +73,13 @@ codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defin
 
 # Tech
 codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/REVIEW_TECH_{SESSION_ID}.md"
+
+# Product Director
+codex exec --json --dangerously-bypass-approvals-and-sandbox "Execute task defined in .agent/prompts/REVIEW_PD_{SESSION_ID}.md"
 ```
 
 ### 3.3 监控与收割 (Harvesting)
-- **Loop**: 轮询检查上述 4 个 Command ID 的状态。
+- **Loop**: 轮询检查上述 5 个 Command ID 的状态。
 - **Completion**: 只要检测到 `turn.completed` 或 `agent_message: COMPLETED`，即视为该角色完成。
 - **Cleanup**: 任务完成后，删除对应的临时 Prompt 文件。
 

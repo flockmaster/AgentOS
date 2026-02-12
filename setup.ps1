@@ -222,6 +222,13 @@ last_updated: $today
 ## 6. Deprecated (废弃决策归档)
 <!-- 旧决策被覆盖后移至此处，保留一周后删除 -->
 
+## 7. UI/UX Standards (Mandatory)
+> 仅供前端项目使用，后端项目请忽略
+- **Design System**: (如有, 请填入路径)
+- **Design Philosophy**: (e.g. Glassmorphism, Brutalism)
+- **Icon Set**: (e.g. Lucide, FontAwesome)
+- **Verification**: UI 变更必须经过 PM 视觉验收
+
 "@
 Set-Content -Path "$agentDst\memory\project_decisions.md" -Value $decisionsContent -Encoding UTF8
 Write-Ok "已初始化 project_decisions.md"
@@ -268,6 +275,7 @@ $agentIgnoreBlock = @"
 .agent/memory/evolution/workflow_metrics.md
 .agent/memory/evolution/learning_queue.md
 .agent/memory/evolution/reflection_log.md
+.agent/memory/evolution/pattern_library.md
 # agents (current)
 .agents/memory/active_context.md
 .agents/memory/history/

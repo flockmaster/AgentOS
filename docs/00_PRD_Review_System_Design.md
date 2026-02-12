@@ -66,6 +66,7 @@
 | 角色 | 职责 (Responsibility) | 关注点 (Focus) | 输出物 (Artifact) |
 | :--- | :--- | :--- | :--- |
 | **🕵️ 体验总监 (UX Director)** | 模拟挑剔的高端用户 | 交互流程是否顺畅？UI是否美观？是否存在反人类设计？ | `review_ux.md` |
+| **👔 产品总监 (Product Director)** | 负责战略与路线图 | 需求是否符合长期愿景？OKR 对齐情况？优先级 P0/P1 分级？ | `review_pd.md` |
 | **👨‍🏫 行业专家 (Domain Expert)** | 模拟资深业务顾问 | 业务逻辑是否闭环？是否符合行业标准？商业价值如何？ | `review_domain.md` |
 | **🙅 批判者 (The Critic)** | 模拟黑客或极端用户 | 寻找逻辑漏洞、边缘情况 (Edge Cases)、安全隐患。 | `review_critic.md` |
 | **👨‍💻 技术专家 (Tech Lead)** | 模拟架构师 | 技术选型是否合理？改动成本是否过高？现有架构能否支撑？ | `review_tech.md` |
@@ -83,11 +84,12 @@
 
 #### 3.3.1 评审仲裁 (Aggregator)
 *   **输入**: 四份评审报告 (`review_*.md`)。
-*   **优先级 (Arbitration Priority)**:
+| **优先级 (Arbitration Priority)**:
     1.  🔴 **Security & Safety** (Critic): 一票否决权。任何高危漏洞必须修复。
     2.  🔧 **Technical Feasibility** (Tech): 一票否决权。做不到就是做不到。
-    3.  💰 **Business Value** (Domain): 决定是否值得做。
-    4.  ✨ **User Experience** (UX): 在满足前三者基础上的优化。
+    3.  👔 **Strategic Alignment** (Product Director): 决定 P0/P1/P2 优先级，不符合路线图的 P2 功能可砍掉。
+    4.  💰 **Business Value** (Domain): 决定是否值得做。
+    5.  ✨ **User Experience** (UX): 在满足前三者基础上的优化。
 *   **逻辑**: 
     1.  合并重复意见。
     2.  解决冲突（依据优先级）。
