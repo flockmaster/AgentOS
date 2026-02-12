@@ -1,6 +1,6 @@
 # Antigravity Agent OS — Copilot Adapter
 # Provider: GitHub Copilot (Microsoft)
-# Version: 1.1 | Updated: 2026-02-11
+# Version: 4.2 | Updated: 2026-02-13
 
 > 本文件是 GitHub Copilot 的用户规则。
 > 安装: 将此文件内容粘贴到 `.github/copilot-instructions.md` (或工作区的 COPILOT.md)
@@ -16,8 +16,10 @@
 
 | 用户意图 | 动作 | 文件路径 |
 | :--- | :--- | :--- |
-| **新需求 / PRD** | 建议运行 AI 评审 | `.agent/workflows/ai-review.md` |
-| **写代码 / 实现** | 建议运行研发流程 | `.agent/workflows/rd-implementation.md` |
+| **新需求 / PRD** | 建议运行起草流程 | `.agent/workflows/1-drafting.md` |
+| **评审 PRD** | 建议运行评审流程 | `.agent/workflows/2-reviewing.md` |
+| **拆解任务** | 建议运行拆解流程 | `.agent/workflows/3-decomposing.md` |
+| **写代码 / 实现** | 建议运行研发流程 | `.agent/workflows/4-implementing.md` |
 | **修 Bug** | 建议运行错误分析 | `.agent/workflows/analyze-error.md` |
 
 ## 2. 上下文感知 (Context Awareness)

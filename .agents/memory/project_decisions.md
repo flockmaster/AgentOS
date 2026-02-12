@@ -1,39 +1,39 @@
----
-project_name: Generic Flutter Project
-last_updated: 2026-02-08
+﻿---
+project_name: Agent OS v4.2
+last_updated: 2026-02-13
 ---
 
 # Project Decisions (长期记忆 - 架构决策)
 
-这里记录本项目中不可动摇的"宪法级"技术决策。
-**更新机制**: 仅在重大架构变更（如换库、换架构）时由架构师 Agent 更新。
-**遗忘机制**: 当引入新方案替代旧方案时，旧方案移动到 `## Deprecated` 章节，一周后删除。
+## 1. 技术栈 (Framework Core)
+- **Language**: Dart (Flutter) for Core Logic & UI.
+- **Backend/Scripting**: Python (Evolution Engine) / PowerShell (Guards).
+- **Architecture**: Manifest-Driven Agentic Pipeline.
 
-## 1. Tech Stack
-- SDK: Flutter
-- Language: Dart
+## 2. 架构设计原则
+- **Stateless Skills**: 技能必须是纯函数，无副作用。
+- **Controller Workflows**: 状态管理和门禁逻辑必须在 Workflow 层实现。
+- **Evidence-Based Gates**: 所有门禁必须基于可验证的产物 (Artifacts/Logs)。
 
-## 2. Architecture
-## 3. Coding Standards
-- Lint: `flutter_lints`
-- Formatting: `dart format`
-- Naming: LowerCamelCase for variables, UpperCamelCase for classes.
+## 3. 编码规范
+- **Lint**: flutter_lints
+- **Formatting**: dart format
+- **Naming**: `snake_case` for docs/scripts, `PascalCase` for classes.
 
-## 4. Third-Party Libs (Whitelist)
-- `stacked`: (Architecture / State Management) - [推断自现有习惯]
-- `provider`: (Dependency Injection)
-- `json_serializable`: (JSON)
-- `shared_preferences`: (Local Storage)
+## 4. 核心依赖
+| 库名 | 用途 |
+|------|------|
+| Lucide | 标准图标库 |
+| Mermaid | 流程图标准 |
 
-## 5. Known Issues (错误模式学习)
-> 格式: | 日期 | 错误类型 | 根因分析 | 修复方案 | 影响范围 |
-
-| 日期 | 错误类型 | 根因分析 | 修复方案 | 影响范围 |
-|------|---------|---------|---------|---------|
-| 2026-02-08 | (示例) Build Error | Pub 依赖缺失 | `flutter pub get` | 全局 |
+## 5. 已知问题 (错误模式学习)
+| 日期 | 错误类型 | 根因分析 | 修复方案 |
+|------|---------|---------|---------|
+| 2026-02-12 | Race Condition | 并行读写同一临时文件 | 实施 Unique Artifact Injection (k-028) |
 
 ## 6. Deprecated (废弃决策归档)
-> 旧决策被新决策覆盖后移至此处，保留一周后删除。
+- [Archived] "Test Flutter App" MVVM specific rules (Replaced by Generic Agent OS rules).
 
-<!-- 格式: [DEPRECATED 日期] 原决策内容 | 替代方案 | 删除日期 -->
-
+## 7. 🎨 UI/UX Standards (Mandatory)
+- **Design Philosophy**: Minimalist, Terminal-inspired, Cyberpunk (optional).
+- **Interactive**: CLI interactions must be clear and structured.

@@ -14,7 +14,7 @@ description: Reflect Workflow - 反思工作流，总结经验并提取知识
 
 ### Step 1: 读取会话状态
 // turbo
-1. 读取 `.agent/memory/active_context.md`
+1. 读取 `.agents/memory/active_context.md`
 2. 解析任务完成情况
 
 ### Step 2: 生成反思报告
@@ -27,7 +27,7 @@ description: Reflect Workflow - 反思工作流，总结经验并提取知识
 ### Step 3: 提取知识
 1. 识别 "What Went Well" 中的可复用经验
 2. 如果有新知识，创建知识条目：
-   - 文件: `.agent/memory/knowledge/k-xxx-title.md`
+   - 文件: `.agents/memory/knowledge/k-xxx-title.md`
    - 更新 `knowledge_base.md` 索引
 
 ### Step 4: 提取 Action Items

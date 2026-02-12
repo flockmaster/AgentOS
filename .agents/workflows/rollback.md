@@ -16,7 +16,7 @@ description: Rollback Command - 回滚到上一个 Git 检查点
 
 ### Step 1: 读取当前检查点
 // turbo
-1. 读取 `.agent/memory/active_context.md`
+1. 读取 `.agents/memory/active_context.md`
 2. 获取 `last_checkpoint` 字段
 
 ### Step 2: 确认回滚
@@ -32,7 +32,7 @@ description: Rollback Command - 回滚到上一个 Git 检查点
 ```
 
 ### Step 3: 执行回滚 (用户确认后)
-```powershell
+```bash
 # 1. 重置到检查点
 git reset --hard [checkpoint-tag]
 

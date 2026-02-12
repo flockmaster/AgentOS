@@ -17,7 +17,7 @@ description: Patterns Query Workflow - 查询代码模式库的复用模板
 2. 如果未输入查询词，提示用户："请提供查询关键词，例如：`/patterns repository`"
 
 ### Step 2: 搜索模式库
-1. 读取 `.agent/memory/evolution/pattern_library.md`。
+1. 读取 `.agents/memory/evolution/pattern_library.md`。
 2. 搜索 `Pattern Index` 表中的 `Title`, `Category` 或 `Description`。
 
 ### Step 3: 读取模式详情

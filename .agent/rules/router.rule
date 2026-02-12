@@ -1,9 +1,9 @@
 ---
-description: 核心路由规则 - 让 Agent 每次开窗先读记忆并检查状态
+description: 核心路由规则 (v4.2 Manifest Driven) - 职责分离与流水线路由
 ---
-# Antigravity Router (v2.1)
+# Antigravity Router (v4.2)
 
-本规则是 Agent 的"前额叶"，负责在所有请求处理前，先确定上下文和状态。
+本规则是 Agent 的"大脑皮层"，负责将用户意图路由到正确的工作流 (Workflow) 或 技能 (Skill)。
 
 ## 0. 记忆优先原则 (Memory First)
 > **Mandatory**: Every new session MUST start by reading the active context.
@@ -11,61 +11,41 @@ description: 核心路由规则 - 让 Agent 每次开窗先读记忆并检查状
 - **Trigger**: 任何新 Session 的第一条 User Request，或 User 说 "继续"/"开始"/"早"。
 - **Action**:
     1.  **Silent Check**: 立即调用 `view_file` 读取 `.agent/memory/active_context.md`。
-    2.  **State Machine Check**: 检查 `task_status` 字段，确定当前状态。
-    3.  **Context Injection**: 将 `active_context.md` 中的 `Task Queue` 和 `Current Goal` 作为本轮对话的系统级提示词。
-    4.  **Auto-Suggestion**: 
-        - IF `task_status == BLOCKED`: "上次任务 [Task-X] 遇到问题，需要人工介入。"
-        - IF `task_status == EXECUTING`: "上次任务 [Task-X] 执行中断，是否继续？"
-        - IF PENDING tasks exist: "上次任务 [Task-X] 未完成，是否继续？"
+    2.  **State Machine Check**: 检查 `task_status` 字段。
+    3.  **Context Injection**: 注入 `Current Goal` 和 `Task Queues`。
+    4.  **Auto-suggestion**: 基于状态建议下一步 (e.g., "Manifest 已就绪，是否开始开发？")。
 
-## 1. 任务分发 (Task Dispatch)
-| 触发条件 | 路由目标 |
-|---------|---------|
-| User 描述新需求 | → `prd-crafter-pro` (多角色协作 + 递归拆解) |
-| PRD 用户版确认 | → 技术评审 (prd-crafter-pro Phase 5) |
-| PRD 研发版确认 | → `feature-flow` 工作流 |
-| 检测到报错信息 | → `analyze-error` 工作流 |
-| User 说 "回滚" / "撤销" | → `feature-flow` 的 Rollback Command |
-| User 说 "跳过" | → 标记当前任务 BLOCKED，执行下一个 |
-| User 说 "进化" / "学习" / "升级" | → `evolve.md` 工作流 |
-| User 说 "反思" / "总结" | → `reflect.md` 工作流 |
-| User 说 "知识 [query]" | → `knowledge.md` 工作流 |
-| User 说 "模式 [query]" | → `patterns.md` 工作流 |
-| User 说 "开发 Flutter 功能/页面/模块" 或 "使用 Flutter 规范" | → `use-flutter-template.md` 工作流（执行后再进入需求流程） |
-| User 说 "/meta [desc]" 或 "系统改进" | → `meta.md` 工作流 (修改 Agent OS 本身) |
-| User 说 "/export" 或 "导出系统" | → `export.md` 工作流 (提取可移植压缩包) |
+## 1. 核心流水线路由 (Core Pipeline Dispatch v4.2)
+> 遵循: Draft -> Review -> Decompose -> Implement
 
-## 2. 门禁规则 (Gatekeeper)
-- **Ambiguity Check**: 如果需求模糊 -> **拦截请求**，强制反问，直到澄清。
-- **State Guard**: 不允许执行不合法的状态转换（参考 `state_machine.md`）。
-- **Conflict Guard**: 执行任务前检查 `git status`，有未提交修改需先处理。
-- **No Manual**: 除非 User 明确要求，否则不要让 User 手动执行 `flutter run`，尽可能使用 `run_command`。
+| 用户意图 | 路由目标 (Workflow) | 说明 |
+| :--- | :--- | :--- |
+| **提出新需求 / 做个功能** | → `.agent/workflows/1-drafting.md` | **Phase 1: 需求澄清与初稿**<br>Gatekeeper Loop + Draft Generation |
+| **Draft 已生成 / 评审** | → `.agent/workflows/2-reviewing.md` | **Phase 1.5: 专家评审**<br>Parallel Review + Aggregation + Feishu Sync |
+| **Rough PRD 已确认 / 拆解** | → `.agent/workflows/3-decomposing.md` | **Phase 2: 任务拆解**<br>Manifest + Sequential Sub-PRDs + PM Audit |
+| **Manifest 已确认 / 开发** | → `.agent/workflows/4-implementing.md` | **Phase 3: 开发交付**<br>Parallel Implementation + Compilation Gate + Report |
 
-## 3. 快捷命令 (Quick Commands)
-| 命令 | 作用 |
-|-----|-----|
-| `/start` | 触发 `start.md` 工作流，静默启动 |
-| `/suspend` | 触发 `suspend1.md` 工作流，保存状态 |
-| `/feature-flow` | 直接进入全自动交付流水线 |
-| `/analyze-error` | 手动触发错误分析 |
-| `/rollback` | 回滚到上一个检查点 |
-| `/status` | 显示当前状态机状态和任务进度 |
-| `/evolve` | 🧬 手动触发进化引擎，处理学习队列 |
-| `/reflect` | 💭 触发反思，总结经验教训 |
-| `/knowledge [query]` | 📚 查询知识库 |
-| `/patterns [query]` | 🔄 查询代码模式库 |
-| `/use-flutter-template` | 🧩 加载 Flutter 模板规范 |
-| `/meta [desc]` | 🔧 修改 Agent OS 系统本身 |
-| `/export` | 📦 导出系统为可移植压缩包 |
+## 2. 辅助功能路由 (Auxiliary Dispatch)
+| 用户意图 | 路由目标 |
+| :--- | :--- |
+| 检测到报错 / "修个Bug" | → `/analyze-error` |
+| "回滚" / "撤销" | → `/rollback` |
+| "状态" / "进度" | → `/status` |
+| "反思" / "总结" | → `/reflect` |
+| "知识 [query]" | → `/knowledge` |
+| "模式 [query]" | → `/patterns` |
+| "导出系统" | → `/export` |
 
-## 4. 进化引擎自动行为 (Evolution Auto Behaviors)
-> 这些行为自动触发，无需用户命令。
+## 3. 门禁规则 (Gatekeeper)
+- **Ambiguity Guard**: 需求模糊时强制反问，禁止直接进入 `Drafting Phase`。
+- **Approval Guard**: 
+    - PRD 必须用户确认 (`Go`) -> 才能进入 `/decompose`。
+    - Manifest 必须用户确认 -> 才能进入 `/feature-flow`。
+- **CI Guard**: 所有代码提交前必须通过 `flutter analyze` & `test`。
 
+## 4. 进化引擎自动触发
 | 触发事件 | 自动行为 |
-|---------|---------|
-| 任务 (T-xxx) 完成 | 将代码变更加入 `learning_queue.md` |
-| Auto-Fix 成功 | 将错误修复加入 `learning_queue.md` (P1) |
-| 工作流完成 | 更新 `workflow_metrics.md` 指标 |
-| 状态 → ARCHIVING | 自动触发 `/reflect` 工作流 |
-| 状态 → IDLE 且队列不为空 | 处理 `learning_queue.md` 中 P0/P1 素材 |
-
+| :--- | :--- |
+| `/feature-flow` 结束 (All Done) | 自动触发 `/evolve` (知识收割) |
+| Bug 修复成功 | 自动提取 Error Pattern |
+| Session 结束/挂起 | 自动更新 `active_context.md` |

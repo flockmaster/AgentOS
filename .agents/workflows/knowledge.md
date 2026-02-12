@@ -17,12 +17,12 @@ description: Knowledge Query Workflow - 查询记忆中的知识条目
 2. 如果未输入查询词，提示用户："请提供查询关键词，例如：`/knowledge 架构`"
 
 ### Step 2: 搜索知识库
-1. 读取 `.agent/memory/evolution/knowledge_base.md` 索引。
+1. 读取 `.agents/memory/evolution/knowledge_base.md` 索引。
 2. 根据关键词匹配 `Title`, `Category` 或 `Tags`。
 3. 找到匹配的 `k-xxx` ID。
 
 ### Step 3: 读取知识详情
-1. 对于前 3 个最相关的匹配项，根据 ID 读取对应的 `.agent/memory/knowledge/k-xxx-title.md` 文件。
+1. 对于前 3 个最相关的匹配项，根据 ID 读取对应的 `.agents/memory/knowledge/k-xxx-title.md` 文件。
 2. 提取 `Summary` 和 `Code Example`。
 
 ### Step 4: 生成回答

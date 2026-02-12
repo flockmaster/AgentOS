@@ -13,7 +13,7 @@ description: Evolve Workflow - 手动触发进化，处理学习队列并优化�
 
 ### Step 1: 检查学习队列
 // turbo
-1. 读取 `.agent/memory/evolution/learning_queue.md`
+1. 读取 `.agents/memory/evolution/learning_queue.md`
 2. 统计待处理素材数量
 
 ### Step 2: 处理学习素材

@@ -5,16 +5,16 @@ category: architecture
 tags: [memory, context, best-practice]
 created: 2026-02-08
 confidence: 0.95
-references: [system-conversion-v1]
+references: []
 ---
 
 ## Summary
 在 `active_context.md` 的 **Current Goal** 中，必须包含所有执行任务所需的**关键参数**（如文件路径、API Key、配置项），而不仅仅是任务描述。
 
 ## Problem (问题)
-用户在会话 A 中说："把 `D:\Baic-Flutter-APP\word_assistant` 转成中文软件"。  
-Agent 在会话 A 的上下文中记住了路径，但只在 `active_context.md` 中写了"转换 word_assistant"。  
-当用户在会话 B 说"继续"时，新 Agent 读取记忆后不知道源项目的具体路径。
+用户在会话 A 中说 "处理某个目录下的项目"。  
+Agent 在会话 A 的上下文中记住了路径，但只在 `active_context.md` 中写了 "处理项目"。  
+当用户在会话 B 说 "继续" 时，新 Agent 读取记忆后不知道源项目的具体路径。
 
 ## Root Cause (根因)
 **隐式依赖**: 关键信息（路径）只存在于会话上下文（短期记忆），未持久化到 `active_context.md`（长期记忆）。
@@ -35,10 +35,11 @@ Agent 在会话 A 的上下文中记住了路径，但只在 `active_context.md`
 ## Code Example
 ```markdown
 ## 1. Current Goal
-> **Project Transformation**: 将背单词项目转换为中文学习软件
+> **Feature Implementation**: 实现用户认证模块
 
-**Source Project**: `D:\Baic-Flutter-APP\word_assistant`  
-**Target**: 中文学习软件（面向外国人）  
+**Source**: `/path/to/project`  
+**Target**: 完整的登录注册功能  
+**Key Params**: API Endpoint = `https://api.example.com`  
 **Strategy**: 使用 prd-crafter-pro 多角色协作
 ```
 
