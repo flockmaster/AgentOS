@@ -35,6 +35,7 @@ description: 核心路由规则 (v4.2 Manifest Driven) - 职责分离与流水�
 | "知识 [query]" | → `/knowledge` |
 | "模式 [query]" | → `/patterns` |
 | "导出系统" | → `/export` |
+| "初始化环境" | → `/init` |
 
 ## 3. 门禁规则 (Gatekeeper)
 - **Ambiguity Guard**: 需求模糊时强制反问，禁止直接进入 `Drafting Phase`。

@@ -1,0 +1,30 @@
+name: "Initialization"
+description: "初始化 Agent OS 并部署环境适配器"
+steps:
+  - name: "环境检测"
+    type: "detect"
+    checks:
+      cursor: "file: .cursorrules"
+      gemini: "env: GEMINI_HOME"
+      copilot: "file: .github/copilot-instructions.md"
+    on_fail: "ask_user: '请问您使用的是哪种 AI 助手？(Gemini / Cursor / Copilot / Claude)'"
+
+  - name: "配置部署"
+    type: "copy"
+    options:
+      gemini:
+        source: ".agent/adapters/gemini/GEMINI.md"
+        target: "~/.gemini/GEMINI.md"
+      cursor:
+        source: ".agent/adapters/cursor/.cursorrules"
+        target: ".cursorrules"
+      copilot:
+        source: ".agent/adapters/copilot/COPILOT.md"
+        target: ".github/copilot-instructions.md"
+      antigravity:
+        source: ".agent/adapters/antigravity/ANTIGRAVITY.md"
+        target: "~/.antigravity/ANTIGRAVITY.md"
+
+  - name: "验证"
+    run: "Verify file presence and version"
+    message: "Agent OS v4.2 环境初始化完成！🚀"
