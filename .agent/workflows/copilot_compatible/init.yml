@@ -1,30 +1,35 @@
 name: "Initialization"
-description: "初始化 Agent OS 并部署环境适配器"
+description: "交互式初始化 Agent OS 环境适配器"
 steps:
-  - name: "环境检测"
-    type: "detect"
-    checks:
-      cursor: "file: .cursorrules"
-      gemini: "env: GEMINI_HOME"
-      copilot: "file: .github/copilot-instructions.md"
-    on_fail: "ask_user: '请问您使用的是哪种 AI 助手？(Gemini / Cursor / Copilot / Claude)'"
+  - name: "环境问询"
+    type: "ask_user"
+    message: "欢迎使用 Agent OS v4.2！请选择您的 AI 助手：\n1. GitHub Copilot\n2. Cursor AI\n3. Gemini\n4. Antigravity CLI"
+    options: ["copilot", "cursor", "gemini", "antigravity"]
+
+  - name: "风险确认"
+    type: "ask_user"
+    message: "即将覆盖配置文件。是否继续？(系统将自动创建 .bak 备份)"
+    options: ["yes", "no"]
 
   - name: "配置部署"
-    type: "copy"
-    options:
-      gemini:
-        source: ".agent/adapters/gemini/GEMINI.md"
-        target: "~/.gemini/GEMINI.md"
-      cursor:
-        source: ".agent/adapters/cursor/.cursorrules"
-        target: ".cursorrules"
-      copilot:
-        source: ".agent/adapters/copilot/COPILOT.md"
-        target: ".github/copilot-instructions.md"
-      antigravity:
-        source: ".agent/adapters/antigravity/ANTIGRAVITY.md"
-        target: "~/.antigravity/ANTIGRAVITY.md"
+    type: "script"
+    run: |
+      if selection == "copilot":
+        ensure_dir(".github")
+        backup(".github/copilot-instructions.md")
+        copy(".agent/adapters/copilot/COPILOT.md", ".github/copilot-instructions.md")
+      elif selection == "cursor":
+        backup(".cursorrules")
+        copy(".agent/adapters/cursor/.cursorrules", ".cursorrules")
+      elif selection == "gemini":
+        ensure_dir("~/.gemini")
+        backup("~/.gemini/GEMINI.md")
+        copy(".agent/adapters/gemini/GEMINI.md", "~/.gemini/GEMINI.md")
 
-  - name: "验证"
-    run: "Verify file presence and version"
-    message: "Agent OS v4.2 环境初始化完成！🚀"
+  - name: "新手引导"
+    message: |
+      ✅ 初始化完成！
+      试一试：
+      - /draft [需求]
+      - /status
+      📖 更多文档见 README.md
