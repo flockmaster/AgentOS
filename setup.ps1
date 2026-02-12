@@ -22,6 +22,7 @@ Write-Host ""
 Write-Host "   ╔══════════════════════════════════════════╗" -ForegroundColor Magenta
 Write-Host "   ║   🌌 Antigravity Agent OS — Setup        ║" -ForegroundColor Magenta
 Write-Host "   ║   给你的 AI 编程助手装上大脑              ║" -ForegroundColor Magenta
+Write-Host "   ║   https://github.com/flockmaster/agent-os║" -ForegroundColor DarkGray
 Write-Host "   ╚══════════════════════════════════════════╝" -ForegroundColor Magenta
 Write-Host ""
 
@@ -104,6 +105,7 @@ Write-Step "Step 3/6 — 选择你的 AI 编程工具"
 Write-Host "     [1] Gemini (Google AI / Android Studio)"
 Write-Host "     [2] GitHub Copilot (VS Code / JetBrains)"
 Write-Host "     [3] Claude (Anthropic / Cursor)"
+Write-Host "     [4] Antigravity CLI (Standard Terminal)"
 Write-Host "   输入编号 (默认 1): " -NoNewline -ForegroundColor Yellow
 $aiChoice = Read-Host
 if ($aiChoice -eq "") { $aiChoice = "1" }
@@ -112,6 +114,7 @@ $providers = @{
     "1" = @{ name = "gemini";  display = "Gemini";  adapter = "adapters/gemini/GEMINI.md";  globalDir = "$env:USERPROFILE\.gemini"; globalFile = "GEMINI.md" }
     "2" = @{ name = "copilot"; display = "Copilot"; adapter = "adapters/copilot/copilot-instructions.md"; globalDir = "$env:USERPROFILE\.copilot"; globalFile = "copilot-instructions.md" }
     "3" = @{ name = "claude";  display = "Claude";  adapter = "adapters/claude/CLAUDE.md";  globalDir = "$env:USERPROFILE\.claude"; globalFile = "CLAUDE.md" }
+    "4" = @{ name = "antigravity"; display = "Antigravity"; adapter = "adapters/antigravity/GEMINI.md"; globalDir = "$env:USERPROFILE\.gemini"; globalFile = "GEMINI.md" }
 }
 $provider = $providers[$aiChoice]
 if (-not $provider) { $provider = $providers["1"] }
@@ -126,21 +129,63 @@ Write-Step "Step 4/6 — 安装 Agent OS 到项目"
 $agentSrc = Join-Path $ScriptDir ".agent"
 $agentDst = Join-Path $TargetDir ".agent"
 
+# === 4.1.0 智能备份 (Smart Backup) ===
+$memoryRestored = $false
+$backupDir = Join-Path $env:TEMP "agent_os_backup_$(Get-Random)"
+
+if (Test-Path $agentDst) {
+    Write-Info "检测到现有 Agent OS，启动 [智能无损更新] 模式..."
+    New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
+    
+    # 备份记忆 (Memory)
+    if (Test-Path "$agentDst\memory") {
+        Copy-Item "$agentDst\memory" $backupDir -Recurse -Force
+        Write-Info "已备份记忆库 (Memory) -> $backupDir"
+    }
+    
+    # 备份配置 (Config)
+    if (Test-Path "$agentDst\config\agent_config.md") {
+        New-Item -ItemType Directory -Path "$backupDir\config" -Force | Out-Null
+        Copy-Item "$agentDst\config\agent_config.md" "$backupDir\config" -Force
+        Write-Info "已备份配置文件 (Config)"
+    }
+}
+
 if ($agentSrc -ne $agentDst) {
     if (Test-Path $agentDst) { Remove-Item $agentDst -Recurse -Force }
     Copy-Item $agentSrc $agentDst -Recurse -Force
-    Write-Ok "已复制 .agent/ → $agentDst"
+    Write-Ok "已更新系统核心 (.agent/) → $agentDst"
 } else {
     Write-Ok ".agent/ 已在当前目录，跳过复制"
 }
 
-# 4.1.1 复制 .agents/（如果存在）
+# === 4.1.1 恢复备份 (Restore) ===
+if (Test-Path $backupDir) {
+    Write-Info "正在恢复用户数据..."
+    
+    # 恢复记忆
+    if (Test-Path "$backupDir\memory") {
+        Copy-Item "$backupDir\memory\*" "$agentDst\memory" -Recurse -Force
+        Write-Ok "记忆库已恢复 (Memory Restored)"
+        $memoryRestored = $true
+    }
+    
+    # 恢复配置
+    if (Test-Path "$backupDir\config\agent_config.md") {
+        Copy-Item "$backupDir\config\agent_config.md" "$agentDst\config\agent_config.md" -Force
+        Write-Ok "配置已恢复 (Config Restored)"
+    }
+    
+    Remove-Item $backupDir -Recurse -Force
+}
+
+# 4.1.2 复制 .agents/（如果存在）
 $agentsSrc = Join-Path $ScriptDir ".agents"
 $agentsDst = Join-Path $TargetDir ".agents"
 if (Test-Path $agentsSrc) {
     if (Test-Path $agentsDst) { Remove-Item $agentsDst -Recurse -Force }
     Copy-Item $agentsSrc $agentsDst -Recurse -Force
-    Write-Ok "已复制 .agents/ → $agentsDst"
+    Write-Ok "已更新 Worker 规范 (.agents/) → $agentsDst"
 } else {
     Write-Info "仓库中无 .agents/，跳过复制"
 }
@@ -181,9 +226,10 @@ if (Test-Path $githubSrc) {
 Get-ChildItem -Path $agentDst -Filter "__pycache__" -Recurse -Directory | Remove-Item -Recurse -Force
 Write-Ok "已清理 __pycache__"
 
-# 4.3 写入 project_decisions.md
-$today = Get-Date -Format "yyyy-MM-dd"
-$decisionsContent = @"
+# 4.3 写入 project_decisions.md (仅在未恢复时)
+if (-not $memoryRestored -or -not (Test-Path "$agentDst\memory\project_decisions.md")) {
+    $today = Get-Date -Format "yyyy-MM-dd"
+    $decisionsContent = @"
 ---
 project_name: $ProjectName
 last_updated: $today
@@ -230,11 +276,16 @@ last_updated: $today
 - **Verification**: UI 变更必须经过 PM 视觉验收
 
 "@
-Set-Content -Path "$agentDst\memory\project_decisions.md" -Value $decisionsContent -Encoding UTF8
-Write-Ok "已初始化 project_decisions.md"
+    Set-Content -Path "$agentDst\memory\project_decisions.md" -Value $decisionsContent -Encoding UTF8
+    Write-Ok "已初始化 project_decisions.md"
+} else {
+    Write-Info "保留现有 project_decisions.md (Skip Init)"
+}
 
-# 4.4 重置 active_context.md
-$contextContent = @"
+# 4.4 重置 active_context.md (如果需要)
+if (-not $memoryRestored -or -not (Test-Path "$agentDst\memory\active_context.md")) {
+    $today = Get-Date -Format "yyyy-MM-dd"
+    $contextContent = @"
 ---
 task_status: IDLE
 last_session: $today
@@ -253,15 +304,22 @@ current_task: null
 |------|------|------|---------|
 
 "@
-Set-Content -Path "$agentDst\memory\active_context.md" -Value $contextContent -Encoding UTF8
-Write-Ok "已重置 active_context.md"
+    Set-Content -Path "$agentDst\memory\active_context.md" -Value $contextContent -Encoding UTF8
+    Write-Ok "已重置 active_context.md"
+} else {
+    Write-Info "保留现有 active_context.md (Skip Reset)"
+}
 
 # 4.5 更新 agent_config.md 中的 ACTIVE_PROVIDER
 $configPath = "$agentDst\config\agent_config.md"
 if (Test-Path $configPath) {
+    # 只有当用户显式选择的 Provider 与配置文件不同时，才更新配置（或强制同步当前选择）
+    # 这里我们假设用户重新 Setup 是为了切换 Provider 或修复，所以更新是安全的。
+    # 但如果 Config 是恢复回来的，可能已经是正确的。
+    # 简单起见，既然用户在 Step 3 选了 Provider，我们就更新它。
     (Get-Content $configPath -Raw) -replace 'ACTIVE_PROVIDER:\s*\w+', "ACTIVE_PROVIDER: $($provider.name)" |
         Set-Content $configPath -Encoding UTF8
-    Write-Ok "已设置 ACTIVE_PROVIDER: $($provider.name)"
+    Write-Ok "已更新 ACTIVE_PROVIDER: $($provider.name)"
 }
 
 # 4.6 写入 .gitignore 追加

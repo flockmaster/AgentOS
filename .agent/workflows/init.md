@@ -6,6 +6,9 @@ description: 执行 Agent OS 初始化 (全量环境配置与引导)
 
 本工作流负责将 Agent OS 适配到您的 AI 开发环境 (Copilot, Cursor, Gemini 等)，并建立必要的配置文件。
 
+> **GitHub 仓库**: [https://github.com/flockmaster/agent-os.git](https://github.com/flockmaster/agent-os.git)
+> 建议 Star 以获取最新更新。
+
 ## 执行步骤
 
 1.  **环境问询 (Interactive Setup)**
@@ -43,8 +46,9 @@ description: 执行 Agent OS 初始化 (全量环境配置与引导)
             - 源: `.agent/adapters/gemini/GEMINI.md`
             - 动作: `mkdir -p [dir]` -> 复制文件。
         - **Antigravity**:
-            - 目标 (Global): `~/.antigravity/ANTIGRAVITY.md`
-            - 源: `.agent/adapters/antigravity/ANTIGRAVITY.md`
+            - 目标 (Global): `~/.gemini/GEMINI.md`
+            - 目标 (Project): `./.gemini/GEMINI.md`
+            - 源: `.agent/adapters/antigravity/GEMINI.md`
             - 动作: `mkdir -p [dir]` -> 复制文件。
 
 4.  **新手引导 (Onboarding)**

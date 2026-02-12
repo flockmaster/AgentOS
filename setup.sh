@@ -29,6 +29,7 @@ echo ""
 echo -e "${MAGENTA}   ╔══════════════════════════════════════════╗${NC}"
 echo -e "${MAGENTA}   ║   🌌 Antigravity Agent OS — Setup        ║${NC}"
 echo -e "${MAGENTA}   ║   给你的 AI 编程助手装上大脑              ║${NC}"
+echo -e "${GRAY}   ║   https://github.com/flockmaster/agent-os║${NC}"
 echo -e "${MAGENTA}   ╚══════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -99,6 +100,7 @@ step "Step 3/6 — 选择你的 AI 编程工具"
 echo "     [1] Gemini (Google AI / Android Studio)"
 echo "     [2] GitHub Copilot (VS Code / JetBrains)"
 echo "     [3] Claude (Anthropic / Cursor)"
+echo "     [4] Antigravity CLI (Standard Terminal)"
 prompt "输入编号 (默认 1): "
 read -r ai_choice
 [ -z "$ai_choice" ] && ai_choice="1"
@@ -107,6 +109,7 @@ case "$ai_choice" in
     1) PROVIDER="gemini";  DISPLAY="Gemini";  ADAPTER="adapters/gemini/GEMINI.md";                    GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
     2) PROVIDER="copilot"; DISPLAY="Copilot"; ADAPTER="adapters/copilot/copilot-instructions.md";     GLOBAL_DIR="$HOME/.copilot"; GLOBAL_FILE="copilot-instructions.md" ;;
     3) PROVIDER="claude";  DISPLAY="Claude";  ADAPTER="adapters/claude/CLAUDE.md";                    GLOBAL_DIR="$HOME/.claude"; GLOBAL_FILE="CLAUDE.md" ;;
+    4) PROVIDER="antigravity"; DISPLAY="Antigravity"; ADAPTER="adapters/antigravity/GEMINI.md";           GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
     *) PROVIDER="gemini";  DISPLAY="Gemini";  ADAPTER="adapters/gemini/GEMINI.md";                    GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
 esac
 ok "AI 工具: $DISPLAY"
@@ -119,16 +122,58 @@ step "Step 4/6 — 安装 Agent OS 到项目"
 AGENT_SRC="$SCRIPT_DIR/.agent"
 AGENT_DST="$TARGET_DIR/.agent"
 
+# === 4.1.0 智能备份 (Smart Backup) ===
+MEMORY_RESTORED=false
+BACKUP_DIR="/tmp/agent_os_backup_$(date +%s)"
+
+if [ -d "$AGENT_DST" ]; then
+    info "检测到现有 Agent OS，启动 [智能无损更新] 模式..."
+    mkdir -p "$BACKUP_DIR"
+    
+    # 备份记忆 (Memory)
+    if [ -d "$AGENT_DST/memory" ]; then
+        cp -r "$AGENT_DST/memory" "$BACKUP_DIR/"
+        info "已备份记忆库 (Memory) -> $BACKUP_DIR"
+    fi
+    
+    # 备份配置 (Config)
+    if [ -f "$AGENT_DST/config/agent_config.md" ]; then
+        mkdir -p "$BACKUP_DIR/config"
+        cp "$AGENT_DST/config/agent_config.md" "$BACKUP_DIR/config/"
+        info "已备份配置文件 (Config)"
+    fi
+fi
+
 # 4.1 复制 .agent/
 if [ "$AGENT_SRC" != "$AGENT_DST" ]; then
     rm -rf "$AGENT_DST"
     cp -r "$AGENT_SRC" "$AGENT_DST"
-    ok "已复制 .agent/ → $AGENT_DST"
+    ok "已更新系统核心 (.agent/) → $AGENT_DST"
 else
     ok ".agent/ 已在当前目录，跳过复制"
 fi
 
-# 4.1.1 复制 .agents/（如果存在）
+# === 4.1.1 恢复备份 (Restore) ===
+if [ -d "$BACKUP_DIR" ]; then
+    info "正在恢复用户数据..."
+    
+    # 恢复记忆
+    if [ -d "$BACKUP_DIR/memory" ]; then
+        cp -r "$BACKUP_DIR/memory"/* "$AGENT_DST/memory/"
+        ok "记忆库已恢复 (Memory Restored)"
+        MEMORY_RESTORED=true
+    fi
+    
+    # 恢复配置
+    if [ -f "$BACKUP_DIR/config/agent_config.md" ]; then
+        cp "$BACKUP_DIR/config/agent_config.md" "$AGENT_DST/config/agent_config.md"
+        ok "配置已恢复 (Config Restored)"
+    fi
+    
+    rm -rf "$BACKUP_DIR"
+fi
+
+# 4.1.2 复制 .agents/（如果存在）
 AGENTS_SRC="$SCRIPT_DIR/.agents"
 AGENTS_DST="$TARGET_DIR/.agents"
 if [ -d "$AGENTS_SRC" ]; then
@@ -136,7 +181,7 @@ if [ -d "$AGENTS_SRC" ]; then
         rm -rf "$AGENTS_DST"
     fi
     cp -r "$AGENTS_SRC" "$AGENTS_DST"
-    ok "已复制 .agents/ → $AGENTS_DST"
+    ok "已更新 Worker 规范 (.agents/) → $AGENTS_DST"
 else
     info "仓库中无 .agents/，跳过复制"
 fi
@@ -178,9 +223,10 @@ fi
 find "$AGENT_DST" -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 ok "已清理 __pycache__"
 
-# 4.3 写入 project_decisions.md
-TODAY="$(date +%Y-%m-%d)"
-cat > "$AGENT_DST/memory/project_decisions.md" << EOF
+# 4.3 写入 project_decisions.md (仅在未恢复时)
+if [ "$MEMORY_RESTORED" = "false" ] || [ ! -f "$AGENT_DST/memory/project_decisions.md" ]; then
+    TODAY="$(date +%Y-%m-%d)"
+    cat > "$AGENT_DST/memory/project_decisions.md" << EOF
 ---
 project_name: $PROJECT_NAME
 last_updated: $TODAY
@@ -227,10 +273,14 @@ last_updated: $TODAY
 - **Verification**: UI 变更必须经过 PM 视觉验收
 
 EOF
-ok "已初始化 project_decisions.md"
+    ok "已初始化 project_decisions.md"
+else
+    info "保留现有 project_decisions.md (Skip Init)"
+fi
 
-# 4.4 重置 active_context.md
-cat > "$AGENT_DST/memory/active_context.md" << EOF
+# 4.4 重置 active_context.md (如果需要)
+if [ "$MEMORY_RESTORED" = "false" ] || [ ! -f "$AGENT_DST/memory/active_context.md" ]; then
+    cat > "$AGENT_DST/memory/active_context.md" << EOF
 ---
 task_status: IDLE
 last_session: $TODAY
@@ -249,13 +299,16 @@ current_task: null
 |------|------|------|---------|
 
 EOF
-ok "已重置 active_context.md"
+    ok "已重置 active_context.md"
+else
+    info "保留现有 active_context.md (Skip Reset)"
+fi
 
 # 4.5 更新 ACTIVE_PROVIDER
 CONFIG_PATH="$AGENT_DST/config/agent_config.md"
 if [ -f "$CONFIG_PATH" ]; then
     sed -i.bak "s/ACTIVE_PROVIDER: .*/ACTIVE_PROVIDER: $PROVIDER/" "$CONFIG_PATH" && rm -f "$CONFIG_PATH.bak"
-    ok "已设置 ACTIVE_PROVIDER: $PROVIDER"
+    ok "已更新 ACTIVE_PROVIDER: $PROVIDER"
 fi
 
 # 4.6 .gitignore
