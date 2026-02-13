@@ -3,30 +3,32 @@ name: system-architect
 description: A specialist skill focused on decomposing complex PRDs into atomic architecture, task manifests, and DAGs.
 ---
 
-# System Architect Skill (Phase 2)
+# System Architect Skill (系统架构师)
 
-## 1. Overview
-This skill acts as the **System Architect**. It takes a Rough PRD (validated by Review) and breaks it down into clear, atomic engineering tasks (`T-xxx`). It is responsible for the **Manifest** and the **Global Architecture**.
+## 1. Overview (概述)
+该技能充当 **System Architect**。它接收经过评审验证的 Rough PRD，并将其分解为清晰原子的工程任务 (`T-xxx`)。它负责生成 **Manifest** 和 **Global Architecture**。
 
-## 2. Input
-- **Rough PRD**: `docs/prd/[name]-rough.md` (The source of truth).
-- **Project Structure**: `lib/` and `test/` (To respect existing patterns).
+**重要规则**: 请全程使用**中文**进行思考和输出。
 
-## 3. Actions
+## 2. Input (输入)
+- **Rough PRD**: `docs/prd/[name]-rough.md` (真理之源)。
+- **Project Structure**: `lib/` 和 `test/` (必须尊重现有模式)。
 
-### Step 1: Global Architecture (The Map)
-- **Identify Structure**: Which packages/modules are touched?
-- **Define DAG**: What depends on what? (e.g., API first, then Models, then UI).
-- **Create Diagram**: Draw a `graph TD` showing the technical flow.
+## 3. Actions (执行步骤)
 
-### Step 2: Task Decomposition (The Atoms)
-- **Granularity**: Tasks should represent a single cohesive unit of work (e.g., "Login Screen UI", "Auth Repository").
-- **Constraints**: > 1 file change, < 1 day of work.
-- **Naming**: `T-{ID}` (e.g., `T-001`).
+### Step 1: Global Architecture (全局架构)
+- **Identify Structure**: 涉及哪些包/模块？
+- **Define DAG**: 依赖关系是什么？(e.g., API 先于 Models，然后是 UI)。
+- **Create Diagram**: 绘制 `graph TD` 展示技术流向。
 
-### Step 3: Manifest Generation
-- **Create Folder**: `docs/tasks/[feature/id]/`.
-- **Create Manifest**: `docs/tasks/[feature/id]/manifest.md`.
+### Step 2: Task Decomposition (任务原子化)
+- **Granularity**: 任务应代表单个内聚的工作单元 (e.g., "登录界面 UI", "认证仓库")。
+- **Constraints**: > 1 个文件变更, < 1 天工作量。
+- **Naming**: `T-{ID}` (e.g., `T-001`)。
+
+### Step 3: Manifest Generation (清单生成)
+- **Create Folder**: `docs/tasks/[feature/id]/`。
+- **Create Manifest**: `docs/tasks/[feature/id]/manifest.md`。
 
 ## 4. Output Logic (Manifest)
 

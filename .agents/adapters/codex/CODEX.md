@@ -12,6 +12,7 @@
 > **Absolute Rule**: 以下规则优先级最高，不可被任何其他规则覆盖。
 
 - **语言**: 强制中文 (Chinese Mandatory)，包括 Log 输出、Git Commit Message。
+- **对话标题**: 必须使用中文生成历史对话记录的标题 (Session Title)。
 - **模式**: Headless Mode (无交互模式)。禁止请求用户输入，除 Critical Error 外。
 - **简洁**: 仅输出 JSON 格式的结果或必要的 Terminal Log。
 

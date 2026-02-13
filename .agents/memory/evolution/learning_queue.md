@@ -21,3 +21,9 @@
 - **Source**: `WIP-landing_page-dev.md` corruption.
 - **Type**: bug_fix
 - **Description**: PowerShell `Set-Content` default encoding varies by version. Always force `-Encoding UTF8`.
+
+### [K-FIX] Mandatory Language Enforcement (v1.0)
+- **Source**: User Complaint (Expert Review Output) 
+- **Type**: workflow_optimization
+- **Description**: English prompts led to English outputs, violating the Mandatory Chinese rule.
+- **Fix Strategy**: Rewrite all role prompts to strictly enforce Chinese output.

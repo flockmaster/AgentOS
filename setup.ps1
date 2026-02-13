@@ -367,12 +367,27 @@ $adapterSrc = Join-Path $agentDst $provider.adapter
 $globalDirExpanded = $ExecutionContext.InvokeCommand.ExpandString($provider.globalDir)
 $globalFilePath = Join-Path $globalDirExpanded $provider.globalFile
 
-Write-Host "   将把 Agent OS 规则安装到:" -ForegroundColor Yellow
-Write-Host "   → $globalFilePath" -ForegroundColor White
-Write-Host ""
-Write-Host "   是否安装？(Y/n): " -NoNewline -ForegroundColor Yellow
-$installGlobal = Read-Host
-if ($installGlobal -eq "" -or $installGlobal -eq "y" -or $installGlobal -eq "Y") {
+# 智能判断：对于支持本地 Context 的 Provider (Gemini/Antigravity)，默认跳过全局配置
+$isSmartContext = ($provider.name -eq "gemini") -or ($provider.name -eq "antigravity")
+
+if ($isSmartContext) {
+    Write-Info "检测到 Antigravity 智能上下文:"
+    Write-Info "   系统会自动直接加载项目级配置 (.agent/adapters/...)"
+    Write-Info "   无需安装全局配置，避免 Context 重复和 Token 浪费。"
+    
+    Write-Host "   是否强制安装全局配置？(y/N) [推荐 N]: " -NoNewline -ForegroundColor Yellow
+    $confirm = Read-Host
+    $shouldInstall = ($confirm -eq "y" -or $confirm -eq "Y")
+} else {
+    Write-Host "   将把 Agent OS 规则安装到:" -ForegroundColor Yellow
+    Write-Host "   → $globalFilePath" -ForegroundColor White
+    Write-Host ""
+    Write-Host "   是否安装？(Y/n) [默认 Y]: " -NoNewline -ForegroundColor Yellow
+    $confirm = Read-Host
+    $shouldInstall = ($confirm -eq "" -or $confirm -eq "y" -or $confirm -eq "Y")
+}
+
+if ($shouldInstall) {
     if (-not (Test-Path $globalDirExpanded)) {
         New-Item -ItemType Directory -Path $globalDirExpanded -Force | Out-Null
     }
@@ -384,8 +399,11 @@ if ($installGlobal -eq "" -or $installGlobal -eq "y" -or $installGlobal -eq "Y")
     Copy-Item $adapterSrc $globalFilePath -Force
     Write-Ok "已安装全局配置到 $globalFilePath"
 } else {
-    Write-Info "跳过全局配置安装。你可以之后手动复制:"
-    Write-Info "  cp $adapterSrc $globalFilePath"
+    Write-Ok "已跳过全局配置 (推荐)"
+    if (-not $isSmartContext) {
+        Write-Info "你可以之后手动复制:"
+        Write-Info "  cp $adapterSrc $globalFilePath"
+    }
 }
 
 # ============================================================
