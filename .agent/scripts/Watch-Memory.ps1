@@ -130,7 +130,7 @@ $Action = {
                         Move-Item -Path $TempFile -Destination $StatusFile -Force -ErrorAction Stop
                         # Only log on status change or critical
                         if ($IsSameStatus -eq $false -or $Status -eq "CRITICAL") {
-                            Write-Host " [Watchdog] 🔒 Updated status lock: $Status" -ForegroundColor DarkGray
+                            Write-Host " [Watchdog] [LOCK] Updated status lock: $Status" -ForegroundColor DarkGray
                         }
                         break
                     }
@@ -145,7 +145,7 @@ $Action = {
                     $Payload = @{ status = "NORMAL"; timestamp = $CurrentTime; session_id = $FileName } | ConvertTo-Json -Compress
                     $Payload | Set-Content -Path $TempFile -Encoding UTF8 -Force
                     Move-Item -Path $TempFile -Destination $StatusFile -Force
-                    Write-Host " [Watchdog] 🔓 Cleared status lock (NORMAL)" -ForegroundColor Gray
+                    Write-Host " [Watchdog] [UNLOCK] Cleared status lock (NORMAL)" -ForegroundColor Gray
                 }
             }
         }
