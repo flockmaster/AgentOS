@@ -109,7 +109,7 @@ case "$ai_choice" in
     1) PROVIDER="gemini";  DISPLAY="Gemini";  ADAPTER="adapters/gemini/GEMINI.md";                    GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
     2) PROVIDER="copilot"; DISPLAY="Copilot"; ADAPTER="adapters/copilot/copilot-instructions.md";     GLOBAL_DIR="$HOME/.copilot"; GLOBAL_FILE="copilot-instructions.md" ;;
     3) PROVIDER="claude";  DISPLAY="Claude";  ADAPTER="adapters/claude/CLAUDE.md";                    GLOBAL_DIR="$HOME/.claude"; GLOBAL_FILE="CLAUDE.md" ;;
-    4) PROVIDER="antigravity"; DISPLAY="Antigravity"; ADAPTER="adapters/antigravity/GEMINI.md";           GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
+    4) PROVIDER="antigravity"; DISPLAY="Antigravity"; ADAPTER="adapters/gemini/GEMINI.md";                GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
     *) PROVIDER="gemini";  DISPLAY="Gemini";  ADAPTER="adapters/gemini/GEMINI.md";                    GLOBAL_DIR="$HOME/.gemini"; GLOBAL_FILE="GEMINI.md" ;;
 esac
 ok "AI 工具: $DISPLAY"

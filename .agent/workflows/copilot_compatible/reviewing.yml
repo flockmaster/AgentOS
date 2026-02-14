@@ -6,11 +6,11 @@ steps:
   - name: "专家并行评审"
     type: "parallel"
     tasks:
-      - run: "codex exec --role ux_director --input draft.md"
-      - run: "codex exec --role product_director --input draft.md"
-      - run: "codex exec --role domain_expert --input draft.md"
-      - run: "codex exec --role tech_lead --input draft.md"
-      - run: "codex exec --role critic --input draft.md"
+      - run: 'codex exec "Please read .agent/prompts/roles/ux_director.md and draft.md. Output review." -o docs/reviews/ux_director_review.md'
+      - run: 'codex exec "Please read .agent/prompts/roles/product_director.md and draft.md. Output review." -o docs/reviews/product_director_review.md'
+      - run: 'codex exec "Please read .agent/prompts/roles/domain_expert.md and draft.md. Output review." -o docs/reviews/domain_expert_review.md'
+      - run: 'codex exec "Please read .agent/prompts/roles/tech_lead.md and draft.md. Output review." -o docs/reviews/tech_lead_review.md'
+      - run: 'codex exec "Please read .agent/prompts/roles/critic.md and draft.md. Output review." -o docs/reviews/critic_review.md'
     wait_for_all: true
 
   - name: "汇总与同步"

@@ -25,7 +25,10 @@ description: Phase 2: 复杂 PRD 任务拆解与子文档生成工作流
 3.  **串行生成子 PRD (Sequential Sub-PRD Generation)**
     - **动作**: 遍历 `manifest.md` 中的任务列表。
     - **循环**: 对每个 `T-xxx` 任务：
-        - 运行 `codex exec`，使用角色 `.agent/prompts/roles/sub_prd_writer.md`。
+        - **指令**:
+            ```powershell
+            codex exec "请读取 .agent/prompts/roles/sub_prd_writer.md 扮演该角色。结合 rough.md 和 manifest.md，编写任务 [TaskID] 的子 PRD。需参考前序任务摘要: [PreviousSummary]..." -o docs/tasks/[id]/sub_prds/[task_name].md
+            ```
         - **上下文**: 传递 `rough.md`, `manifest.md`, 以及 *前序* Sub-PRD 的摘要 (确保一致性)。
         - **输出**: `docs/tasks/[id]/sub_prds/[task_name].md`。
 

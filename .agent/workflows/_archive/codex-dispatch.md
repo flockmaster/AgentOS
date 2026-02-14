@@ -68,8 +68,9 @@ Agent 作为一个智力实体，需要解析任务间的依赖关系：
 
 ### Step 4: 启动与监控 🚀
 1.  **调用命令**:
+1.  **调用命令**:
     ```bash
-    codex exec --json --dangerously-bypass-approvals-and-sandbox "{Structured_Prompt}"
+    codex exec "你是一个资深的全栈工程师... [Structured_Prompt]" -o docs/tasks/T-{ID}/execution.log
     ```
 2.  **异步等待 (Exponential Backoff)**:
     - **策略**: 初始等待 **30s** -> 递增 +120s -> 最大等待 **600s** (10分钟)。

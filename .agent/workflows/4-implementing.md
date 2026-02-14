@@ -14,11 +14,12 @@ description: Phase 3: 实施、测试、编译与汇报生成工作流
 1.  **DAG 分析与分发 (DAG Analysis & Dispatch)**
     - **动作**: 读取 `manifest.md`。识别依赖已满足 (Ready to Start) 的任务。
     - **并行执行**:
-        - 启动最多 3 个并行 `codex exec` Worker。
-        - **角色**: 全栈开发者 (Standard Worker)。
-        - **输入**: Sub-PRD + Manifest。
-        - **要求**: 必须编写测试。必须通过测试。
-    - **循环**: 当任务完成 (`[x]`)，检查 DAG 是否有新任务解锁。重复直至所有任务完成。
+        - **指令**: 对每个可并行任务，启动一个后台 `codex exec` 进程 (使用 `run_command` 的异步特性)。
+            ```powershell
+            codex exec "你是一名全栈开发专家。请阅读任务 [TaskID] 的 Sub-PRD ([Path])。编写代码并确保通过测试。完成后更新 Manifest 状态。" -o docs/tasks/[id]/implementation_[task_id].md
+            ```
+        - **并发控制**: 保持最多 3 个并行 Worker。
+    - **循环**: 监控后台进程。任务完成后 (`[x]`)，检查 DAG 是否有新任务解锁。重复直至所有任务完成。
 
 2.  **编译门禁 (Compilation Gate)**
     - **动作**: 运行全量构建命令 (如 `flutter build apk --debug`)。

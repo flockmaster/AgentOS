@@ -12,13 +12,28 @@ description: Phase 1.5: 专家评审与意见汇总工作流
 ## 执行步骤
 
 1.  **并行专家评审 (Parallel Expert Review)**
-    - **动作**: 使用角色提示词并行运行 5 个 `codex exec` 命令。
+    > **CRITICAL**: 您必须 **并行** 执行以下 `codex exec` 命令。禁止自行模拟评审结果。禁止串行等待。
+    > **注意**: 请确保 `docs/reviews/[name]/` 目录已创建。
+
+    // turbo
+    - **动作**: 并行运行 5 个 `codex exec` 命令 (Terminal / PowerShell / Bash)。
     - **指令**:
-        - `codex exec --role .agent/prompts/roles/ux_director.md --input docs/prd/[name]-draft.md`
-        - `codex exec --role .agent/prompts/roles/product_director.md --input docs/prd/[name]-draft.md`
-        - `codex exec --role .agent/prompts/roles/domain_expert.md --input docs/prd/[name]-draft.md`
-        - `codex exec --role .agent/prompts/roles/tech_lead.md --input docs/prd/[name]-draft.md`
-        - `codex exec --role .agent/prompts/roles/critic.md --input docs/prd/[name]-draft.md`
+        ```powershell
+        # 1. UX Director
+        codex exec "请读取 .agent/prompts/roles/ux_director.md 扮演该角色，并审阅 docs/prd/[name]-draft.md。请输出详细的评审报告。" -o docs/reviews/[name]/ux_director_review.md
+        
+        # 2. Product Director
+        codex exec "请读取 .agent/prompts/roles/product_director.md 扮演该角色，并审阅 docs/prd/[name]-draft.md。请输出详细的评审报告。" -o docs/reviews/[name]/product_director_review.md
+        
+        # 3. Domain Expert
+        codex exec "请读取 .agent/prompts/roles/domain_expert.md 扮演该角色，并审阅 docs/prd/[name]-draft.md。请输出详细的评审报告。" -o docs/reviews/[name]/domain_expert_review.md
+        
+        # 4. Tech Lead
+        codex exec "请读取 .agent/prompts/roles/tech_lead.md 扮演该角色，并审阅 docs/prd/[name]-draft.md。请输出详细的评审报告。" -o docs/reviews/[name]/tech_lead_review.md
+        
+        # 5. Critic
+        codex exec "请读取 .agent/prompts/roles/critic.md 扮演该角色，并审阅 docs/prd/[name]-draft.md。请输出详细的评审报告。" -o docs/reviews/[name]/critic_review.md
+        ```
     - **等待**: 确保 5 份评审报告均已生成于 `docs/reviews/[name]/`。
 
 2.  **汇总与同步 (Aggregate & Sync)**

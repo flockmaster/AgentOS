@@ -7,7 +7,7 @@ steps:
     type: "loop"
     strategy: "parallel (max 3)"
     until: "all tasks == [x]"
-    run: "codex exec --role full_stack_worker"
+    run: 'codex exec "You are a Full Stack Dev. Implement task." -o docs/tasks/${{ id }}/implementation.md'
     check: "DAG Ready & File Lock"
 
   - name: "编译门禁 (Compilation Gate)"

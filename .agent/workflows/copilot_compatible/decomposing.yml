@@ -19,7 +19,7 @@ steps:
   - name: "串行生成子文档"
     type: "loop"
     items: "${{ manifest.tasks }}"
-    run: "codex exec --role sub_prd_writer"
+    run: 'codex exec "Read .agent/prompts/roles/sub_prd_writer.md and [Input Files]. Generate Sub-PRD." -o docs/tasks/${{ id }}/sub_prds/${{ task_name }}.md'
     context: ["rough.md", "manifest.md", "previous_sub_prds"]
 
   - name: "一致性审计 (PM Audit)"

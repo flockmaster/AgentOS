@@ -4,14 +4,28 @@
         {
             "label": "Start Memory Watchdog",
             "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-File",
-                "${workspaceFolder}/.agent/scripts/Watch-Memory.ps1"
-            ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    "${workspaceFolder}/.agent/scripts/Watch-Memory.ps1"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/.agent/scripts/watch-memory.sh"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/.agent/scripts/watch-memory.sh"
+                ]
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "silent",
