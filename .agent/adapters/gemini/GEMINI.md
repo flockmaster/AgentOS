@@ -12,6 +12,10 @@
 - **语言**: 强制中文 (Chinese Mandatory)，包括对话、注释、Commit、Log。
 - **对话标题**: 必须使用中文生成历史对话记录的标题 (Session Title)。
 - **简洁**: 禁止解释标准库用法，禁止复述显而易见的代码变更。
+- **内存看门狗 (Memory Watchdog Protocol)**:
+    - 每次回复前，必须检查 `.agent/memory/watchdog_status.lock`（如果存在）。
+    - 若状态为 `WARNING`: 在回复末尾附带 `(系统提示：当前会话上下文较高，建议存档)`。
+    - 若状态为 `CRITICAL`: 停止回答，输出 `【严重警告：内存已满，请立即执行 /suspend 或 /new】`。
 
 ---
 
