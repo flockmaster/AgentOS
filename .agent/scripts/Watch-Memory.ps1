@@ -106,7 +106,7 @@ $Action = {
             $BarLen = 20
             $FilledLen = [math]::Min([int]($Percent / 100 * $BarLen), $BarLen)
             $EmptyLen = $BarLen - $FilledLen
-            $Bar = "█" * $FilledLen + "░" * $EmptyLen
+            $Bar = "#" * $FilledLen + "-" * $EmptyLen
             
             # Shorten UUID for display
             $ShortName = if ($FileName.Length -ge 8) { $FileName.Substring(0, 8) + "..." } else { $FileName }
