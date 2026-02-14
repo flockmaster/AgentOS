@@ -147,7 +147,13 @@ fi
 # 4.1 复制 .agent/
 if [ "$AGENT_SRC" != "$AGENT_DST" ]; then
     rm -rf "$AGENT_DST"
-    cp -r "$AGENT_SRC" "$AGENT_DST"
+    # 使用 rsync 替代 cp 以支持 exclude (如果 rsync 可用)，或者手动删除 .git
+    if command -v rsync >/dev/null 2>&1; then
+        rsync -a --exclude='.git' "$AGENT_SRC/" "$AGENT_DST/"
+    else
+        cp -r "$AGENT_SRC" "$AGENT_DST"
+        rm -rf "$AGENT_DST/.git"
+    fi
     ok "已更新系统核心 (.agent/) → $AGENT_DST"
 else
     ok ".agent/ 已在当前目录，跳过复制"
@@ -217,6 +223,27 @@ if [ -d "$GITHUB_SRC" ]; then
     ok "已复制 .github/ → $GITHUB_DST"
 else
     info "仓库中无 .github/，跳过复制"
+fi
+
+# 4.1.3 初始化 .vscode/tasks.json (Memory Watchdog)
+VSCODE_SRC="$SCRIPT_DIR/.vscode"
+VSCODE_DST="$TARGET_DIR/.vscode"
+TASKS_SRC="$VSCODE_SRC/tasks.json"
+TASKS_DST="$VSCODE_DST/tasks.json"
+
+if [ -f "$TASKS_SRC" ]; then
+    mkdir -p "$VSCODE_DST"
+    
+    if [ ! -f "$TASKS_DST" ]; then
+        cp "$TASKS_SRC" "$TASKS_DST"
+        ok "已初始化 .vscode/tasks.json (Watchdog Auto-Start)"
+    else
+        if ! grep -q "Start Memory Watchdog" "$TASKS_DST"; then
+            warn ".vscode/tasks.json 已存在，未检测到 Watchdog 配置。"
+        else
+            info ".vscode/tasks.json 已包含 Watchdog 配置，跳过"
+        fi
+    fi
 fi
 
 # 4.2 清除 __pycache__

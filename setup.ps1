@@ -12,10 +12,10 @@ $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # ── 颜色辅助 ──────────────────────────────────────────────
-function Write-Step  { param($msg) Write-Host "`n🔧 $msg" -ForegroundColor Cyan }
-function Write-Ok    { param($msg) Write-Host "   ✅ $msg" -ForegroundColor Green }
-function Write-Info  { param($msg) Write-Host "   ℹ️  $msg" -ForegroundColor DarkGray }
-function Write-Warn  { param($msg) Write-Host "   ⚠️  $msg" -ForegroundColor Yellow }
+function Write-Step { param($msg) Write-Host "`n🔧 $msg" -ForegroundColor Cyan }
+function Write-Ok { param($msg) Write-Host "   ✅ $msg" -ForegroundColor Green }
+function Write-Info { param($msg) Write-Host "   ℹ️  $msg" -ForegroundColor DarkGray }
+function Write-Warn { param($msg) Write-Host "   ⚠️  $msg" -ForegroundColor Yellow }
 
 # ── Banner ────────────────────────────────────────────────
 Write-Host ""
@@ -78,19 +78,20 @@ if ($stackChoice -eq "") { $stackChoice = "1" }
 
 $TechStacks = @{
     "1" = @{ sdk = "Flutter"; lang = "Dart"; arch = "MVVM"; lint = "flutter_lints"; fmt = "dart format"; run = "flutter run"; test = "flutter test"; analyze = "flutter analyze"; build = "flutter build" }
-    "2" = @{ sdk = "React";   lang = "TypeScript"; arch = "Component"; lint = "eslint"; fmt = "prettier"; run = "npm run dev"; test = "npm test"; analyze = "npm run lint"; build = "npm run build" }
-    "3" = @{ sdk = "Vue";     lang = "TypeScript"; arch = "Composition API"; lint = "eslint"; fmt = "prettier"; run = "npm run dev"; test = "npm test"; analyze = "npm run lint"; build = "npm run build" }
-    "4" = @{ sdk = "Django";  lang = "Python"; arch = "MTV"; lint = "flake8"; fmt = "black"; run = "python manage.py runserver"; test = "python manage.py test"; analyze = "flake8 ."; build = "N/A" }
+    "2" = @{ sdk = "React"; lang = "TypeScript"; arch = "Component"; lint = "eslint"; fmt = "prettier"; run = "npm run dev"; test = "npm test"; analyze = "npm run lint"; build = "npm run build" }
+    "3" = @{ sdk = "Vue"; lang = "TypeScript"; arch = "Composition API"; lint = "eslint"; fmt = "prettier"; run = "npm run dev"; test = "npm test"; analyze = "npm run lint"; build = "npm run build" }
+    "4" = @{ sdk = "Django"; lang = "Python"; arch = "MTV"; lint = "flake8"; fmt = "black"; run = "python manage.py runserver"; test = "python manage.py test"; analyze = "flake8 ."; build = "N/A" }
     "5" = @{ sdk = "Express"; lang = "JavaScript"; arch = "MVC"; lint = "eslint"; fmt = "prettier"; run = "npm start"; test = "npm test"; analyze = "npm run lint"; build = "npm run build" }
-    "6" = @{ sdk = "Gin";     lang = "Go"; arch = "Clean Architecture"; lint = "golint"; fmt = "gofmt"; run = "go run ."; test = "go test ./..."; analyze = "go vet ./..."; build = "go build" }
+    "6" = @{ sdk = "Gin"; lang = "Go"; arch = "Clean Architecture"; lint = "golint"; fmt = "gofmt"; run = "go run ."; test = "go test ./..."; analyze = "go vet ./..."; build = "go build" }
 }
 
 if ($stackChoice -eq "0") {
     Write-Host "   SDK/框架: " -NoNewline; $customSdk = Read-Host
-    Write-Host "   语言: " -NoNewline;     $customLang = Read-Host
-    Write-Host "   架构: " -NoNewline;     $customArch = Read-Host
+    Write-Host "   语言: " -NoNewline; $customLang = Read-Host
+    Write-Host "   架构: " -NoNewline; $customArch = Read-Host
     $stack = @{ sdk = $customSdk; lang = $customLang; arch = $customArch; lint = "N/A"; fmt = "N/A"; run = "N/A"; test = "N/A"; analyze = "N/A"; build = "N/A" }
-} else {
+}
+else {
     $stack = $TechStacks[$stackChoice]
     if (-not $stack) { $stack = $TechStacks["1"] }
 }
@@ -111,9 +112,9 @@ $aiChoice = Read-Host
 if ($aiChoice -eq "") { $aiChoice = "1" }
 
 $providers = @{
-    "1" = @{ name = "gemini";  display = "Gemini";  adapter = "adapters/gemini/GEMINI.md";  globalDir = "$env:USERPROFILE\.gemini"; globalFile = "GEMINI.md" }
+    "1" = @{ name = "gemini"; display = "Gemini"; adapter = "adapters/gemini/GEMINI.md"; globalDir = "$env:USERPROFILE\.gemini"; globalFile = "GEMINI.md" }
     "2" = @{ name = "copilot"; display = "Copilot"; adapter = "adapters/copilot/copilot-instructions.md"; globalDir = "$env:USERPROFILE\.copilot"; globalFile = "copilot-instructions.md" }
-    "3" = @{ name = "claude";  display = "Claude";  adapter = "adapters/claude/CLAUDE.md";  globalDir = "$env:USERPROFILE\.claude"; globalFile = "CLAUDE.md" }
+    "3" = @{ name = "claude"; display = "Claude"; adapter = "adapters/claude/CLAUDE.md"; globalDir = "$env:USERPROFILE\.claude"; globalFile = "CLAUDE.md" }
     "4" = @{ name = "antigravity"; display = "Antigravity"; adapter = "adapters/antigravity/GEMINI.md"; globalDir = "$env:USERPROFILE\.gemini"; globalFile = "GEMINI.md" }
 }
 $provider = $providers[$aiChoice]
@@ -153,9 +154,10 @@ if (Test-Path $agentDst) {
 
 if ($agentSrc -ne $agentDst) {
     if (Test-Path $agentDst) { Remove-Item $agentDst -Recurse -Force }
-    Copy-Item $agentSrc $agentDst -Recurse -Force
+    Copy-Item $agentSrc $agentDst -Recurse -Force -Exclude ".git"
     Write-Ok "已更新系统核心 (.agent/) → $agentDst"
-} else {
+}
+else {
     Write-Ok ".agent/ 已在当前目录，跳过复制"
 }
 
@@ -186,7 +188,8 @@ if (Test-Path $agentsSrc) {
     if (Test-Path $agentsDst) { Remove-Item $agentsDst -Recurse -Force }
     Copy-Item $agentsSrc $agentsDst -Recurse -Force
     Write-Ok "已更新 Worker 规范 (.agents/) → $agentsDst"
-} else {
+}
+else {
     Write-Info "仓库中无 .agents/，跳过复制"
 }
 
@@ -198,11 +201,13 @@ if ($stack.sdk -eq "Flutter") {
         $gitCmd = Get-Command git -ErrorAction SilentlyContinue
         if (-not $gitCmd) {
             Write-Warn "未检测到 git，跳过规范包下载"
-        } else {
+        }
+        else {
             $templateDir = Join-Path $agentsDst "templates\flutter-ai-advanced-template"
             if (Test-Path $templateDir) {
                 Write-Info "已存在 flutter-ai-advanced-template，跳过下载"
-            } else {
+            }
+            else {
                 New-Item -ItemType Directory -Force -Path (Split-Path $templateDir) | Out-Null
                 git clone --depth 1 https://github.com/flockmaster/flutter-ai-advanced-template.git $templateDir
                 Write-Ok "已下载 flutter-ai-advanced-template"
@@ -218,8 +223,35 @@ if (Test-Path $githubSrc) {
     if (Test-Path $githubDst) { Remove-Item $githubDst -Recurse -Force }
     Copy-Item $githubSrc $githubDst -Recurse -Force
     Write-Ok "已复制 .github/ → $githubDst"
-} else {
+}
+else {
     Write-Info "仓库中无 .github/，跳过复制"
+}
+
+# 4.1.3 初始化 .vscode/tasks.json (Memory Watchdog)
+$vscodeSrc = Join-Path $ScriptDir ".vscode"
+$vscodeDst = Join-Path $TargetDir ".vscode"
+$tasksSrc = Join-Path $vscodeSrc "tasks.json"
+$tasksDst = Join-Path $vscodeDst "tasks.json"
+
+if (Test-Path $tasksSrc) {
+    if (-not (Test-Path $vscodeDst)) {
+        New-Item -ItemType Directory -Path $vscodeDst -Force | Out-Null
+    }
+
+    if (-not (Test-Path $tasksDst)) {
+        Copy-Item $tasksSrc $tasksDst -Force
+        Write-Ok "已初始化 .vscode/tasks.json (Watchdog Auto-Start)"
+    }
+    else {
+        $existingTasks = Get-Content $tasksDst -Raw
+        if ($existingTasks -notmatch "Start Memory Watchdog") {
+            Write-Warn ".vscode/tasks.json 已存在，未检测到 Watchdog 配置。"
+        }
+        else {
+            Write-Info ".vscode/tasks.json 已包含 Watchdog 配置，跳过"
+        }
+    }
 }
 
 # 4.2 清除 __pycache__
@@ -278,7 +310,8 @@ last_updated: $today
 "@
     Set-Content -Path "$agentDst\memory\project_decisions.md" -Value $decisionsContent -Encoding UTF8
     Write-Ok "已初始化 project_decisions.md"
-} else {
+}
+else {
     Write-Info "保留现有 project_decisions.md (Skip Init)"
 }
 
@@ -306,7 +339,8 @@ current_task: null
 "@
     Set-Content -Path "$agentDst\memory\active_context.md" -Value $contextContent -Encoding UTF8
     Write-Ok "已重置 active_context.md"
-} else {
+}
+else {
     Write-Info "保留现有 active_context.md (Skip Reset)"
 }
 
@@ -318,7 +352,7 @@ if (Test-Path $configPath) {
     # 但如果 Config 是恢复回来的，可能已经是正确的。
     # 简单起见，既然用户在 Step 3 选了 Provider，我们就更新它。
     (Get-Content $configPath -Raw) -replace 'ACTIVE_PROVIDER:\s*\w+', "ACTIVE_PROVIDER: $($provider.name)" |
-        Set-Content $configPath -Encoding UTF8
+    Set-Content $configPath -Encoding UTF8
     Write-Ok "已更新 ACTIVE_PROVIDER: $($provider.name)"
 }
 
@@ -350,10 +384,12 @@ if (Test-Path $gitignorePath) {
     if ($existing -notmatch "Antigravity Agent OS") {
         Add-Content -Path $gitignorePath -Value $agentIgnoreBlock -Encoding UTF8
         Write-Ok "已追加 .gitignore 规则"
-    } else {
+    }
+    else {
         Write-Info ".gitignore 中已有 Agent OS 规则，跳过"
     }
-} else {
+}
+else {
     Set-Content -Path $gitignorePath -Value $agentIgnoreBlock.TrimStart() -Encoding UTF8
     Write-Ok "已创建 .gitignore"
 }
@@ -378,7 +414,8 @@ if ($isSmartContext) {
     Write-Host "   是否强制安装全局配置？(y/N) [推荐 N]: " -NoNewline -ForegroundColor Yellow
     $confirm = Read-Host
     $shouldInstall = ($confirm -eq "y" -or $confirm -eq "Y")
-} else {
+}
+else {
     Write-Host "   将把 Agent OS 规则安装到:" -ForegroundColor Yellow
     Write-Host "   → $globalFilePath" -ForegroundColor White
     Write-Host ""
@@ -398,7 +435,8 @@ if ($shouldInstall) {
     }
     Copy-Item $adapterSrc $globalFilePath -Force
     Write-Ok "已安装全局配置到 $globalFilePath"
-} else {
+}
+else {
     Write-Ok "已跳过全局配置 (推荐)"
     if (-not $isSmartContext) {
         Write-Info "你可以之后手动复制:"
@@ -416,7 +454,8 @@ try {
     $null = Get-Command "codex" -ErrorAction Stop
     $codexAvailable = $true
     Write-Ok "Codex CLI 已安装，Dispatcher 可用"
-} catch {
+}
+catch {
     Write-Info "Codex CLI 未安装 — Dispatcher 调度功能不可用"
     Write-Info "安装方法: npm install -g @openai/codex"
     Write-Info "安装后就能用 Antigravity 作为 PM 调度 Codex 执行大型 PRD"
@@ -435,7 +474,8 @@ Write-Host "   🔧 技术栈: $($stack.sdk) / $($stack.lang)" -ForegroundColor 
 Write-Host "   🤖 AI 工具: $($provider.display)" -ForegroundColor White
 if ($codexAvailable) {
     Write-Host "   🎯 Dispatcher: ✅ 可用" -ForegroundColor White
-} else {
+}
+else {
     Write-Host "   🎯 Dispatcher: ⚠️ 需安装 Codex CLI" -ForegroundColor Yellow
 }
 Write-Host ""

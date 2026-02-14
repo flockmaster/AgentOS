@@ -55,10 +55,12 @@ echo "Export temp dir: $exportDir"
 
 ### Step 3: 复制系统文件
 ```bash
-rsync -a .agent "$exportDir/" 2>/dev/null || true
-rsync -a .agents "$exportDir/" 2>/dev/null || true
-[ -d .github ] && rsync -a .github "$exportDir/"
-[ -d .gemini ] && rsync -a .gemini "$exportDir/"
+rsync -a --exclude='.git' .agent "$exportDir/" 2>/dev/null || true
+rsync -a --exclude='.git' .agents "$exportDir/" 2>/dev/null || true
+[ -d .github ] && rsync -a --exclude='.git' .github "$exportDir/"
+[ -d .vscode ] && rsync -a --exclude='.git' .vscode "$exportDir/"
+rsync -a setup.ps1 "$exportDir/"
+rsync -a setup.sh "$exportDir/"
 rsync -a README.md "$exportDir/"
 ```
 

@@ -123,8 +123,21 @@ $Action = {
                     session_id = $FileName
                 } | ConvertTo-Json -Compress
                 
-                $Payload | Set-Content -Path $TempFile -Encoding UTF8 -Force
-                Move-Item -Path $TempFile -Destination $StatusFile -Force
+                # Retry logic for file lock contention
+                for ($i = 0; $i -lt 3; $i++) {
+                    try {
+                        $Payload | Set-Content -Path $TempFile -Encoding UTF8 -Force -ErrorAction Stop
+                        Move-Item -Path $TempFile -Destination $StatusFile -Force -ErrorAction Stop
+                        # Only log on status change or critical
+                        if ($IsSameStatus -eq $false -or $Status -eq "CRITICAL") {
+                            Write-Host " [Watchdog] 🔒 Updated status lock: $Status" -ForegroundColor DarkGray
+                        }
+                        break
+                    }
+                    catch {
+                        Start-Sleep -Milliseconds 100
+                    }
+                }
             }
             else {
                 # Clear lock file if back to normal (But only do it ONCE when status CHANGES to normal)
@@ -132,7 +145,7 @@ $Action = {
                     $Payload = @{ status = "NORMAL"; timestamp = $CurrentTime; session_id = $FileName } | ConvertTo-Json -Compress
                     $Payload | Set-Content -Path $TempFile -Encoding UTF8 -Force
                     Move-Item -Path $TempFile -Destination $StatusFile -Force
-                    Write-Host " [Watchdog] cleared status lock." -ForegroundColor Gray
+                    Write-Host " [Watchdog] 🔓 Cleared status lock (NORMAL)" -ForegroundColor Gray
                 }
             }
         }

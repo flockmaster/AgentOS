@@ -144,7 +144,12 @@ AI 终于有了"长短期记忆"，不再每次从零开始。
 
 </td>
 </tr>
-</table>
+### 🚨 会报警 (Watchdog)
+内存满了自动叫停，防止失忆。
+
+- 🟢 **实时监控**：时刻盯着 Context 消耗
+- 🟢 **主动预警**：快满了自动弹窗提示
+- 🟢 **一键续命**：输入 `/new` 自动存档并开启新窗口
 
 ---
 
@@ -214,9 +219,13 @@ pwsh setup.ps1 -TargetDir "D:\project"     # Windows
 cp -r .agent/ /path/to/your-project/
 cp -r .agents/ /path/to/your-project/
 
-# 2️⃣ 编辑 .agent/memory/project_decisions.md，填入你的技术栈
+# 2️⃣ 把安装脚本和 VS Code 配置也带上 (重要!)
+cp setup.ps1 setup.sh /path/to/your-project/
+cp -r .vscode/ /path/to/your-project/
 
-# 3️⃣ 在 IDE 中打开项目，对 AI 说：
+# 3️⃣ 编辑 .agent/memory/project_decisions.md，填入你的技术栈
+
+# 4️⃣ 在 IDE 中打开项目，对 AI 说：
 ```
 
 > **你说**：`/start`
@@ -233,10 +242,10 @@ cp -r .agents/ /path/to/your-project/
 | `/analyze-error` | **灭火** | 粘贴报错日志，智能分析并修复 |
 | `/suspend` | **存档** | 下班/暂停，保存当前状态并生成摘要 |
 | `/status` | **看板** | 查看当前任务进度、系统状态 |
-| `/evolve` | **进化** | 手动触发进化引擎，整理知识库 |
+| `/evolve` | **进化 v2.0** | 主动巡检代码债、挖掘模式、同步文档 |
 | `/reflect` | **复盘** | 总结最近的经验教训，存入长期记忆 |
 | `/meta [指令]` | **改系统** | 修改 Agent OS 自身的行为规则 |
-| `/export` | **打包** | 导出干净的系统副本分享给他人 |
+| `/export` | **打包** | 导出含安装脚本的系统副本，一键分发 |
 | `/rollback` | **后悔药** | 回滚到上一个 Git 检查点 |
 | `/knowledge [Q]` | **查知识** | 查询记忆库中的知识点 |
 | `/patterns [Q]` | **查模式** | 查询代码复用模式 |
