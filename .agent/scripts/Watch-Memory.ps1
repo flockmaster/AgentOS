@@ -97,8 +97,21 @@ $Action = {
             # --- OPTIMIZATION END ---
             
             # Print Log
+            # Print Log (Optimized Format)
             $TimeStr = Get-Date -Format "HH:mm:ss"
-            Write-Host (" [{0}] {1}: {2} -> {3} MB ({4})" -f $TimeStr, $ChangeType, $FileName, $SizeMB, $Status) -ForegroundColor $Color
+            $Percent = [math]::Round(($SizeMB / $ThresholdMB) * 100, 1)
+            $UsageStr = "{0}% ({1} MB / {2} MB)" -f $Percent, $SizeMB, $ThresholdMB
+            
+            # Simple Progress Bar
+            $BarLen = 20
+            $FilledLen = [math]::Min([int]($Percent / 100 * $BarLen), $BarLen)
+            $EmptyLen = $BarLen - $FilledLen
+            $Bar = "█" * $FilledLen + "░" * $EmptyLen
+            
+            # Shorten UUID for display
+            $ShortName = if ($FileName.Length -ge 8) { $FileName.Substring(0, 8) + "..." } else { $FileName }
+
+            Write-Host (" [{0}] {1} {2} | {3} -> {4}" -f $TimeStr, $ShortName, $Bar, $UsageStr, $Status) -ForegroundColor $Color
 
             # Update Lock File Logic
             if ($Status -ne "NORMAL") {
@@ -135,6 +148,18 @@ $Watcher.Path = $ConversationsDir
 $Watcher.Filter = "*.pb"
 $Watcher.IncludeSubdirectories = $false
 $Watcher.EnableRaisingEvents = $true
+
+# Register Events
+Register-ObjectEvent $Watcher "Changed" -Action $Action | Out-Null
+Register-ObjectEvent $Watcher "Created" -Action $Action | Out-Null
+Register-ObjectEvent $Watcher "Renamed" -Action $Action | Out-Null
+
+Write-Host " [Watchdog] Monitoring active. Press Ctrl+C to stop." -ForegroundColor Green
+
+# Keep script running
+while ($true) {
+    Start-Sleep -Seconds 1
+}
 
 # Register Events
 Register-ObjectEvent $Watcher "Changed" -Action $Action | Out-Null
