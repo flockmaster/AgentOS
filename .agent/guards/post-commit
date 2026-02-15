@@ -48,4 +48,13 @@ if [ "$AGENT_FILES" -gt 0 ]; then
     echo "📊 [$GUARD_NAME] 本次提交: ${CHANGED_FILES} 文件 (其中 ${AGENT_FILES} 个 Agent 文件)"
 fi
 
+# ── 4. 依赖同步检查 (Dep Sync Guard) ──
+if [ "$AGENT_FILES" -gt 0 ]; then
+    REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+    DEP_SCRIPT="$REPO_ROOT/.agent/guards/dep_sync_check.py"
+    if [ -f "$DEP_SCRIPT" ]; then
+        python3 "$DEP_SCRIPT" 2>/dev/null || true
+    fi
+fi
+
 exit 0

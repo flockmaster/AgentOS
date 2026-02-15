@@ -49,4 +49,17 @@ try {
     # 静默忽略
 }
 
+# ── 4. 依赖同步检查 (Dep Sync Guard) ──
+try {
+    if ($agentFiles -gt 0) {
+        $repoRoot = git rev-parse --show-toplevel 2>$null
+        $depScript = Join-Path $repoRoot ".agent/guards/dep_sync_check.py"
+        if (Test-Path $depScript) {
+            python $depScript 2>$null
+        }
+    }
+} catch {
+    # 静默忽略
+}
+
 exit 0
