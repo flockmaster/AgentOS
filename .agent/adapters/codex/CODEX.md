@@ -98,6 +98,7 @@
 |---------|---------|
 | 修复成功 | 记录 Error Pattern -> `project_decisions.md` |
 | 性能瓶颈 | 记录慢函数 -> `performance_log.md` |
+| **修改 `.agent/` 文件** | **执行 `DependencyAnalyzer.impact_analysis()` 并同步直接依赖文件** |
 
 ---
 

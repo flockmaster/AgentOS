@@ -1,5 +1,5 @@
 # Antigravity Agent OS — 全局规则 (GEMINI.md)
-# 版本: v4.3 (Lite) | 更新时间: 2026-02-14
+# 版本: v4.3 (Lite) | 更新时间: 2026-02-15
 
 > 本文件是 Agent OS 的系统级入口。
 > **原则**: 仅定义不可变规则，具体逻辑下沉至 `.agent/rules/`。
@@ -59,5 +59,18 @@
 - **规则**: `.agent/rules/`
 - **技能**: `.agent/skills/`
 - **流程**: `.agent/workflows/`
+
+---
+
+## 5. 依赖连锁升级规则 (Dependency Cascade Rule)
+> **Mandatory**: 修改 `.agent/` 下的配置文件时，必须自动执行依赖影响分析。
+
+**触发条件**: 修改了 `workflows/`, `skills/`, `prompts/roles/`, `rules/`, `evolution/`, `adapters/` 下的文件。
+
+**自动行为**:
+1. 修改完成后，对被修改文件执行 `DependencyAnalyzer.impact_analysis()`。
+2. 检查直接依赖文件是否需要同步更新，如需则立即修改。
+3. 完成后报告: `🔗 依赖连锁升级: 修改 X 触发了 Y、Z 的同步更新。`
+4. 直接依赖超过 5 个时，先列出清单让用户确认范围。
 
 _Antigravity Agent OS v4.3 — Lite Adapter_

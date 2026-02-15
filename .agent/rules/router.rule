@@ -36,6 +36,10 @@ description: 核心路由规则 (v4.2 Manifest Driven) - 职责分离与流水�
 | "模式 [query]" | → `/patterns` |
 | "导出系统" | → `/export` |
 | "初始化环境" | → `/init` |
+| "学习项目" / "参考项目" / "learn project" | → `/learn-project` |
+| "回顾决策" / "后悔分析" / "regret review" | → `/regret-review` |
+| "同步检查" / "依赖检查" / "影响分析" / "sync check" | → `/sync-check` |
+| "偏离处理" / "工作流偏离" / "handle deviation" | → `/handle-deviation` |
 
 ## 3. 门禁规则 (Gatekeeper)
 - **Ambiguity Guard**: 需求模糊时强制反问，禁止直接进入 `Drafting Phase`。
@@ -50,3 +54,6 @@ description: 核心路由规则 (v4.2 Manifest Driven) - 职责分离与流水�
 | `/feature-flow` 结束 (All Done) | 自动触发 `/evolve` (知识收割) |
 | Bug 修复成功 | 自动提取 Error Pattern |
 | Session 结束/挂起 | 自动更新 `active_context.md` |
+| 每 5 次 `/evolve` | 自动触发 `/meta-evolve` (元学习) |
+| 修改 `.agent/` 下的配置文件 | 自动执行依赖影响分析 (Dependency Cascade)，连锁升级关联文件 |
+| 门禁处用户输入不匹配预期路径 | 记录偏离 + 主动提议工作流修改 (v2.2 Gate Deviation Detection) |

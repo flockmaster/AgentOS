@@ -30,6 +30,12 @@ updated: 2026-02-09
 1. 读取 `.agents/memory/evolution/knowledge_base.md` — 统计知识条目数、分类分布
 2. 读取 `.agents/memory/evolution/pattern_library.md` — 统计模式数量
 3. 读取 `.agents/memory/evolution/learning_queue.md` — 统计待处理素材
+4. 读取 `.agents/memory/evolution/decision_log.md` — 统计决策记录数 — *v2.0*
+5. 读取 `.agents/memory/evolution/outcome_tracker.md` — 统计已追踪结果、成功率 — *v2.0*
+6. 读取 `.agents/memory/evolution/decision_graph.json` — 统计图节点数、边数 — *v2.0*
+7. 读取 `.agents/memory/evolution/learned_projects.md` — 统计已学习项目数 — *v2.0*
+8. 读取 `.agents/memory/evolution/meta_insights.md` — 提取最近一次 meta-evolve 日期 — *v2.0*
+9. 读取 `.agents/memory/evolution/gate_deviation_log.md` — 统计门禁偏离记录数、待处理提案数 — *v2.2*
 
 ### Step 4: 反思摘要
 // turbo
@@ -89,6 +95,25 @@ updated: 2026-02-09
 | 📥 Learning Queue | X | X pending / X processed |
 | 💭 Reflections | X | Last: 2026-02-09 |
 
+## 🧠 Decision Intelligence (v2.0)
+
+| Metric | Value |
+|--------|-------|
+| Decisions Logged | X |
+| Outcomes Tracked | X (Success Rate: X%) |
+| Graph Nodes / Edges | X / X |
+| Avg Causal Score | X.XX |
+| Learned Projects | X |
+| Last Meta-Evolve | YYYY-MM-DD |
+
+### 🚪 Gate Deviation (v2.2)
+
+| Metric | Value |
+|--------|-------|
+| Total Deviations | X |
+| Pending Proposals | X |
+| Applied Changes | X |
+
 ---
 
 ## 💭 Recent Reflections (最近 5 条)
@@ -121,5 +146,5 @@ updated: 2026-02-09
 
 ---
 *Dashboard generated at: {timestamp}*
-*Antigravity Agent OS v4.0*
+*Antigravity Agent OS v4.0 + Evolution Engine v2.2*
 ```

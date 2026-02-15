@@ -1,6 +1,6 @@
 # Antigravity Agent OS — Copilot Adapter
 # Provider: GitHub Copilot (Microsoft)
-# Version: 4.8 | Updated: 2026-02-14
+# Version: 4.8 | Updated: 2026-02-15
 
 > 本文件是 GitHub Copilot 的用户规则。
 > 安装: 将此文件内容粘贴到 `.github/copilot-instructions.md` (或工作区的 COPILOT.md)
@@ -22,6 +22,7 @@
 | **修 Bug** | 建议运行错误分析 | `/analyze-error` (`.agent/workflows/analyze-error.md`) |
 | **状态检查** | 建议查看看板 | `/status` (`.agent/workflows/status.md`) |
 | **导出** | 建议运行打包 | `/export` (`.agent/workflows/export.md`) |
+| **同步检查** | 建议运行依赖检查 | `/sync-check` (`.agent/workflows/sync-check.md`) |
 
 ## 2. 上下文感知 (Context Awareness)
 - **读取状态**: 每次回答前，请先查阅 `.agent/memory/active_context.md`。
@@ -40,3 +41,10 @@
 ## 5. 协作模式
 - 你是副驾驶，PM (Antigravity Main Agent) 是机长。
 - 如果 PM 正在执行任务 (Status: EXECUTING)，请辅助它，而不是打断它。
+
+## 6. 依赖连锁升级规则 (Dependency Cascade Rule)
+> **Mandatory**: 修改 `.agent/` 下的配置文件后，自动执行依赖影响分析。
+
+- 修改 `workflows/`, `skills/`, `roles/`, `rules/`, `evolution/`, `adapters/` 下的文件后，对被修改文件执行 `DependencyAnalyzer.impact_analysis()`。
+- 检查直接依赖文件是否需要同步更新，如需则立即修改。
+- 完成后报告: `🔗 依赖连锁升级: 修改 X 触发了 Y、Z 的同步更新。`

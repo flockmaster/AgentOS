@@ -42,8 +42,12 @@ description: 执行 Agent OS 初始化 (全量环境配置与引导)
 2. **Guidance**:
    - 输出指引：
      > "✅ **初始化完成！** memory watchdog 已配置 (请重启 VS Code 以生效)。
-     > 
+     >
      > 下一步：
      > - **开发新功能**: 输入 `/feature-flow`
      > - **代码体检**: 输入 `/evolve`
-     > - **查看状态**: 输入 `/status`"
+     > - **查看状态**: 输入 `/status`
+     > - **学习参考项目**: 输入 `/learn-project [path]`
+     > - **决策回顾**: 输入 `/regret-review`
+     > - **元学习**: 输入 `/meta-evolve`
+     > - **偏离处理**: 输入 `/handle-deviation`"

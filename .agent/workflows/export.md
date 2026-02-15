@@ -78,6 +78,14 @@ rsync -a README.md "$exportDir/"
 2. 清空 `knowledge/` 目录，保留 `.gitkeep`
 3. 重置 `evolution/` 目录下的所有文件为初始模板
 4. 清空 `history/` 目录
+5. 重置 v2.0 数据文件为初始模板:
+   - `evolution/decision_log.md` → 空日志 (仅保留表头)
+   - `evolution/outcome_tracker.md` → 空追踪器 (仅保留表头)
+   - `evolution/injection_log.md` → 空日志 (仅保留表头)
+   - `evolution/learned_projects.md` → 空注册表 (仅保留表头)
+   - `evolution/decision_graph.json` → `{"nodes": [], "edges": []}`
+   - `evolution/meta_insights.md` → 空洞察文件 (仅保留标题)
+   - `evolution/evolution_config.md` → 保留默认参数值 (这是配置非数据)
 
 ### Step 5: 生成压缩包
 ```bash

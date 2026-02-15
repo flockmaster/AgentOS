@@ -1,6 +1,6 @@
 ---
 name: evolution-engine
-description: Agent 自进化引擎 (v1.0)。整合知识收割、工作流优化、模式检测、反思引擎四大模块，赋予 Agent 自我学习和持续改进能力。
+description: Agent 自进化引擎 (v2.2)。整合知识收割、工作流优化、模式检测、反思引擎、门禁偏离检测五大模块，赋予 Agent 自我学习和持续改进能力。
 ---
 
 # Evolution Engine (自进化引擎)
@@ -321,7 +321,225 @@ Action Items 追加到 `active_context.md` 的任务队列中，标记为 `[REFL
 | Pattern Library | 永久 (Occurrences >= 3) | Occurrences < 3 → pending |
 | Reflection Log | 永久摘要，30 天详情 | 30 天前详情归档 |
 | Learning Queue | 处理后 7 天 | 7 天后删除 |
+| Decision Log | 永久 | 90 天无因果链节点自动归档 |
+| Outcome Tracker | 永久 | - |
+| Injection Log | 90 天 | 90 天前归档 |
 
 ---
 
-_Last Updated: 2026-02-08_
+## 11. 闭环反馈 (Closed-Loop Feedback) — v2.0
+
+### 11.1 知识注入协议
+
+工作流每个阶段开始前自动注入相关知识:
+
+```
+1. 提取当前任务关键词
+2. 调用 KnowledgeInjector.retrieve_relevant(phase, keywords)
+3. 返回 top-5 知识条目 (按 causal_score * confidence 排序)
+4. 格式化为 Prompt 注入块 (每条 ≤200 字)
+5. 记录注入事件到 injection_log.md
+```
+
+**阶段-类别关联**:
+| Phase | 优先类别 |
+|-------|---------|
+| drafting | architecture, workflow, reference-project |
+| reviewing | debugging, anti-pattern, architecture |
+| decomposing | pattern, architecture, workflow |
+| implementing | pattern, debugging, tooling, reference-project |
+
+### 11.2 决策回放
+
+查找与当前上下文相似的历史决策:
+
+```
+1. 提取当前决策上下文
+2. 调用 DecisionReplay.recommend(context)
+3. 返回推荐选项 + 避免选项 + 相关知识引用
+4. 格式化为 Prompt 注入块
+```
+
+### 11.3 模式脚手架
+
+从模式库生成代码脚手架:
+
+```
+1. 提取功能描述
+2. 调用 PatternScaffolder.suggest_and_scaffold(description)
+3. 返回匹配模式 + 代码模板
+4. 格式化为 Prompt 注入块
+```
+
+### 11.4 因果追踪
+
+追踪知识应用的实际结果:
+
+```
+1. 记录知识应用 (record_outcome)
+2. 计算因果评分 (causal_score)
+3. 识别反知识 (anti-knowledge)
+4. 自适应衰减 (adaptive_decay)
+```
+
+**因果评分公式**:
+```
+causal_score = success_rate * 0.5 + time_saved_norm * 0.3 - bugs_penalty * 0.2
+```
+
+---
+
+## 12. 工作流自进化 (Workflow Self-Evolution) — v2.0
+
+### 12.1 瓶颈检测
+
+自动分析工作流历史指标，检测:
+- 耗时过长 (> 30 min)
+- 成功率过低 (< 80%)
+- 返工率过高
+- 常见瓶颈阶段
+
+### 12.2 门禁调优
+
+基于历史数据分析门禁表现:
+- 首次通过率过低 → 建议放宽
+- 从未拦截 → 建议收紧或移除
+
+### 12.3 模板改进
+
+生成工作流模板改进建议:
+- 并行执行优化
+- 前置验证增强
+
+---
+
+## 13. 跨会话推理 (Cross-Session Reasoning) — v2.0
+
+### 13.1 决策图
+
+构建决策因果链图谱:
+- 节点: 每个决策 (上下文、选择、结果)
+- 边: 因果关系 (cause → effect)
+- 评分: outcome_score (-1.0 ~ 1.0)
+
+### 13.2 路径查找
+
+查找相似决策路径:
+```
+1. 提取当前上下文关键词
+2. 在决策图中查找相似节点
+3. 追踪因果路径
+4. 计算路径平均评分
+```
+
+### 13.3 后悔分析
+
+```
+/regret-review
+```
+- 找出 outcome_score < -0.3 的决策
+- 分析因果影响链
+- 生成纠正建议
+- 标记反知识
+
+### 13.4 自动归档
+
+90 天无因果链的孤立节点自动归档。
+
+---
+
+## 14. 元学习引擎 (Meta-Learning Engine) — v2.0
+
+### 14.1 知识价值分析
+
+分析各类别知识的因果评分分布:
+- 最有价值 / 最无价值的知识 top-5
+- 从未被应用的知识比例
+- 类别价值不均衡检测
+
+### 14.2 收割策略优化
+
+基于历史数据优化收割策略:
+- 高价值类别 → 提高收割优先级
+- 低应用率 → 提高收割门槛
+- 高衰减率 → 降低衰减速率
+
+### 14.3 知识盲区检测
+
+检测知识库中的覆盖不足:
+- 必要类别知识不足
+- 参考项目知识缺失
+- 反知识未记录
+
+### 14.4 进化规则调优
+
+```
+/meta-evolve
+```
+- 自动触发: 每 5 次 `/evolve`
+- 手动触发: `/meta-evolve`
+- 所有参数变更需用户确认
+- 保留变更历史支持回滚
+
+### 14.5 可调参数
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| decay_rate | -0.1 | 标准衰减速率 |
+| fast_decay_rate | -0.15 | 加速衰减 (低因果) |
+| slow_decay_rate | -0.05 | 减缓衰减 (高因果) |
+| harvest_threshold | 0.7 | 收割初始置信度 |
+| injection_top_k | 5 | 注入条目数上限 |
+| archive_days | 90 | 归档天数 |
+| meta_evolve_interval | 5 | 元学习触发间隔 |
+
+---
+
+## 15. 门禁偏离检测 (Gate Deviation Detection) — v2.2
+
+当用户在工作流门禁处输入不匹配预期路径时，系统自动检测偏离并提议工作流自进化。
+
+### 15.1 偏离检测
+
+门禁处的预期路径定义在各工作流的 `**路径**:` 块中。当用户输入不匹配任何路径时:
+
+1. **即时响应**: 先满足用户的即时请求
+2. **记录偏离**: 调用 `GateDeviationDetector.record_deviation()` 持久化到 `gate_deviation_log.md`
+3. **主动提议**: 询问用户是否将此操作永久化到工作流
+
+### 15.2 工作流自进化
+
+用户确认后触发 `/handle-deviation` 工作流:
+
+1. 生成修改提案 (unified diff 预览)
+2. 用户确认 diff
+3. 安全应用: **备份** → **修改** → **结构验证** → **依赖影响分析**
+4. 记录到决策日志
+
+**修改类型**:
+- `add_gate_path` — 在门禁路径中添加新选项（最常见）
+- `add_step_before_gate` — 在门禁前插入新步骤
+- `add_step_after_gate` — 在门禁后插入新步骤
+
+### 15.3 回滚
+
+运行 `/handle-deviation rollback GD-xxx` 可从备份恢复工作流文件。
+
+### 15.4 覆盖门禁
+
+| 门禁 | 工作流 | 预期路径 |
+|------|--------|---------|
+| `1-drafting:step6` | 1-drafting.md | 满意, 修改, 推翻, 停止 |
+| `2-reviewing:step3` | 2-reviewing.md | 是, 修改, 否 |
+| `3-decomposing:step5` | 3-decomposing.md | 是, 否 |
+
+### 15.5 关联模块
+
+- `GateDeviationDetector` — 核心检测模块 (`evolution/gate_deviation_detector.py`)
+- `WorkflowOptimizer` — 偏离驱动的门禁调优 (`suggest_deviation_based_tuning`)
+- `MetaLearner` — 偏离模式分析纳入元学习报告
+- `DependencyAnalyzer` — 修改后影响分析
+
+---
+
+_Last Updated: 2026-02-16_

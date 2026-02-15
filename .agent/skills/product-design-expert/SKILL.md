@@ -1,71 +1,181 @@
 ---
 name: product-design-expert
-description: A specialist skill focused on translating structured user requirements into a Rough Product Requirements Document (PRD) and corresponding business flowcharts.
+description: 产品设计专家 — 将确认的方案转化为结构化 PRD 初稿，模板覆盖下游评审团所有检查维度。
 ---
 
-# Product Design Expert Skill
+# Product Design Expert Skill (产品设计专家 v2.0)
 
 ## 1. Overview
-This skill takes a validated, clear requirement context (status: PASS) and transforms it into a structured, visual representation suitable for expert review. It acts as the "Concept Artist" of the product team.
+
+本技能接收 requirement-analyst 输出的 `PASS` 结果（含选定方案、MVP 范围、约束条件），将其转化为结构化的 PRD 初稿。模板设计确保覆盖下游 5 位专家评审员的所有检查维度，减少"缺失章节"类的评审返工。
+
+**重要规则**: 请全程使用**中文**进行思考和输出。
 
 ## 2. Input
-- **Validated Requirement**: A structured JSON or markdown block from the `requirement-analyst`.
-- **Project Decisions**: The existing `project_decisions.md` (to ensure architectural fit).
+
+- **需求分析输出**: requirement-analyst 的 `PASS` 输出（选定方案、底层问题、MVP 范围、开源依赖、约束条件、验收标准草案）。
+- **项目决策**: `project_decisions.md`（技术栈、架构模式、命名规范、已知限制）。
+- **注入的知识**: 来自 Knowledge Injection Step 0 的历史知识条目。
 
 ## 3. Actions
-The skill executes the following pipeline:
 
-### Step 1: Conceptualization
-- **Core Value**: What is the single most important user benefit?
-- **MVP Scope**: What is the minimum set of features to achieve that value? (Exclude nice-to-haves).
-- **User Journey**: Identify the happy path.
+### Step 1: 概念化 (Conceptualization)
 
-### Step 2: Visualization (Mermaid)
-- **Flowchart**: Create a high-level business process diagram. Use `graph TD` or `sequenceDiagram`.
-- **Entity**: Identify the core data models needed (e.g., User, Order, Product). (Optional: Class diagram).
+基于选定方案提炼核心设计：
+- **核心价值**: 用一句话说明这个功能解决了什么问题。
+- **用户旅程**: 梳理主路径（Happy Path）和关键分支路径。
+- **MVP 边界**: 明确 In Scope / Out of Scope。
 
-### Step 3: Documentation (Drafting)
-- **Structure**: Create a standard Rough PRD (`docs/prd/[name]-rough.md`).
-- **Content**: Include Background, Goals, User Stories, Functional Requirements (High-Level), and the Flowchart.
+### Step 2: 流程可视化 (Visualization)
 
-## 4. Output Logic (File Generation)
+- **业务流程图**: 使用 Mermaid 绘制用户操作流程（`graph TD` 或 `sequenceDiagram`）。
+- **状态流转图**: 如涉及状态管理，绘制状态机图。
+- **数据模型草图**: 识别核心数据实体及其关系（可选：ER 图）。
 
-**File Path**: `docs/prd/[kebab-case-name]-rough.md`
+### Step 3: 文档生成 (Documentation)
 
-**Template**:
+使用以下模板生成 PRD 初稿。**所有章节必须填写**，即使部分内容只是初步草案或标记为 `[待评审确认]`。
+
+## 4. Output
+
+**文件路径**: `docs/prd/[kebab-case-name]-draft.md`
+
+**模板**:
+
 ```markdown
-# PRD: [Feature Name] - Rough
+# PRD: [功能名称]
 
 > **Status**: DRAFT
 > **Author**: Product Design Expert
 > **Version**: 0.1
+> **Date**: YYYY-MM-DD
+> **选定方案**: [方案编号和名称]
 
-## 1. Background & Goals
-[Why do this? What problem does it solve?]
+---
 
-## 2. User Stories
-| Role | Goal | Benefit |
-| --- | --- | --- |
-| User | ... | ... |
+## 1. 背景与目标 (Background & Goals)
 
-## 3. High-Level Requirements (MVP)
-1. [Requirement 1]
-2. [Requirement 2]
+### 1.1 底层问题
+[从需求分析的根因分析中提取]
 
-## 4. Business Flow
+### 1.2 解决方案
+[选定方案的概要描述]
+
+### 1.3 核心价值
+[一句话说明用户获得的价值]
+
+### 1.4 非目标 (Out of Scope)
+- [明确列出当前版本不做的事项]
+
+---
+
+## 2. 用户场景 (User Stories)
+
+| # | 角色 | 场景 | 操作 | 期望结果 |
+|---|------|------|------|---------|
+| 1 | [用户角色] | [使用场景] | [操作描述] | [预期效果] |
+
+---
+
+## 3. 功能需求 (Functional Requirements)
+
+### 3.1 核心功能 (MVP)
+| # | 功能点 | 描述 | 优先级 | 验收标准 |
+|---|--------|------|--------|---------|
+| 1 | [功能名] | [描述] | P0/P1/P2 | [可验证的验收条件] |
+
+### 3.2 后续规划 (Future)
+- [V2 功能 1]
+- [V2 功能 2]
+
+---
+
+## 4. 交互流程 (Interaction Flow)
+
+### 4.1 主流程
 ```mermaid
-[Your Diagram Code Here]
+[业务流程图]
 ```
 
-## 5. Out of Scope (For Now)
-[List items deferred to v2]
+### 4.2 状态矩阵
+| 页面/组件 | Loading | Empty | Error | Success | Permission | Offline |
+|-----------|---------|-------|-------|---------|------------|---------|
+| [页面 A]  | [描述]  | [描述] | [描述] | [描述] | [描述]    | [描述]  |
+
+---
+
+## 5. 数据模型 (Data Model)
+
+### 5.1 核心实体
+| 实体 | 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|------|
+| [实体名] | [字段名] | [类型] | Yes/No | [说明] |
+
+### 5.2 API 契约草案 (如需新增/修改 API)
+| 接口 | 方法 | 路径 | 请求体 | 响应体 |
+|------|------|------|--------|--------|
+| [接口名] | GET/POST/... | [路径] | [结构] | [结构] |
+
+---
+
+## 6. 技术方案概要 (Technical Approach)
+
+### 6.1 技术栈
+[基于 project_decisions.md 的技术栈约束]
+
+### 6.2 开源依赖 (如有)
+| 库/项目 | 版本 | 用途 | 许可证 | 评估 |
+|---------|------|------|--------|------|
+| [名称] | [版本] | [用途] | [MIT/Apache/...] | [简评] |
+
+### 6.3 架构影响
+- Schema 变更: [Yes/No — 描述]
+- 新增依赖: [列表]
+- 集成点: [与现有模块的交互]
+
+---
+
+## 7. 异常处理与边缘场景 (Error Handling & Edge Cases)
+
+| # | 场景 | 触发条件 | 处理方式 | 用户感知 |
+|---|------|---------|---------|---------|
+| 1 | [场景名] | [条件] | [处理逻辑] | [用户看到什么] |
+
+---
+
+## 8. 安全考虑 (Security Considerations)
+
+- **数据存储**: [敏感数据如何处理]
+- **权限控制**: [谁可以访问/操作]
+- **输入校验**: [关键输入的校验规则]
+
+---
+
+## 9. 验收标准 (Acceptance Criteria)
+
+| # | 场景 | Given | When | Then |
+|---|------|-------|------|------|
+| 1 | 正常路径 | [前置条件] | [操作] | [预期结果] |
+| 2 | 异常路径 | [前置条件] | [操作] | [预期结果] |
+| 3 | 边界条件 | [前置条件] | [操作] | [预期结果] |
+
+---
+
+## 10. 开放问题 (Open Questions)
+
+| # | 问题 | 影响范围 | 建议 | 状态 |
+|---|------|---------|------|------|
+| 1 | [待确认的问题] | [影响哪些章节] | [建议方向] | 待确认 |
 ```
 
-## 5. Usage Example
+## 5. 章节与评审角色映射
 
-**Input**: A validated requirement for "Login with Email".
+以下映射确保 PRD 初稿覆盖下游所有评审维度：
 
-**Output**: Creates `docs/prd/login-feature-rough.md` with:
-- Background: Need secure access.
-- Stories: As a user, I can login to access my data.
-- Diagram: Input Email -> Input Password -> Validate -> Success/Fail.
+| PRD 章节 | 对应评审角色 | 评审关注点 |
+|---------|------------|-----------|
+| §1 背景与目标 + §1.4 非目标 | Scope Guardian | MVP 边界、非目标、需求完整性 |
+| §4 交互流程 + §4.2 状态矩阵 | UX Flow Analyst | 流程完整性、状态覆盖 |
+| §5 数据模型 + §6 技术方案 | System Architect | 架构影响、依赖、迁移 |
+| §2 用户场景 + §3 功能需求 | Domain Validator | 业务逻辑、字段完整性 |
+| §7 异常处理 + §8 安全 + §9 验收 | Quality Strategist | 测试矩阵、安全、边缘场景 |

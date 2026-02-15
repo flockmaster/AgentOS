@@ -40,6 +40,9 @@ description: Session Suspend - 会话收尾，保存状态，生成总结
    ## 🔁 接力摘要
    - 当前任务: {T-xxx / 无}
    - 状态: {IDLE/EXECUTING/BLOCKED}
+   - 当前工作流: {工作流文件路径，如 .agent/workflows/4-implementing.md / 无}
+   - 当前步骤: {工作流中的步骤编号和名称，如 Step 1: DAG 分析与分发 / 无}
+   - 执行方式: {当前步骤的执行方式，如 "codex exec --full-auto 并行分发 3 个 Worker" / "Agent 自行执行" / 无}
    - 最近检查点: {checkpoint-tag / 无}
    - 阻塞: {无 / 一句话}
    - 下一步: 1) ... 2) ...

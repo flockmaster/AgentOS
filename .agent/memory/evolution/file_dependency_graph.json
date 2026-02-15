@@ -1,0 +1,4644 @@
+{
+  "nodes": {
+    ".agent/workflows/analyze-error.md": {
+      "path": ".agent/workflows/analyze-error.md",
+      "type": "workflow",
+      "version_hash": "d1a0a6ea1937",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/harvester.py"
+      ],
+      "dependents": [
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/status.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/metrics.py",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/workflows/4-implementing.md": {
+      "path": ".agent/workflows/4-implementing.md",
+      "type": "workflow",
+      "version_hash": "4bb5e3e8122c",
+      "dependencies": [
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/decision_replay.py",
+        ".agent/evolution/decision_recorder.py"
+      ],
+      "dependents": [
+        ".agent/workflows/suspend1.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/rules/router.rule"
+      ]
+    },
+    ".agent/workflows/use-flutter-template.md": {
+      "path": ".agent/workflows/use-flutter-template.md",
+      "type": "workflow",
+      "version_hash": "a83eebf9a370",
+      "dependencies": [],
+      "dependents": []
+    },
+    ".agent/workflows/suspend1.md": {
+      "path": ".agent/workflows/suspend1.md",
+      "type": "workflow",
+      "version_hash": "0683c7bee611",
+      "dependencies": [
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/status.md",
+        ".agent/memory/active_context.md"
+      ],
+      "dependents": []
+    },
+    ".agent/workflows/knowledge.md": {
+      "path": ".agent/workflows/knowledge.md",
+      "type": "workflow",
+      "version_hash": "80df0e61e88c",
+      "dependencies": [
+        ".agent/memory/evolution/knowledge_base.md"
+      ],
+      "dependents": [
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/workflows/export.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/__init__.py",
+        ".agent/evolution/decision_replay.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/index_manager.py",
+        ".agent/evolution/harvester.py",
+        ".agent/evolution/decision_recorder.py",
+        ".agent/evolution/seed_knowledge.py",
+        ".agent/evolution/decision_graph.py"
+      ]
+    },
+    ".agent/workflows/sync-check.md": {
+      "path": ".agent/workflows/sync-check.md",
+      "type": "workflow",
+      "version_hash": "36d57d4610ef",
+      "dependencies": [
+        ".agent/rules/router.rule",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/memory/evolution/decision_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/evolve.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/workflows/meta.md": {
+      "path": ".agent/workflows/meta.md",
+      "type": "workflow",
+      "version_hash": "a59d28599e0e",
+      "dependencies": [
+        ".agent/workflows/evolve.md",
+        ".agent/rules/router.rule",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/workflows/status.md"
+      ],
+      "dependents": [
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/export.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/__init__.py",
+        ".agent/evolution/learning_queue.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/index_manager.py",
+        ".agent/evolution/harvester.py",
+        ".agent/evolution/decision_graph.py"
+      ]
+    },
+    ".agent/workflows/regret-review.md": {
+      "path": ".agent/workflows/regret-review.md",
+      "type": "workflow",
+      "version_hash": "d3909152bd2e",
+      "dependencies": [
+        ".agent/memory/evolution/decision_graph.json",
+        ".agent/workflows/knowledge.md",
+        ".agent/evolution/decision_graph.py",
+        ".agent/memory/evolution/decision_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/init.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/workflows/meta-evolve.md": {
+      "path": ".agent/workflows/meta-evolve.md",
+      "type": "workflow",
+      "version_hash": "4d322424d02e",
+      "dependencies": [
+        ".agent/workflows/meta.md",
+        ".agent/workflows/evolve.md",
+        ".agent/memory/evolution/meta_insights.md",
+        ".agent/memory/evolution/evolution_config.md"
+      ],
+      "dependents": [
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/evolve.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/workflows/status.md": {
+      "path": ".agent/workflows/status.md",
+      "type": "workflow",
+      "version_hash": "4ae6e80650b2",
+      "dependencies": [
+        ".agent/config/agent_config.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/active_context.md",
+        ".agent/memory/evolution/knowledge_base.md",
+        ".agent/memory/evolution/pattern_library.md",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/decision_log.md",
+        ".agent/memory/evolution/decision_graph.json",
+        ".agent/memory/evolution/outcome_tracker.md",
+        ".agent/memory/evolution/meta_insights.md",
+        ".agent/memory/evolution/learned_projects.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/memory/evolution/gate_deviation_log.md",
+        ".agent/memory/evolution/reflection_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/suspend1.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/export.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/learning_queue.py",
+        ".agent/evolution/pattern_detector.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/index_manager.py"
+      ]
+    },
+    ".agent/workflows/reflect.md": {
+      "path": ".agent/workflows/reflect.md",
+      "type": "workflow",
+      "version_hash": "d2df2670e6a0",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/memory/active_context.md",
+        ".agent/memory/evolution/knowledge_base.md",
+        ".agent/memory/evolution/reflection_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/status.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/reflection.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/__init__.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/workflows/1-drafting.md": {
+      "path": ".agent/workflows/1-drafting.md",
+      "type": "workflow",
+      "version_hash": "5522975277a3",
+      "dependencies": [
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/product-design-expert/SKILL.md",
+        ".agent/skills/requirement-analyst/SKILL.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/memory/project_decisions.md"
+      ],
+      "dependents": [
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/workflows/init.md": {
+      "path": ".agent/workflows/init.md",
+      "type": "workflow",
+      "version_hash": "a9a368476356",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/handle-deviation.md"
+      ],
+      "dependents": [
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/metrics.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/reflection.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/decision_replay.py",
+        ".agent/evolution/learning_queue.py",
+        ".agent/evolution/pattern_detector.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/index_manager.py",
+        ".agent/evolution/harvester.py",
+        ".agent/evolution/decision_recorder.py",
+        ".agent/evolution/seed_knowledge.py",
+        ".agent/evolution/workflow_optimizer.py",
+        ".agent/evolution/decision_graph.py"
+      ]
+    },
+    ".agent/workflows/learn-project.md": {
+      "path": ".agent/workflows/learn-project.md",
+      "type": "workflow",
+      "version_hash": "27af34e8ca3c",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/patterns.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/project_scanner.py",
+        ".agent/memory/evolution/learned_projects.md"
+      ],
+      "dependents": [
+        ".agent/workflows/init.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/meta_learner.py"
+      ]
+    },
+    ".agent/workflows/patterns.md": {
+      "path": ".agent/workflows/patterns.md",
+      "type": "workflow",
+      "version_hash": "8f079c690a7c",
+      "dependencies": [
+        ".agent/memory/evolution/pattern_library.md"
+      ],
+      "dependents": [
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/evolve.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/project_scanner.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/pattern_detector.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/seed_knowledge.py",
+        ".agent/evolution/workflow_optimizer.py"
+      ]
+    },
+    ".agent/workflows/2-reviewing.md": {
+      "path": ".agent/workflows/2-reviewing.md",
+      "type": "workflow",
+      "version_hash": "7e9ea8ba04e2",
+      "dependencies": [
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/prompts/roles/product_director.md",
+        ".agent/prompts/roles/tech_lead.md",
+        ".agent/prompts/roles/ux_director.md",
+        ".agent/prompts/roles/domain_expert.md",
+        ".agent/prompts/roles/critic.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/review-aggregator/SKILL.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/knowledge_injector.py"
+      ],
+      "dependents": [
+        ".agent/workflows/1-drafting.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule"
+      ]
+    },
+    ".agent/workflows/evolve.md": {
+      "path": ".agent/workflows/evolve.md",
+      "type": "workflow",
+      "version_hash": "fda42c1b471f",
+      "dependencies": [
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/project_decisions.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/prompts/roles/critic.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/export.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/workflow_optimizer.py",
+        ".agent/memory/evolution/decision_log.md",
+        ".agent/memory/evolution/outcome_tracker.md"
+      ],
+      "dependents": [
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/learning_queue.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/workflows/rollback.md": {
+      "path": ".agent/workflows/rollback.md",
+      "type": "workflow",
+      "version_hash": "739a69df8020",
+      "dependencies": [
+        ".agent/workflows/status.md",
+        ".agent/memory/active_context.md"
+      ],
+      "dependents": [
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/metrics.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/reflection.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/workflows/start.md": {
+      "path": ".agent/workflows/start.md",
+      "type": "workflow",
+      "version_hash": "9ea985d2e1c3",
+      "dependencies": [
+        ".agent/memory/active_context.md"
+      ],
+      "dependents": [
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/export.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/metrics.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/project_scanner.py",
+        ".agent/evolution/reflection.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/learning_queue.py",
+        ".agent/evolution/pattern_detector.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/index_manager.py",
+        ".agent/evolution/harvester.py",
+        ".agent/evolution/decision_graph.py"
+      ]
+    },
+    ".agent/workflows/3-decomposing.md": {
+      "path": ".agent/workflows/3-decomposing.md",
+      "type": "workflow",
+      "version_hash": "db82986e8efe",
+      "dependencies": [
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/prompts/roles/sub_prd_writer.md",
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/memory/evolution/decision_log.md",
+        ".agent/skills/system-architect/SKILL.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/decision_recorder.py"
+      ],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule"
+      ]
+    },
+    ".agent/workflows/export.md": {
+      "path": ".agent/workflows/export.md",
+      "type": "workflow",
+      "version_hash": "302c993ff347",
+      "dependencies": [
+        ".agent/workflows/meta.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/status.md",
+        ".agent/memory/active_context.md",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/evolution/decision_log.md",
+        ".agent/memory/evolution/decision_graph.json",
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/memory/evolution/outcome_tracker.md",
+        ".agent/memory/evolution/meta_insights.md",
+        ".agent/memory/evolution/learned_projects.md",
+        ".agent/memory/evolution/evolution_config.md",
+        ".agent/memory/state_machine.md",
+        ".agent/memory/user_preferences.md",
+        ".agent/rules/router.rule"
+      ],
+      "dependents": [
+        ".agent/workflows/evolve.md",
+        ".agent/rules/router.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/gate_deviation_detector.py"
+      ]
+    },
+    ".agent/workflows/handle-deviation.md": {
+      "path": ".agent/workflows/handle-deviation.md",
+      "type": "workflow",
+      "version_hash": "328c8109f821",
+      "dependencies": [
+        ".agent/workflows/status.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/rollback.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/decision_recorder.py"
+      ],
+      "dependents": [
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/router.rule",
+        ".agent/rules/gatekeepers.rule",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/skills/system-architect/SKILL.md": {
+      "path": ".agent/skills/system-architect/SKILL.md",
+      "type": "skill",
+      "version_hash": "94d8e62be7c4",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/3-decomposing.md",
+        ".agent/rules/skills.rule"
+      ]
+    },
+    ".agent/skills/context-manager/SKILL.md": {
+      "path": ".agent/skills/context-manager/SKILL.md",
+      "type": "skill",
+      "version_hash": "ca16ecad8aa7",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/state_machine.md",
+        ".agent/memory/user_preferences.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/reflect.md",
+        ".agent/memory/evolution/knowledge_base.md",
+        ".agent/memory/evolution/pattern_library.md",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/decision_log.md",
+        ".agent/memory/evolution/decision_graph.json",
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/memory/evolution/outcome_tracker.md",
+        ".agent/memory/evolution/meta_insights.md",
+        ".agent/memory/evolution/learned_projects.md",
+        ".agent/memory/evolution/evolution_config.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/memory/evolution/gate_deviation_log.md",
+        ".agent/memory/evolution/reflection_log.md"
+      ],
+      "dependents": [
+        ".agent/rules/skills.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/skills/evolution-engine/SKILL.md": {
+      "path": ".agent/skills/evolution-engine/SKILL.md",
+      "type": "skill",
+      "version_hash": "df77522af148",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/decision_replay.py",
+        ".agent/evolution/workflow_optimizer.py",
+        ".agent/memory/active_context.md",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/evolution/knowledge_base.md",
+        ".agent/memory/evolution/pattern_library.md",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/memory/evolution/gate_deviation_log.md",
+        ".agent/memory/evolution/reflection_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/meta.md",
+        ".agent/rules/skills.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/skills/product-design-expert/SKILL.md": {
+      "path": ".agent/skills/product-design-expert/SKILL.md",
+      "type": "skill",
+      "version_hash": "d7cd55c39a46",
+      "dependencies": [
+        ".agent/memory/project_decisions.md"
+      ],
+      "dependents": [
+        ".agent/workflows/1-drafting.md",
+        ".agent/rules/skills.rule"
+      ]
+    },
+    ".agent/skills/project-learner/SKILL.md": {
+      "path": ".agent/skills/project-learner/SKILL.md",
+      "type": "skill",
+      "version_hash": "384e158edb84",
+      "dependencies": [
+        ".agent/workflows/learn-project.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/project_scanner.py"
+      ],
+      "dependents": [
+        ".agent/rules/skills.rule",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/skills/review-aggregator/SKILL.md": {
+      "path": ".agent/skills/review-aggregator/SKILL.md",
+      "type": "skill",
+      "version_hash": "e2830cb04ed0",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md",
+        ".agent/rules/skills.rule"
+      ]
+    },
+    ".agent/skills/prd-crafter-lite/SKILL.md": {
+      "path": ".agent/skills/prd-crafter-lite/SKILL.md",
+      "type": "skill",
+      "version_hash": "ab938eff40cd",
+      "dependencies": [
+        ".agent/memory/project_decisions.md"
+      ],
+      "dependents": []
+    },
+    ".agent/skills/requirement-analyst/SKILL.md": {
+      "path": ".agent/skills/requirement-analyst/SKILL.md",
+      "type": "skill",
+      "version_hash": "cd4386ec51be",
+      "dependencies": [
+        ".agent/memory/project_decisions.md"
+      ],
+      "dependents": [
+        ".agent/workflows/1-drafting.md",
+        ".agent/rules/skills.rule",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/prompts/roles/critic.md": {
+      "path": ".agent/prompts/roles/critic.md",
+      "type": "role",
+      "version_hash": "eccc5162f214",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/evolve.md"
+      ]
+    },
+    ".agent/prompts/roles/domain_expert.md": {
+      "path": ".agent/prompts/roles/domain_expert.md",
+      "type": "role",
+      "version_hash": "6cd3ba9e10f3",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md"
+      ]
+    },
+    ".agent/prompts/roles/product_director.md": {
+      "path": ".agent/prompts/roles/product_director.md",
+      "type": "role",
+      "version_hash": "f7012bb10af6",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/prompts/roles/sub_prd_writer.md": {
+      "path": ".agent/prompts/roles/sub_prd_writer.md",
+      "type": "role",
+      "version_hash": "162b11ed4998",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/3-decomposing.md"
+      ]
+    },
+    ".agent/prompts/roles/tech_lead.md": {
+      "path": ".agent/prompts/roles/tech_lead.md",
+      "type": "role",
+      "version_hash": "cf2ccc490aa1",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md"
+      ]
+    },
+    ".agent/prompts/roles/ux_director.md": {
+      "path": ".agent/prompts/roles/ux_director.md",
+      "type": "role",
+      "version_hash": "0edbb5d7b916",
+      "dependencies": [],
+      "dependents": [
+        ".agent/workflows/2-reviewing.md"
+      ]
+    },
+    ".agent/rules/router.rule": {
+      "path": ".agent/rules/router.rule",
+      "type": "rule",
+      "version_hash": "cf757e28d8fa",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/export.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/workflows/start.md"
+      ],
+      "dependents": [
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/export.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/rules/skills.rule": {
+      "path": ".agent/rules/skills.rule",
+      "type": "rule",
+      "version_hash": "505945c13971",
+      "dependencies": [
+        ".agent/skills/system-architect/SKILL.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/skills/product-design-expert/SKILL.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/skills/review-aggregator/SKILL.md",
+        ".agent/skills/requirement-analyst/SKILL.md"
+      ],
+      "dependents": [
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/rules/gatekeepers.rule": {
+      "path": ".agent/rules/gatekeepers.rule",
+      "type": "rule",
+      "version_hash": "07e075698275",
+      "dependencies": [
+        ".agent/workflows/handle-deviation.md",
+        ".agent/evolution/gate_deviation_detector.py"
+      ],
+      "dependents": [
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/evolution/dependency_analyzer.py"
+      ]
+    },
+    ".agent/adapters/gemini/GEMINI.md": {
+      "path": ".agent/adapters/gemini/GEMINI.md",
+      "type": "adapter",
+      "version_hash": "8625c6b213fc",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/rules/router.rule",
+        ".agent/rules/skills.rule",
+        ".agent/rules/gatekeepers.rule",
+        ".agent/workflows/status.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ],
+      "dependents": [
+        ".agent/workflows/evolve.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/adapters/copilot/copilot-instructions.md": {
+      "path": ".agent/adapters/copilot/copilot-instructions.md",
+      "type": "adapter",
+      "version_hash": "95625b1a1018",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/rules/router.rule",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/user_preferences.md",
+        ".agent/workflows/ai-review.md",
+        ".agent/workflows/prd-decomposition.md",
+        ".agent/workflows/rd-implementation.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/export.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/evolve.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/adapters/copilot/COPILOT.md"
+      ],
+      "dependents": [
+        ".agent/adapters/copilot/COPILOT.md"
+      ]
+    },
+    ".agent/adapters/copilot/COPILOT.md": {
+      "path": ".agent/adapters/copilot/COPILOT.md",
+      "type": "adapter",
+      "version_hash": "15752221f569",
+      "dependencies": [
+        ".agent/workflows/feature-flow.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/export.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/memory/active_context.md",
+        ".agent/memory/project_decisions.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/adapters/copilot/copilot-instructions.md"
+      ],
+      "dependents": [
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/adapters/copilot/copilot-instructions.md"
+      ]
+    },
+    ".agent/adapters/claude/CLAUDE.md": {
+      "path": ".agent/adapters/claude/CLAUDE.md",
+      "type": "adapter",
+      "version_hash": "fc30e886042b",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/rules/router.rule",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/user_preferences.md",
+        ".agent/workflows/ai-review.md",
+        ".agent/workflows/prd-decomposition.md",
+        ".agent/workflows/rd-implementation.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/export.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/skills/requirement-analyst/SKILL.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/evolve.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/rules/skills.rule",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ],
+      "dependents": [
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/adapters/codex/CODEX.md": {
+      "path": ".agent/adapters/codex/CODEX.md",
+      "type": "adapter",
+      "version_hash": "453890b1b33a",
+      "dependencies": [
+        ".agent/memory/project_decisions.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/status.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ],
+      "dependents": [
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/kiro/KIRO.md"
+      ]
+    },
+    ".agent/adapters/kiro/KIRO.md": {
+      "path": ".agent/adapters/kiro/KIRO.md",
+      "type": "adapter",
+      "version_hash": "d136315794a6",
+      "dependencies": [
+        ".agent/memory/active_context.md",
+        ".agent/rules/router.rule",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/user_preferences.md",
+        ".agent/workflows/ai-review.md",
+        ".agent/workflows/prd-decomposition.md",
+        ".agent/workflows/rd-implementation.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/export.md",
+        ".agent/skills/context-manager/SKILL.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/regret-review.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/evolve.md",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/gemini/GEMINI.md"
+      ],
+      "dependents": [
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/gemini/GEMINI.md"
+      ]
+    },
+    ".agent/evolution/convention_extractor.py": {
+      "path": ".agent/evolution/convention_extractor.py",
+      "type": "evolution",
+      "version_hash": "56fbf7f515f1",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/start.md",
+        ".agent/evolution/harvester.py"
+      ],
+      "dependents": [
+        ".agent/workflows/learn-project.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/pattern_scaffolder.py": {
+      "path": ".agent/evolution/pattern_scaffolder.py",
+      "type": "evolution",
+      "version_hash": "489e4cfc173b",
+      "dependencies": [
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/evolution/pattern_detector.py"
+      ],
+      "dependents": [
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/metrics.py": {
+      "path": ".agent/evolution/metrics.py",
+      "type": "evolution",
+      "version_hash": "7f16a0ab5108",
+      "dependencies": [
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/workflow_metrics.md"
+      ],
+      "dependents": [
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/workflow_optimizer.py"
+      ]
+    },
+    ".agent/evolution/gate_deviation_detector.py": {
+      "path": ".agent/evolution/gate_deviation_detector.py",
+      "type": "evolution",
+      "version_hash": "7215c901e220",
+      "dependencies": [
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/workflows/export.md",
+        ".agent/memory/evolution/gate_deviation_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/rules/gatekeepers.rule",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/workflow_optimizer.py"
+      ]
+    },
+    ".agent/evolution/project_scanner.py": {
+      "path": ".agent/evolution/project_scanner.py",
+      "type": "evolution",
+      "version_hash": "44b2efe12136",
+      "dependencies": [
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/start.md"
+      ],
+      "dependents": [
+        ".agent/workflows/learn-project.md",
+        ".agent/skills/project-learner/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/confidence.py": {
+      "path": ".agent/evolution/confidence.py",
+      "type": "evolution",
+      "version_hash": "3da411a7f50d",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md"
+      ],
+      "dependents": [
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/reflection.py": {
+      "path": ".agent/evolution/reflection.py",
+      "type": "evolution",
+      "version_hash": "1f945373968b",
+      "dependencies": [
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/rollback.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/active_context.md",
+        ".agent/memory/evolution/reflection_log.md"
+      ],
+      "dependents": [
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/knowledge_injector.py": {
+      "path": ".agent/evolution/knowledge_injector.py",
+      "type": "evolution",
+      "version_hash": "708681dea9aa",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/harvester.py",
+        ".agent/memory/evolution/injection_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/2-reviewing.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/dependency_analyzer.py": {
+      "path": ".agent/evolution/dependency_analyzer.py",
+      "type": "evolution",
+      "version_hash": "21deec8efd03",
+      "dependencies": [
+        ".agent/skills/requirement-analyst/SKILL.md",
+        ".agent/memory/active_context.md",
+        ".agent/memory/project_decisions.md",
+        ".agent/memory/evolution/knowledge_base.md",
+        ".agent/memory/evolution/pattern_library.md",
+        ".agent/memory/evolution/learning_queue.md",
+        ".agent/memory/evolution/decision_log.md",
+        ".agent/memory/evolution/decision_graph.json",
+        ".agent/memory/evolution/injection_log.md",
+        ".agent/memory/evolution/outcome_tracker.md",
+        ".agent/memory/evolution/meta_insights.md",
+        ".agent/memory/evolution/learned_projects.md",
+        ".agent/memory/evolution/evolution_config.md",
+        ".agent/memory/evolution/workflow_metrics.md",
+        ".agent/memory/evolution/gate_deviation_log.md",
+        ".agent/memory/evolution/reflection_log.md",
+        ".agent/memory/state_machine.md",
+        ".agent/memory/user_preferences.md",
+        ".agent/rules/router.rule",
+        ".agent/rules/skills.rule",
+        ".agent/rules/gatekeepers.rule",
+        ".agent/prompts/roles/product_director.md",
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/1-drafting.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md"
+      ],
+      "dependents": [
+        ".agent/workflows/sync-check.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/adapters/gemini/GEMINI.md",
+        ".agent/adapters/copilot/copilot-instructions.md",
+        ".agent/adapters/copilot/COPILOT.md",
+        ".agent/adapters/claude/CLAUDE.md",
+        ".agent/adapters/codex/CODEX.md",
+        ".agent/adapters/kiro/KIRO.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/meta_learner.py": {
+      "path": ".agent/evolution/meta_learner.py",
+      "type": "evolution",
+      "version_hash": "d98a4c247cd4",
+      "dependencies": [
+        ".agent/workflows/learn-project.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/harvester.py",
+        ".agent/memory/evolution/meta_insights.md",
+        ".agent/memory/evolution/evolution_config.md"
+      ],
+      "dependents": [
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/__init__.py": {
+      "path": ".agent/evolution/__init__.py",
+      "type": "evolution",
+      "version_hash": "1cd487385fb8",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/reflect.md"
+      ],
+      "dependents": []
+    },
+    ".agent/evolution/decision_replay.py": {
+      "path": ".agent/evolution/decision_replay.py",
+      "type": "evolution",
+      "version_hash": "3f33c09f5fc6",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/init.md",
+        ".agent/evolution/decision_recorder.py"
+      ],
+      "dependents": [
+        ".agent/workflows/4-implementing.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/learning_queue.py": {
+      "path": ".agent/evolution/learning_queue.py",
+      "type": "evolution",
+      "version_hash": "f9906891c4ec",
+      "dependencies": [
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/learning_queue.md"
+      ],
+      "dependents": [
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/pattern_detector.py": {
+      "path": ".agent/evolution/pattern_detector.py",
+      "type": "evolution",
+      "version_hash": "e8e66e1a556b",
+      "dependencies": [
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/pattern_library.md"
+      ],
+      "dependents": [
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/causal_metrics.py": {
+      "path": ".agent/evolution/causal_metrics.py",
+      "type": "evolution",
+      "version_hash": "da57b2fd66f9",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/outcome_tracker.md"
+      ],
+      "dependents": [
+        ".agent/workflows/analyze-error.md",
+        ".agent/workflows/evolve.md",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/orchestrator.py": {
+      "path": ".agent/evolution/orchestrator.py",
+      "type": "evolution",
+      "version_hash": "a1eb3c1951d5",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/reflect.md",
+        ".agent/workflows/patterns.md",
+        ".agent/workflows/evolve.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/meta-evolve.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/rollback.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/pattern_scaffolder.py",
+        ".agent/evolution/metrics.py",
+        ".agent/evolution/gate_deviation_detector.py",
+        ".agent/evolution/project_scanner.py",
+        ".agent/evolution/confidence.py",
+        ".agent/evolution/reflection.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/dependency_analyzer.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/decision_replay.py",
+        ".agent/evolution/learning_queue.py",
+        ".agent/evolution/pattern_detector.py",
+        ".agent/evolution/causal_metrics.py",
+        ".agent/evolution/index_manager.py",
+        ".agent/evolution/harvester.py",
+        ".agent/evolution/decision_recorder.py",
+        ".agent/evolution/workflow_optimizer.py",
+        ".agent/evolution/decision_graph.py",
+        ".agent/memory/evolution/learned_projects.md"
+      ],
+      "dependents": []
+    },
+    ".agent/evolution/index_manager.py": {
+      "path": ".agent/evolution/index_manager.py",
+      "type": "evolution",
+      "version_hash": "17d30ce1c190",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/status.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/knowledge_base.md"
+      ],
+      "dependents": [
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/harvester.py": {
+      "path": ".agent/evolution/harvester.py",
+      "type": "evolution",
+      "version_hash": "ce93213ca558",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/knowledge_base.md"
+      ],
+      "dependents": [
+        ".agent/workflows/analyze-error.md",
+        ".agent/evolution/convention_extractor.py",
+        ".agent/evolution/knowledge_injector.py",
+        ".agent/evolution/meta_learner.py",
+        ".agent/evolution/orchestrator.py",
+        ".agent/evolution/seed_knowledge.py"
+      ]
+    },
+    ".agent/evolution/decision_recorder.py": {
+      "path": ".agent/evolution/decision_recorder.py",
+      "type": "evolution",
+      "version_hash": "a6c4d3d4aa1f",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/init.md",
+        ".agent/memory/evolution/decision_log.md"
+      ],
+      "dependents": [
+        ".agent/workflows/4-implementing.md",
+        ".agent/workflows/3-decomposing.md",
+        ".agent/workflows/handle-deviation.md",
+        ".agent/evolution/decision_replay.py",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/seed_knowledge.py": {
+      "path": ".agent/evolution/seed_knowledge.py",
+      "type": "evolution",
+      "version_hash": "c6465bf4e5e4",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/evolution/harvester.py"
+      ],
+      "dependents": []
+    },
+    ".agent/evolution/workflow_optimizer.py": {
+      "path": ".agent/evolution/workflow_optimizer.py",
+      "type": "evolution",
+      "version_hash": "7e70a55ca463",
+      "dependencies": [
+        ".agent/workflows/init.md",
+        ".agent/workflows/patterns.md",
+        ".agent/evolution/metrics.py",
+        ".agent/evolution/gate_deviation_detector.py"
+      ],
+      "dependents": [
+        ".agent/workflows/evolve.md",
+        ".agent/skills/evolution-engine/SKILL.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    },
+    ".agent/evolution/decision_graph.py": {
+      "path": ".agent/evolution/decision_graph.py",
+      "type": "evolution",
+      "version_hash": "1421cfbccef1",
+      "dependencies": [
+        ".agent/workflows/knowledge.md",
+        ".agent/workflows/meta.md",
+        ".agent/workflows/init.md",
+        ".agent/workflows/start.md",
+        ".agent/memory/evolution/decision_graph.json"
+      ],
+      "dependents": [
+        ".agent/workflows/regret-review.md",
+        ".agent/evolution/orchestrator.py"
+      ]
+    }
+  },
+  "edges": [
+    {
+      "source": ".agent/workflows/analyze-error.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/analyze-error.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/workflows/analyze-error.md",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/workflows/analyze-error.md",
+      "target": ".agent/evolution/causal_metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 CausalMetrics"
+    },
+    {
+      "source": ".agent/workflows/analyze-error.md",
+      "target": ".agent/evolution/harvester.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeHarvester"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 /analyze-error"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/evolution/pattern_scaffolder.py",
+      "edge_type": "references",
+      "context": "引用模块 PatternScaffolder"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/evolution/decision_replay.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionReplay"
+    },
+    {
+      "source": ".agent/workflows/4-implementing.md",
+      "target": ".agent/evolution/decision_recorder.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionRecord"
+    },
+    {
+      "source": ".agent/workflows/suspend1.md",
+      "target": ".agent/workflows/4-implementing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/suspend1.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/workflows/suspend1.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "writes",
+      "context": "写入 active_context.md"
+    },
+    {
+      "source": ".agent/workflows/knowledge.md",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "reads",
+      "context": "读取 knowledge_base.md"
+    },
+    {
+      "source": ".agent/workflows/sync-check.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/sync-check.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/workflows/sync-check.md",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "引用工作流 1-drafting"
+    },
+    {
+      "source": ".agent/workflows/sync-check.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/workflows/sync-check.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "reads",
+      "context": "读取 decision_log.md"
+    },
+    {
+      "source": ".agent/workflows/meta.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/meta.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/meta.md",
+      "target": ".agent/skills/evolution-engine/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 evolution-engine"
+    },
+    {
+      "source": ".agent/workflows/meta.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 /status"
+    },
+    {
+      "source": ".agent/workflows/regret-review.md",
+      "target": ".agent/memory/evolution/decision_graph.json",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/regret-review.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/workflows/regret-review.md",
+      "target": ".agent/evolution/decision_graph.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionGraph"
+    },
+    {
+      "source": ".agent/workflows/regret-review.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "references",
+      "context": "引用 decision_log.md"
+    },
+    {
+      "source": ".agent/workflows/meta-evolve.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/workflows/meta-evolve.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/workflows/meta-evolve.md",
+      "target": ".agent/memory/evolution/meta_insights.md",
+      "edge_type": "writes",
+      "context": "写入 meta_insights.md"
+    },
+    {
+      "source": ".agent/workflows/meta-evolve.md",
+      "target": ".agent/memory/evolution/evolution_config.md",
+      "edge_type": "writes",
+      "context": "写入 evolution_config.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/config/agent_config.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 /reflect"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 analyze-error"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta-evolve"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 evolve"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "reads",
+      "context": "读取 active_context.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "reads",
+      "context": "读取 knowledge_base.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/pattern_library.md",
+      "edge_type": "reads",
+      "context": "读取 pattern_library.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "reads",
+      "context": "读取 learning_queue.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "reads",
+      "context": "读取 decision_log.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/decision_graph.json",
+      "edge_type": "reads",
+      "context": "读取 decision_graph.json"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/outcome_tracker.md",
+      "edge_type": "reads",
+      "context": "读取 outcome_tracker.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/meta_insights.md",
+      "edge_type": "reads",
+      "context": "读取 meta_insights.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/learned_projects.md",
+      "edge_type": "reads",
+      "context": "读取 learned_projects.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "reads",
+      "context": "读取 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/gate_deviation_log.md",
+      "edge_type": "reads",
+      "context": "读取 gate_deviation_log.md"
+    },
+    {
+      "source": ".agent/workflows/status.md",
+      "target": ".agent/memory/evolution/reflection_log.md",
+      "edge_type": "reads",
+      "context": "读取 reflection_log.md"
+    },
+    {
+      "source": ".agent/workflows/reflect.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/workflows/reflect.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "reads",
+      "context": "读取 active_context.md"
+    },
+    {
+      "source": ".agent/workflows/reflect.md",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "writes",
+      "context": "写入 knowledge_base.md"
+    },
+    {
+      "source": ".agent/workflows/reflect.md",
+      "target": ".agent/memory/evolution/reflection_log.md",
+      "edge_type": "writes",
+      "context": "写入 reflection_log.md"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/workflows/2-reviewing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/skills/product-design-expert/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 product-design-expert"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/skills/requirement-analyst/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 requirement-analyst"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/workflows/1-drafting.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "引用 project_decisions.md"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/regret-review.md",
+      "edge_type": "references",
+      "context": "引用工作流 /regret-review"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 /status"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 /start"
+    },
+    {
+      "source": ".agent/workflows/init.md",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/workflows/learn-project.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/workflows/learn-project.md",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/workflows/learn-project.md",
+      "target": ".agent/evolution/convention_extractor.py",
+      "edge_type": "references",
+      "context": "引用模块 ConventionExtractor"
+    },
+    {
+      "source": ".agent/workflows/learn-project.md",
+      "target": ".agent/evolution/project_scanner.py",
+      "edge_type": "references",
+      "context": "引用模块 ProjectScanner"
+    },
+    {
+      "source": ".agent/workflows/learn-project.md",
+      "target": ".agent/memory/evolution/learned_projects.md",
+      "edge_type": "writes",
+      "context": "写入 learned_projects.md"
+    },
+    {
+      "source": ".agent/workflows/patterns.md",
+      "target": ".agent/memory/evolution/pattern_library.md",
+      "edge_type": "reads",
+      "context": "读取 pattern_library.md"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/prompts/roles/product_director.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/prompts/roles/tech_lead.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/prompts/roles/ux_director.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/prompts/roles/domain_expert.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/prompts/roles/critic.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/workflows/3-decomposing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/skills/review-aggregator/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 review-aggregator"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/workflows/2-reviewing.md",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/adapters/gemini/GEMINI.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/prompts/roles/critic.md",
+      "edge_type": "references",
+      "context": "引用角色 critic"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/sync-check.md",
+      "edge_type": "references",
+      "context": "引用工作流 /sync-check"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "引用工作流 1-drafting"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "引用工作流 export"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/evolution/causal_metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 CausalMetrics"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/evolution/workflow_optimizer.py",
+      "edge_type": "references",
+      "context": "引用模块 WorkflowOptimizer"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "writes",
+      "context": "写入 decision_log.md"
+    },
+    {
+      "source": ".agent/workflows/evolve.md",
+      "target": ".agent/memory/evolution/outcome_tracker.md",
+      "edge_type": "reads",
+      "context": "读取 outcome_tracker.md"
+    },
+    {
+      "source": ".agent/workflows/rollback.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/workflows/rollback.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "reads",
+      "context": "读取 active_context.md"
+    },
+    {
+      "source": ".agent/workflows/start.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "reads",
+      "context": "读取 active_context.md"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/prompts/roles/sub_prd_writer.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/workflows/4-implementing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/skills/system-architect/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 system-architect"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/evolution/pattern_scaffolder.py",
+      "edge_type": "references",
+      "context": "引用模块 PatternScaffolder"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/workflows/3-decomposing.md",
+      "target": ".agent/evolution/decision_recorder.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionRecord"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 /start"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "引用 active_context.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "引用 project_decisions.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "references",
+      "context": "引用 decision_log.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/decision_graph.json",
+      "edge_type": "references",
+      "context": "引用 decision_graph.json"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "引用 injection_log.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/outcome_tracker.md",
+      "edge_type": "references",
+      "context": "引用 outcome_tracker.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/meta_insights.md",
+      "edge_type": "references",
+      "context": "引用 meta_insights.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/learned_projects.md",
+      "edge_type": "references",
+      "context": "引用 learned_projects.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/evolution/evolution_config.md",
+      "edge_type": "references",
+      "context": "引用 evolution_config.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/state_machine.md",
+      "edge_type": "references",
+      "context": "引用 state_machine.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/memory/user_preferences.md",
+      "edge_type": "references",
+      "context": "引用 user_preferences.md"
+    },
+    {
+      "source": ".agent/workflows/export.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "引用规则 router.rule"
+    },
+    {
+      "source": ".agent/workflows/handle-deviation.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/workflows/handle-deviation.md",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "引用工作流 1-drafting"
+    },
+    {
+      "source": ".agent/workflows/handle-deviation.md",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 rollback"
+    },
+    {
+      "source": ".agent/workflows/handle-deviation.md",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/workflows/handle-deviation.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/workflows/handle-deviation.md",
+      "target": ".agent/evolution/decision_recorder.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionRecord"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/state_machine.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/user_preferences.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 reflect"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "references",
+      "context": "引用 knowledge_base.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/pattern_library.md",
+      "edge_type": "references",
+      "context": "引用 pattern_library.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "引用 learning_queue.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "references",
+      "context": "引用 decision_log.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/decision_graph.json",
+      "edge_type": "references",
+      "context": "引用 decision_graph.json"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "引用 injection_log.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/outcome_tracker.md",
+      "edge_type": "references",
+      "context": "引用 outcome_tracker.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/meta_insights.md",
+      "edge_type": "references",
+      "context": "引用 meta_insights.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/learned_projects.md",
+      "edge_type": "references",
+      "context": "引用 learned_projects.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/evolution_config.md",
+      "edge_type": "references",
+      "context": "引用 evolution_config.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "references",
+      "context": "引用 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/gate_deviation_log.md",
+      "edge_type": "references",
+      "context": "引用 gate_deviation_log.md"
+    },
+    {
+      "source": ".agent/skills/context-manager/SKILL.md",
+      "target": ".agent/memory/evolution/reflection_log.md",
+      "edge_type": "references",
+      "context": "引用 reflection_log.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/regret-review.md",
+      "edge_type": "references",
+      "context": "引用工作流 /regret-review"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 /reflect"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 /patterns"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 analyze-error"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "引用工作流 1-drafting"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/2-reviewing.md",
+      "edge_type": "references",
+      "context": "引用工作流 2-reviewing"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 rollback"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/workflows/3-decomposing.md",
+      "edge_type": "references",
+      "context": "引用工作流 3-decomposing"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/pattern_scaffolder.py",
+      "edge_type": "references",
+      "context": "引用模块 PatternScaffolder"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/meta_learner.py",
+      "edge_type": "references",
+      "context": "引用模块 MetaLearner"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/decision_replay.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionReplay"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/evolution/workflow_optimizer.py",
+      "edge_type": "references",
+      "context": "引用模块 WorkflowOptimizer"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "writes",
+      "context": "写入 active_context.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "writes",
+      "context": "写入 project_decisions.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "writes",
+      "context": "写入 knowledge_base.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/pattern_library.md",
+      "edge_type": "writes",
+      "context": "写入 pattern_library.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "引用 learning_queue.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "引用 injection_log.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "writes",
+      "context": "写入 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/gate_deviation_log.md",
+      "edge_type": "references",
+      "context": "引用 gate_deviation_log.md"
+    },
+    {
+      "source": ".agent/skills/evolution-engine/SKILL.md",
+      "target": ".agent/memory/evolution/reflection_log.md",
+      "edge_type": "writes",
+      "context": "写入 reflection_log.md"
+    },
+    {
+      "source": ".agent/skills/product-design-expert/SKILL.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "引用 project_decisions.md"
+    },
+    {
+      "source": ".agent/skills/project-learner/SKILL.md",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/skills/project-learner/SKILL.md",
+      "target": ".agent/evolution/convention_extractor.py",
+      "edge_type": "references",
+      "context": "引用模块 ConventionExtractor"
+    },
+    {
+      "source": ".agent/skills/project-learner/SKILL.md",
+      "target": ".agent/evolution/project_scanner.py",
+      "edge_type": "references",
+      "context": "引用模块 ProjectScanner"
+    },
+    {
+      "source": ".agent/skills/prd-crafter-lite/SKILL.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/skills/requirement-analyst/SKILL.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "引用 project_decisions.md"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/2-reviewing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/3-decomposing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/4-implementing.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 /analyze-error"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/sync-check.md",
+      "edge_type": "references",
+      "context": "引用工作流 /sync-check"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/regret-review.md",
+      "edge_type": "references",
+      "context": "引用工作流 /regret-review"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 /status"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 /reflect"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 /init"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 /patterns"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 /rollback"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "引用工作流 /export"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/rules/router.rule",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/system-architect/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 system-architect"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/context-manager/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 context-manager"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/evolution-engine/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 evolution-engine"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/product-design-expert/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 product-design-expert"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/project-learner/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 project-learner"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/review-aggregator/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 review-aggregator"
+    },
+    {
+      "source": ".agent/rules/skills.rule",
+      "target": ".agent/skills/requirement-analyst/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 requirement-analyst"
+    },
+    {
+      "source": ".agent/rules/gatekeepers.rule",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/rules/gatekeepers.rule",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/rules/skills.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/rules/gatekeepers.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/memory/user_preferences.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/ai-review.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/prd-decomposition.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/rd-implementation.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/skills/context-manager/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 context-manager"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/skills/evolution-engine/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 evolution-engine"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/skills/project-learner/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 project-learner"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/sync-check.md",
+      "edge_type": "references",
+      "context": "引用工作流 /sync-check"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/regret-review.md",
+      "edge_type": "references",
+      "context": "引用工作流 /regret-review"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 /status"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 /patterns"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 /rollback"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 /start"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 evolve"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "引用 learning_queue.md"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "writes",
+      "context": "写入 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/feature-flow.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/workflows/sync-check.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/memory/user_preferences.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/ai-review.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/prd-decomposition.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/rd-implementation.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/skills/context-manager/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 context-manager"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/skills/evolution-engine/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 evolution-engine"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/skills/project-learner/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 project-learner"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/skills/requirement-analyst/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 requirement-analyst"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/sync-check.md",
+      "edge_type": "references",
+      "context": "引用工作流 /sync-check"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/regret-review.md",
+      "edge_type": "references",
+      "context": "引用工作流 /regret-review"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 /status"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 /patterns"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 /rollback"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 /start"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "chain_next",
+      "context": "链式触发 1-drafting"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 evolve"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "引用 learning_queue.md"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "writes",
+      "context": "写入 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/rules/skills.rule",
+      "edge_type": "references",
+      "context": "引用规则 skills.rule"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/skills/context-manager/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 context-manager"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 /analyze-error"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/memory/user_preferences.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/ai-review.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/prd-decomposition.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/rd-implementation.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/skills/context-manager/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 context-manager"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/skills/evolution-engine/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 evolution-engine"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/skills/project-learner/SKILL.md",
+      "edge_type": "invokes",
+      "context": "引用技能 project-learner"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/sync-check.md",
+      "edge_type": "references",
+      "context": "引用工作流 /sync-check"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/regret-review.md",
+      "edge_type": "references",
+      "context": "引用工作流 /regret-review"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta-evolve"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 /status"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 /patterns"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 /rollback"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 /start"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 evolve"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "引用 learning_queue.md"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "writes",
+      "context": "写入 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/evolution/convention_extractor.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/convention_extractor.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/convention_extractor.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/convention_extractor.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/convention_extractor.py",
+      "target": ".agent/evolution/harvester.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeHarvester"
+    },
+    {
+      "source": ".agent/evolution/pattern_scaffolder.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/pattern_scaffolder.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/pattern_scaffolder.py",
+      "target": ".agent/evolution/pattern_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 PatternDetector"
+    },
+    {
+      "source": ".agent/evolution/metrics.py",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 analyze-error"
+    },
+    {
+      "source": ".agent/evolution/metrics.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/metrics.py",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 rollback"
+    },
+    {
+      "source": ".agent/evolution/metrics.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "chain_next",
+      "context": "链式触发 start"
+    },
+    {
+      "source": ".agent/evolution/metrics.py",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "writes",
+      "context": "写入 workflow_metrics.md"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 rollback"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/workflows/export.md",
+      "edge_type": "references",
+      "context": "引用工作流 export"
+    },
+    {
+      "source": ".agent/evolution/gate_deviation_detector.py",
+      "target": ".agent/memory/evolution/gate_deviation_log.md",
+      "edge_type": "references",
+      "context": "引用 gate_deviation_log.md"
+    },
+    {
+      "source": ".agent/evolution/project_scanner.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/project_scanner.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/confidence.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/confidence.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/confidence.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "chain_next",
+      "context": "链式触发 status"
+    },
+    {
+      "source": ".agent/evolution/confidence.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/reflection.py",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 reflect"
+    },
+    {
+      "source": ".agent/evolution/reflection.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/reflection.py",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 rollback"
+    },
+    {
+      "source": ".agent/evolution/reflection.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/reflection.py",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "reads",
+      "context": "读取 active_context.md"
+    },
+    {
+      "source": ".agent/evolution/reflection.py",
+      "target": ".agent/memory/evolution/reflection_log.md",
+      "edge_type": "writes",
+      "context": "写入 reflection_log.md"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/evolution/confidence.py",
+      "edge_type": "references",
+      "context": "引用模块 ConfidenceEngine"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/evolution/causal_metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 CausalMetrics"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/evolution/harvester.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeHarvester"
+    },
+    {
+      "source": ".agent/evolution/knowledge_injector.py",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "引用 injection_log.md"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/skills/requirement-analyst/SKILL.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/active_context.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/project_decisions.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/pattern_library.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/decision_graph.json",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/injection_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/outcome_tracker.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/meta_insights.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/learned_projects.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/evolution_config.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/workflow_metrics.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/gate_deviation_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/evolution/reflection_log.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/state_machine.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/memory/user_preferences.md",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/rules/router.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/rules/skills.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/rules/gatekeepers.rule",
+      "edge_type": "references",
+      "context": "显式路径引用"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/prompts/roles/product_director.md",
+      "edge_type": "references",
+      "context": "引用角色 product_director"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/analyze-error.md",
+      "edge_type": "references",
+      "context": "引用工作流 /analyze-error"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 /meta"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 /reflect"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/1-drafting.md",
+      "edge_type": "references",
+      "context": "引用工作流 1-drafting"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/dependency_analyzer.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/learn-project.md",
+      "edge_type": "references",
+      "context": "引用工作流 /learn-project"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/evolution/confidence.py",
+      "edge_type": "references",
+      "context": "引用模块 ConfidenceEngine"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/evolution/causal_metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 CausalMetrics"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/evolution/harvester.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeHarvester"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/memory/evolution/meta_insights.md",
+      "edge_type": "references",
+      "context": "引用 meta_insights.md"
+    },
+    {
+      "source": ".agent/evolution/meta_learner.py",
+      "target": ".agent/memory/evolution/evolution_config.md",
+      "edge_type": "references",
+      "context": "引用 evolution_config.md"
+    },
+    {
+      "source": ".agent/evolution/__init__.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/__init__.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/__init__.py",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 reflect"
+    },
+    {
+      "source": ".agent/evolution/decision_replay.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/decision_replay.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/decision_replay.py",
+      "target": ".agent/evolution/decision_recorder.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionRecord"
+    },
+    {
+      "source": ".agent/evolution/learning_queue.py",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/evolution/learning_queue.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/learning_queue.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/evolution/learning_queue.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/learning_queue.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/learning_queue.py",
+      "target": ".agent/memory/evolution/learning_queue.md",
+      "edge_type": "references",
+      "context": "引用 learning_queue.md"
+    },
+    {
+      "source": ".agent/evolution/pattern_detector.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/evolution/pattern_detector.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/pattern_detector.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/pattern_detector.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/pattern_detector.py",
+      "target": ".agent/memory/evolution/pattern_library.md",
+      "edge_type": "writes",
+      "context": "写入 pattern_library.md"
+    },
+    {
+      "source": ".agent/evolution/causal_metrics.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/causal_metrics.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/causal_metrics.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/causal_metrics.py",
+      "target": ".agent/memory/evolution/outcome_tracker.md",
+      "edge_type": "writes",
+      "context": "写入 outcome_tracker.md"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 /knowledge"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/reflect.md",
+      "edge_type": "references",
+      "context": "引用工作流 /reflect"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 /patterns"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 /evolve"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/handle-deviation.md",
+      "edge_type": "references",
+      "context": "引用工作流 /handle-deviation"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/meta-evolve.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta-evolve"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/workflows/rollback.md",
+      "edge_type": "references",
+      "context": "引用工作流 rollback"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/convention_extractor.py",
+      "edge_type": "references",
+      "context": "引用模块 ConventionExtractor"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/pattern_scaffolder.py",
+      "edge_type": "references",
+      "context": "引用模块 PatternScaffolder"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 WorkflowMetrics"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/project_scanner.py",
+      "edge_type": "references",
+      "context": "引用模块 ProjectScanner"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/confidence.py",
+      "edge_type": "references",
+      "context": "引用模块 ConfidenceEngine"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/reflection.py",
+      "edge_type": "references",
+      "context": "引用模块 ReflectionEngine"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/knowledge_injector.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeInjector"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/dependency_analyzer.py",
+      "edge_type": "references",
+      "context": "引用模块 DependencyAnalyzer"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/meta_learner.py",
+      "edge_type": "references",
+      "context": "引用模块 MetaLearner"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/decision_replay.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionReplay"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/learning_queue.py",
+      "edge_type": "references",
+      "context": "引用模块 LearningQueue"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/pattern_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 PatternDetector"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/causal_metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 CausalMetrics"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/index_manager.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeIndexManager"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/harvester.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeHarvester"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/decision_recorder.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionRecord"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/workflow_optimizer.py",
+      "edge_type": "references",
+      "context": "引用模块 WorkflowOptimizer"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/evolution/decision_graph.py",
+      "edge_type": "references",
+      "context": "引用模块 DecisionGraph"
+    },
+    {
+      "source": ".agent/evolution/orchestrator.py",
+      "target": ".agent/memory/evolution/learned_projects.md",
+      "edge_type": "references",
+      "context": "引用 learned_projects.md"
+    },
+    {
+      "source": ".agent/evolution/index_manager.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/index_manager.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/index_manager.py",
+      "target": ".agent/workflows/status.md",
+      "edge_type": "references",
+      "context": "引用工作流 status"
+    },
+    {
+      "source": ".agent/evolution/index_manager.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/index_manager.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/index_manager.py",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "references",
+      "context": "引用 knowledge_base.md"
+    },
+    {
+      "source": ".agent/evolution/harvester.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/harvester.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/harvester.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/harvester.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/harvester.py",
+      "target": ".agent/memory/evolution/knowledge_base.md",
+      "edge_type": "references",
+      "context": "引用 knowledge_base.md"
+    },
+    {
+      "source": ".agent/evolution/decision_recorder.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/decision_recorder.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/decision_recorder.py",
+      "target": ".agent/memory/evolution/decision_log.md",
+      "edge_type": "references",
+      "context": "引用 decision_log.md"
+    },
+    {
+      "source": ".agent/evolution/seed_knowledge.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/seed_knowledge.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "chain_next",
+      "context": "链式触发 init"
+    },
+    {
+      "source": ".agent/evolution/seed_knowledge.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/seed_knowledge.py",
+      "target": ".agent/evolution/harvester.py",
+      "edge_type": "references",
+      "context": "引用模块 KnowledgeHarvester"
+    },
+    {
+      "source": ".agent/evolution/workflow_optimizer.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/workflow_optimizer.py",
+      "target": ".agent/workflows/patterns.md",
+      "edge_type": "references",
+      "context": "引用工作流 patterns"
+    },
+    {
+      "source": ".agent/evolution/workflow_optimizer.py",
+      "target": ".agent/evolution/metrics.py",
+      "edge_type": "references",
+      "context": "引用模块 WorkflowMetrics"
+    },
+    {
+      "source": ".agent/evolution/workflow_optimizer.py",
+      "target": ".agent/evolution/gate_deviation_detector.py",
+      "edge_type": "references",
+      "context": "引用模块 GateDeviationDetector"
+    },
+    {
+      "source": ".agent/evolution/decision_graph.py",
+      "target": ".agent/workflows/knowledge.md",
+      "edge_type": "references",
+      "context": "引用工作流 knowledge"
+    },
+    {
+      "source": ".agent/evolution/decision_graph.py",
+      "target": ".agent/workflows/meta.md",
+      "edge_type": "references",
+      "context": "引用工作流 meta"
+    },
+    {
+      "source": ".agent/evolution/decision_graph.py",
+      "target": ".agent/workflows/init.md",
+      "edge_type": "references",
+      "context": "引用工作流 init"
+    },
+    {
+      "source": ".agent/evolution/decision_graph.py",
+      "target": ".agent/workflows/start.md",
+      "edge_type": "references",
+      "context": "引用工作流 start"
+    },
+    {
+      "source": ".agent/evolution/decision_graph.py",
+      "target": ".agent/memory/evolution/decision_graph.json",
+      "edge_type": "references",
+      "context": "引用 decision_graph.json"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/adapters/codex/CODEX.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/adapters/claude/CLAUDE.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/adapters/copilot/COPILOT.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/adapters/claude/CLAUDE.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/adapters/gemini/GEMINI.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/adapters/claude/CLAUDE.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/claude/CLAUDE.md",
+      "target": ".agent/adapters/kiro/KIRO.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/adapters/claude/CLAUDE.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/adapters/copilot/COPILOT.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/adapters/codex/CODEX.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/adapters/gemini/GEMINI.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/adapters/codex/CODEX.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/codex/CODEX.md",
+      "target": ".agent/adapters/kiro/KIRO.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/adapters/codex/CODEX.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/adapters/gemini/GEMINI.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/adapters/copilot/COPILOT.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/adapters/kiro/KIRO.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/adapters/copilot/COPILOT.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/gemini/GEMINI.md",
+      "target": ".agent/adapters/kiro/KIRO.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/kiro/KIRO.md",
+      "target": ".agent/adapters/gemini/GEMINI.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/copilot/COPILOT.md",
+      "target": ".agent/adapters/copilot/copilot-instructions.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    },
+    {
+      "source": ".agent/adapters/copilot/copilot-instructions.md",
+      "target": ".agent/adapters/copilot/COPILOT.md",
+      "edge_type": "mirrors",
+      "context": "同族适配器，需保持多平台同步"
+    }
+  ],
+  "metadata": {
+    "version": "1.1",
+    "last_rebuilt": "2026-02-16",
+    "total_nodes": 67,
+    "total_edges": 523,
+    "peer_groups": 2
+  }
+}

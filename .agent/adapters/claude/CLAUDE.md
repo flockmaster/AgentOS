@@ -59,6 +59,10 @@
 | `/knowledge [query]` | 📚 查询知识库 |
 | `/patterns [query]` | 🔄 查询代码模式库 |
 | `/rollback` | 回滚到上一个检查点 |
+| `/learn-project [path]` | 📖 从参考项目学习规范和架构 |
+| `/regret-review` | 🔍 回顾历史决策错误 |
+| `/meta-evolve` | 🧠 元学习引擎 (每 5 次 evolve 自动触发) |
+| `/sync-check` | 🔗 依赖同步检查 (修改 .agent 文件后自动触发) |
 
 ---
 
@@ -121,6 +125,7 @@
 | UI/UX 设计 | `ui-ux-pro-max` | 全局 `.gemini/antigravity/skills/` |
 | 飞书文档 | `feishu-doc-assistant` | 全局 `.gemini/antigravity/skills/` |
 | **自进化** | `evolution-engine` | 项目级 `.agent/skills/` |
+| **项目学习** | `project-learner` | 项目级 `.agent/skills/` |
 
 ---
 
@@ -134,6 +139,34 @@
 | 工作流完成 | 更新 `workflow_metrics.md` |
 | 状态 → ARCHIVING | 自动触发 `/reflect` |
 | 状态 → IDLE | 处理学习队列 (P0/P1) |
+| **修改 `.agent/` 文件** | **自动执行依赖影响分析** (见 6.1) |
+
+### 6.1 依赖连锁升级规则 (Dependency Cascade Rule)
+> **Mandatory**: 当你修改了 `.agent/` 目录下的任何配置文件时，必须执行以下流程。
+
+**触发条件**: 修改了以下任一类型的文件:
+- `workflows/*.md` (工作流)
+- `skills/*/SKILL.md` (技能定义)
+- `prompts/roles/*.md` (角色定义)
+- `rules/*.rule` (路由/门禁规则)
+- `evolution/*.py` (进化引擎模块)
+- `adapters/*/*.md` (适配器配置)
+
+**自动行为**:
+1. 完成本次修改后，立即对被修改的文件执行 `DependencyAnalyzer.impact_analysis()`。
+2. 检查返回的**直接依赖文件** (depth=1)：
+   - 逐个检查这些文件中引用被修改内容的部分是否需要同步更新。
+   - 如需更新：立即修改，然后对新修改的文件递归执行本流程。
+   - 如无需更新：跳过。
+3. 在所有连锁修改完成后，向用户报告修改汇总:
+   ```
+   🔗 依赖连锁升级: 修改 X 触发了 Y、Z 的同步更新。
+   ```
+4. 如果直接依赖文件超过 5 个，先列出清单让用户确认范围，避免过度传播。
+
+**示例**:
+- 修改 `requirement-analyst/SKILL.md` 的输出格式 →
+  自动检查 `1-drafting.md` (调用该技能) 和 `skills.rule` (路由该技能) 是否需要同步。
 
 ---
 

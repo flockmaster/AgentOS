@@ -15,4 +15,5 @@ description: 技能路由表 (Skill Router)
 | **UI/UX 设计** | `ui-ux-pro-max` | `.gemini/antigravity/skills/` |
 | **飞书文档** | `feishu-doc-assistant` | `.gemini/antigravity/skills/` |
 | **自进化** | `evolution-engine` | `.agent/skills/` |
+| **项目学习** | `project-learner` | `.agent/skills/` |
 | **代码生成** | `codex-engine` | (Built-in / Native) |

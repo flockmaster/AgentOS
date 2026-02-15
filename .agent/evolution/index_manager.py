@@ -175,11 +175,13 @@ class KnowledgeIndexManager:
             "pattern": "代码模式",
             "workflow": "工作流相关",
             "tooling": "工具使用",
+            "anti-pattern": "反模式/已验证的错误做法",
+            "reference-project": "参考项目知识",
         }
         for e in entries:
             cat = e.get("category", "other")
             cat_counts[cat] = cat_counts.get(cat, 0) + 1
-        for cat in ["architecture", "debugging", "pattern", "workflow", "tooling"]:
+        for cat in ["architecture", "debugging", "pattern", "workflow", "tooling", "anti-pattern", "reference-project"]:
             count = cat_counts.get(cat, 0)
             desc = cat_desc.get(cat, "其他")
             lines.append(f"| {cat} | {count} | {desc} |")
@@ -267,9 +269,11 @@ class KnowledgeIndexManager:
             "pattern": "代码模式",
             "workflow": "工作流相关",
             "tooling": "工具使用",
+            "anti-pattern": "反模式/已验证的错误做法",
+            "reference-project": "参考项目知识",
         }
         new_rows = []
-        for cat in ["architecture", "debugging", "pattern", "workflow", "tooling"]:
+        for cat in ["architecture", "debugging", "pattern", "workflow", "tooling", "anti-pattern", "reference-project"]:
             count = cat_counts.get(cat, 0)
             desc = cat_desc.get(cat, "其他")
             new_rows.append(f"| {cat} | {count} | {desc} |")

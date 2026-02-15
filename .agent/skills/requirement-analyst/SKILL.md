@@ -1,61 +1,210 @@
 ---
 name: requirement-analyst
-description: The Gatekeeper skill that analyzes user requirements for feasibility and clarity before allowing PRD creation.
+description: 需求创意合伙人 — 从原始诉求挖掘根因、探索开源方案、生成方案矩阵，而非无条件接受用户想法。
 ---
 
-# Requirement Analyst Skill
+# Requirement Analyst Skill (需求分析师 v2.0)
 
 ## 1. Overview
-This skill acts as the first line of defense in the product development pipeline. It evaluates raw user requirements against project context to ensure they are feasible, clear, and safe to proceed.
+
+本技能是产品开发流水线的第一站。它不是一个被动的"门卫"，而是一个**创意合伙人**：通过挖掘用户诉求的底层问题、搜索已有解决方案、提出创新思路，帮助用户做出最优决策。
+
+**核心理念**: 用户的原始想法可能受限于个人经验，大模型的广泛知识应该用来拓宽视野，而非无条件执行。
+
+**重要规则**: 请全程使用**中文**进行思考和输出。
 
 ## 2. Input
-- **User Requirement**: The raw text or voice input from the user describing their desired feature.
-- **Project Context**: The `project_summary` (mission statement) to ensure alignment.
+
+- **用户原始诉求**: 用户描述的需求、想法或问题。
+- **项目上下文**: `project_decisions.md`（技术栈、架构约束、命名规范等）。
+- **注入的知识**: 来自 Knowledge Injection Step 0 的历史知识条目。
 
 ## 3. Actions
-The skill performs a two-step analysis:
 
-### Step 1: Feasibility Check (The Red Gate)
-- **Safety**: Does this request violate safety guidelines or ethical boundaries?
-- **Alignment**: Does this deviate significantly from the improved AgentOS core value (e.g. asking for a recipe in a dev tool)?
-- **Technical Reality**: Is this technically impossible (e.g. solving P=NP)?
+### Step 0: 复杂度快速评估 (Complexity Triage)
 
-### Step 2: Clarity Check (The Yellow Gate)
-- **Completeness**: Are the key actors, actions, and outcomes defined?
-- **Ambiguity**: Are there terms with multiple interpretations?
-- **Context**: Is there enough information to design a UI/Flow?
+对用户诉求做 5 秒判断：
 
-## 4. Output Logic (Structured Response)
+| 类型 | 特征 | 路径 |
+|------|------|------|
+| **快速通道** | 改文案、调样式、修 Bug、配置变更等明确的小改动 | → 直接输出 `PASS`，跳过 Step 2-4 |
+| **标准流程** | 新功能、流程变更、架构调整等需要设计的需求 | → 进入 Step 1-4 完整流程 |
 
-Return a JSON-like structure or clear Markdown section:
+**快速通道判定条件**（满足任意一条即可）：
+- 改动范围 ≤ 3 个文件
+- 无需新增 UI 页面或数据模型
+- 需求描述已经是具体的实施指令（如"把按钮文案改成XXX"）
 
-### Status: [PASS | REJECT | CLARIFY]
+---
 
-1. **REJECT**:
-   - Reason: [Why is this impossible or irrelevant?]
-   - Suggestion: [How to pivot?]
+### Step 1: 需求澄清 (Clarification)
 
-2. **CLARIFY**:
-   - Clarity Score: [0-89%]
-   - Missing Info: [List of missing context]
-   - Questions: [List of 3-5 specific questions to ask the user]
+对用户输入进行结构化分析：
 
-3. **PASS**:
-   - Clarity Score: [90-100%]
-   - Context Summary: [A structured summary of the requirement]
-   - MVP Scope: [A bullet list of what is in scope vs out of scope]
+**1.1 基础完整性**
+- **目标用户**: 谁在用？什么场景下用？
+- **核心动作**: 用户要完成什么操作？
+- **期望结果**: 操作完成后的预期效果是什么？
+
+**1.2 深度补充**
+- **约束条件**: 性能要求？设备限制？兼容性？时间窗口？
+- **现有方案**: 当前项目中有没有类似功能？是改造还是新建？
+- **异常场景**: 主流程之外有哪些异常情况需要处理？
+- **依赖关系**: 这个功能前置依赖什么？会影响什么下游功能？
+
+**输出**: 若信息不足（关键维度缺失 ≥ 2 项），返回 `CLARIFY` 并附上针对性问题列表。
+
+---
+
+### Step 2: 根因分析 (Root Cause Analysis) — 新增
+
+**不要直接接受用户的方案，先追问"为什么"。**
+
+- **表层需求**: 用户说要做什么？
+- **底层问题**: 用户真正要解决什么问题？
+- **重新定义**: 如果从零思考这个问题，最优解是什么？（可能和用户想的不一样）
+
+**示例**:
+> 用户："我要做一个手动导出 CSV 的功能"
+> - 表层需求: 导出 CSV
+> - 底层问题: 用户需要在外部工具中分析数据
+> - 重新定义: 真正的问题是"缺乏数据分析能力"，而非"缺少导出按钮"
+
+**输出**: 底层问题陈述 + 用户方案是否为最优解的判断。
+
+---
+
+### Step 3: 方案探索 (Solution Discovery) — 新增
+
+基于 Step 2 的底层问题，多维度探索方案：
+
+**3.1 开源项目搜索**
+- 在 pub.dev / npm / PyPI / GitHub 等平台搜索相关开源项目或库。
+- 对找到的候选项，**读取 README** 评估：
+  - 功能匹配度
+  - 维护活跃度（最近更新时间、Stars、Issues 处理速度）
+  - 集成成本（与当前技术栈的兼容性）
+  - 许可证是否允许商用
+
+**3.2 创新方案思考**
+- 利用大模型的知识广度，提出用户可能没想到的方案。
+- 考虑：有没有更简单的实现路径？有没有可以复用的现有能力？有没有行业里的成熟模式？
+
+**3.3 生成方案矩阵**
+
+根据需求复杂度灵活给出 2-5 个方案（必须包含用户原始方案）：
+
+```markdown
+## 方案矩阵
+
+| # | 方案 | 描述 | 开发成本 | 维护成本 | 创新性 | 风险 | 推荐度 |
+|---|------|------|---------|---------|--------|------|--------|
+| A | [用户原始方案] | ... | X 天 | 低/中/高 | ★☆☆ | ... | ⭐⭐ |
+| B | [开源方案] | 基于 xxx 库 (★3.2k) | X 天 | 低 | ★★☆ | ... | ⭐⭐⭐ |
+| C | [创新方案] | ... | X 天 | ... | ★★★ | ... | ⭐⭐⭐⭐ |
+
+### 推荐: 方案 B
+**理由**: [具体分析为什么这个方案最优]
+```
+
+---
+
+### Step 4: 方案确认 (Solution Selection)
+
+将方案矩阵呈现给用户，等待选择：
+
+- 用户可以选择单个方案
+- 用户可以组合多个方案的部分
+- 用户可以坚持原始方案（尊重用户最终决策权）
+- 用户可以提出新想法，重新进入 Step 3
+
+**输出**: 选定方案的结构化需求描述，进入 PRD 生成。
+
+---
+
+## 4. Output Logic
+
+### 快速通道输出:
+```markdown
+### Status: PASS (快速通道)
+**需求类型**: 小改动
+**任务描述**: [结构化的改动描述]
+**影响范围**: [涉及的文件/模块]
+```
+
+### 标准流程输出:
+
+**阶段 1 — CLARIFY (需要更多信息)**:
+```markdown
+### Status: CLARIFY
+**已理解**: [已收集到的信息摘要]
+**缺失信息**:
+1. [缺失维度 1]: [为什么需要这个信息]
+2. [缺失维度 2]: [为什么需要这个信息]
+**问题**:
+1. [针对性问题 1]
+2. [针对性问题 2]
+3. [针对性问题 3]
+```
+
+**阶段 2 — ANALYZE (根因分析完成，等待方案选择)**:
+```markdown
+### Status: ANALYZE
+
+## 根因分析
+- **表层需求**: [用户说的]
+- **底层问题**: [真正要解决的]
+- **问题重定义**: [更准确的问题陈述]
+
+## 方案矩阵
+[见 Step 3 格式]
+
+## 开源调研
+| 项目 | 平台 | Stars | 最近更新 | 匹配度 | 集成评估 |
+|------|------|-------|---------|--------|---------|
+| [项目名] | GitHub | Xk | YYYY-MM | 高/中/低 | [简评] |
+
+**等待用户选择方案。**
+```
+
+**阶段 3 — PASS (方案确认，进入 PRD 生成)**:
+```markdown
+### Status: PASS
+**选定方案**: [方案编号和名称]
+**底层问题**: [一句话]
+**方案摘要**: [选定方案的详细描述]
+**MVP 范围**:
+- ✅ [In Scope 1]
+- ✅ [In Scope 2]
+- ❌ [Out of Scope 1]
+**开源依赖**: [如有]
+**约束条件**: [技术/时间/兼容性约束]
+**验收标准草案**:
+- [标准 1]
+- [标准 2]
+```
 
 ## 5. Usage Example
 
-**Input**: "I want a dashboard."
+**Input**: "我想做一个单词本功能，用户可以收藏生词"
 
-**Output**:
-```markdown
-### Status: CLARIFY
-**Clarity Score**: 30%
-**Reason**: "Dashboard" is too vague.
-**Questions**:
-1. Who is the target user for this dashboard?
-2. What key metrics (KPIs) need to be displayed?
-3. Is this for the admin panel or the end-user app?
-```
+**Step 1 — Clarification**:
+> 已理解：用户希望添加生词收藏功能。
+> 需要澄清：
+> 1. 生词来源是什么？（阅读中遇到的？手动输入的？）
+> 2. 收藏后需要复习功能吗？还是仅做记录？
+> 3. 需要云端同步吗？
+
+**Step 2 — Root Cause Analysis**:
+> - 表层需求：收藏生词
+> - 底层问题：用户缺乏个性化的词汇积累和记忆系统
+> - 重定义：问题不只是"收藏"，而是"学习闭环"——从遇到生词到记住它的完整路径
+
+**Step 3 — Solution Discovery**:
+> | # | 方案 | 成本 | 创新性 | 推荐度 |
+> |---|------|------|--------|--------|
+> | A | 简单收藏列表 (用户原始方案) | 2天 | ★☆☆ | ⭐⭐ |
+> | B | 基于 `flutter_flashcards` 的间隔重复卡片 | 3天 | ★★☆ | ⭐⭐⭐ |
+> | C | AI 驱动的上下文记忆系统：在阅读中标记 → 自动生成例句 → 间隔复习 | 5天 | ★★★ | ⭐⭐⭐⭐ |
+>
+> 推荐方案 C：与产品 AI 定位一致，形成差异化。

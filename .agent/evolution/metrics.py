@@ -38,6 +38,10 @@ class WorkflowRun:
     auto_fix: int = 0
     bottleneck: str = ""
     notes: str = ""
+    # v2.0 新增: 阶段级指标
+    phase_durations: dict = field(default_factory=dict)  # {phase_name: duration_min}
+    rework_count: int = 0                                 # 返工次数
+    gate_pass_first_try: bool = True                      # 门禁是否首次通过
 
     def to_table_row(self) -> str:
         """生成 Markdown 表格行"""

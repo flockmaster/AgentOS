@@ -130,31 +130,63 @@ Write-Step "Step 4/6 — 安装 Agent OS 到项目"
 $agentSrc = Join-Path $ScriptDir ".agent"
 $agentDst = Join-Path $TargetDir ".agent"
 
-# === 4.1.0 智能备份 (Smart Backup) ===
+# === 4.1.0 智能无损更新 (Smart Merge) ===
 $memoryRestored = $false
 $backupDir = Join-Path $env:TEMP "agent_os_backup_$(Get-Random)"
 
 if (Test-Path $agentDst) {
     Write-Info "检测到现有 Agent OS，启动 [智能无损更新] 模式..."
     New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
-    
-    # 备份记忆 (Memory)
+
+    # 备份记忆 (Memory) — 知识库、evolution 数据、活跃上下文
     if (Test-Path "$agentDst\memory") {
         Copy-Item "$agentDst\memory" $backupDir -Recurse -Force
-        Write-Info "已备份记忆库 (Memory) -> $backupDir"
+        Write-Info "已备份记忆库 (Memory)"
     }
-    
+
     # 备份配置 (Config)
     if (Test-Path "$agentDst\config\agent_config.md") {
         New-Item -ItemType Directory -Path "$backupDir\config" -Force | Out-Null
         Copy-Item "$agentDst\config\agent_config.md" "$backupDir\config" -Force
         Write-Info "已备份配置文件 (Config)"
     }
+
+    # 备份项目级技能 (Skills) — 仅备份目标独有的技能目录
+    if (Test-Path "$agentDst\skills") {
+        New-Item -ItemType Directory -Path "$backupDir\skills" -Force | Out-Null
+        Get-ChildItem "$agentDst\skills" -Directory | ForEach-Object {
+            if (-not (Test-Path "$agentSrc\skills\$($_.Name)")) {
+                Copy-Item $_.FullName "$backupDir\skills" -Recurse -Force
+                Write-Info "已备份项目级技能: $($_.Name)"
+            }
+        }
+    }
+
+    # 备份项目级工作流 (Workflows) — 仅备份目标独有的工作流文件
+    if (Test-Path "$agentDst\workflows") {
+        New-Item -ItemType Directory -Path "$backupDir\workflows" -Force | Out-Null
+        Get-ChildItem "$agentDst\workflows" -File -Filter "*.md" | ForEach-Object {
+            if (-not (Test-Path "$agentSrc\workflows\$($_.Name)")) {
+                Copy-Item $_.FullName "$backupDir\workflows" -Force
+                Write-Info "已备份项目级工作流: $($_.Name)"
+            }
+        }
+        # 备份工作流子目录
+        Get-ChildItem "$agentDst\workflows" -Directory | ForEach-Object {
+            if (-not (Test-Path "$agentSrc\workflows\$($_.Name)")) {
+                Copy-Item $_.FullName "$backupDir\workflows" -Recurse -Force
+                Write-Info "已备份项目级工作流目录: $($_.Name)"
+            }
+        }
+    }
 }
 
+# 4.1 同步 .agent/ (覆盖更新，不删除)
 if ($agentSrc -ne $agentDst) {
-    if (Test-Path $agentDst) { Remove-Item $agentDst -Recurse -Force }
-    Copy-Item $agentSrc $agentDst -Recurse -Force -Exclude ".git"
+    if (-not (Test-Path $agentDst)) {
+        New-Item -ItemType Directory -Path $agentDst -Force | Out-Null
+    }
+    Copy-Item "$agentSrc\*" $agentDst -Recurse -Force -Exclude ".git", "__pycache__"
     Write-Ok "已更新系统核心 (.agent/) → $agentDst"
 }
 else {
@@ -164,20 +196,34 @@ else {
 # === 4.1.1 恢复备份 (Restore) ===
 if (Test-Path $backupDir) {
     Write-Info "正在恢复用户数据..."
-    
+
     # 恢复记忆
     if (Test-Path "$backupDir\memory") {
-        Copy-Item "$backupDir\memory\*" "$agentDst\memory" -Recurse -Force
+        Copy-Item "$backupDir\memory\*" "$agentDst\memory" -Recurse -Force -ErrorAction SilentlyContinue
         Write-Ok "记忆库已恢复 (Memory Restored)"
         $memoryRestored = $true
     }
-    
+
     # 恢复配置
     if (Test-Path "$backupDir\config\agent_config.md") {
         Copy-Item "$backupDir\config\agent_config.md" "$agentDst\config\agent_config.md" -Force
         Write-Ok "配置已恢复 (Config Restored)"
     }
-    
+
+    # 恢复项目级技能
+    $skillsBackup = "$backupDir\skills"
+    if ((Test-Path $skillsBackup) -and (Get-ChildItem $skillsBackup -ErrorAction SilentlyContinue)) {
+        Copy-Item "$skillsBackup\*" "$agentDst\skills" -Recurse -Force -ErrorAction SilentlyContinue
+        Write-Ok "项目级技能已恢复 (Project Skills Restored)"
+    }
+
+    # 恢复项目级工作流
+    $wfBackup = "$backupDir\workflows"
+    if ((Test-Path $wfBackup) -and (Get-ChildItem $wfBackup -ErrorAction SilentlyContinue)) {
+        Copy-Item "$wfBackup\*" "$agentDst\workflows" -Recurse -Force -ErrorAction SilentlyContinue
+        Write-Ok "项目级工作流已恢复 (Project Workflows Restored)"
+    }
+
     Remove-Item $backupDir -Recurse -Force
 }
 

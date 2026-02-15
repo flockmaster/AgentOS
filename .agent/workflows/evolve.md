@@ -1,8 +1,8 @@
 ---
-description: Evolve Workflow (v2.0) - 主动进化引擎：代码巡检、模式挖掘、文档同步
+description: Evolve Workflow (v2.2) - 主动进化引擎：代码巡检、模式挖掘、文档同步、门禁偏离分析
 ---
 
-# /evolve - 进化引擎 v2.0
+# /evolve - 进化引擎 v2.2
 
 > **"不仅仅是记录，而是主动优化。"**
 
@@ -18,7 +18,10 @@ description: Evolve Workflow (v2.0) - 主动进化引擎：代码巡检、模式
 1. 读取 `.agent/memory/evolution/learning_queue.md`。
 2. 如果有待处理项：
    - 提取知识点 -> 写入 `.agent/memory/knowledge/topic_<tag>.md` (分布式存储)。
+   - 计算因果评分 (`CausalMetrics.causal_score()`) 并记录到知识条目。
+   - 应用自适应衰减 (`adaptive_decay()`)：高因果评分知识减缓衰减，低因果评分加速衰减。
    - 标记为 `DONE`。
+3. 检查 `outcome_tracker.md`，提取反知识 (`CausalMetrics.get_anti_knowledge()`)。
 
 ### Step 2: 代码库健康巡检 (Active Scanning)
 // turbo
@@ -38,8 +41,27 @@ description: Evolve Workflow (v2.0) - 主动进化引擎：代码巡检、模式
    - 建议提取为 `Shared Component` 或 `Utility`。
 2. **Architecture Compliance**:
    - 检查是否违反了 `.agent/memory/project_decisions.md` 中的架构规则 (e.g. View层直接调用Database)。
+3. **工作流优化分析** — *v2.0*:
+   - 调用 `WorkflowOptimizer.detect_bottlenecks()` 分析历史工作流指标。
+   - 调用 `WorkflowOptimizer.suggest_gate_tuning()` 检查门禁效能。
+   - 若有优化建议，纳入进化报告。
+4. **门禁偏离分析** — *v2.2*:
+   - 调用 `GateDeviationDetector.analyze_patterns()` 分析历史偏离数据。
+   - 若发现待处理偏离模式:
+     - 在报告中标注为"建议添加到工作流"。
+     - 提示用户运行 `/handle-deviation` 查看修改提案。
+   - 纳入进化报告的 §Gate Deviation Analysis 章节。
 
 ### Step 4: 文档同步检查 (Doc Sync)
+
+### Step 4.5: 依赖同步检查 (Dependency Sync) — v2.1
+1. 调用 `DependencyAnalyzer.build_graph()` 重建文件依赖图谱。
+2. 调用 `DependencyAnalyzer.sync_check()` 检查当前 git 变更。
+3. 如有未同步的关联文件，在进化报告中列出:
+   - 直接依赖文件 (优先级最高)
+   - 二级/三级间接依赖文件
+4. 提醒用户检查需同步文件，或运行 `/sync-check` 查看详细报告。
+
 4. **Documentation & Config Sync (Configuration Drift)**:
    - **Installation Scripts**: 
      - 检查 `setup.ps1` / `setup.sh` 是否包含所有最新的 `.agent` 组件 (如 `.vscode`, `Watchdog`)。
@@ -83,6 +105,23 @@ description: Evolve Workflow (v2.0) - 主动进化引擎：代码巡检、模式
 - `README.md`: Links are valid ✅ / Broken ❌
 - `project_decisions.md`: 2 Deprecated decisions found.
 
+## 5. 🧠 Decision Intelligence (v2.0)
+- **Decisions Logged**: X
+- **Outcomes Tracked**: X (Success Rate: X%)
+- **Anti-Knowledge**: X entries identified
+- **Workflow Optimization**: [Suggestions if any]
+
+## 6. 🔗 Dependency Sync (v2.1)
+- **Graph**: X nodes, Y edges
+- **Changed Files**: [list]
+- **Needs Sync Check**: [list of files needing synchronization]
+
+## 7. 🚪 Gate Deviation Analysis (v2.2)
+- **Total Patterns**: X
+- **Pending Proposals**: Y
+- **Hot Deviations**:
+  - `1-drafting:step6`: "export_to_feishu" (3 times) → 建议运行 `/handle-deviation`
+
 ---
 **Reply with:**
 - `/approve` to execute high-confidence fixes (Docs & Knowledge).
@@ -93,3 +132,6 @@ description: Evolve Workflow (v2.0) - 主动进化引擎：代码巡检、模式
 ## Post-Evolve Actions (Automated)
 1. 将 "High Confidence" 的知识点自动归档。
 2. 将 "Technical Debt" 统计写入 `metrics.md` 以追踪趋势。
+3. 递增 evolve 计数器。若 `count % 5 == 0`，自动触发 `/meta-evolve` (元学习引擎)。
+4. 记录本次 evolve 结果到 `outcome_tracker.md`。
+5. 更新 `decision_log.md` 中本轮产生的决策记录。

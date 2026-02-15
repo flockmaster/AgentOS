@@ -31,7 +31,7 @@ class KnowledgeEntry:
     """知识条目数据结构"""
     id: str                        # e.g. "k-006"
     title: str
-    category: str                  # architecture | debugging | pattern | workflow | tooling
+    category: str                  # architecture | debugging | pattern | workflow | tooling | anti-pattern | reference-project
     tags: list[str] = field(default_factory=list)
     confidence: float = 0.7
     summary: str = ""
@@ -40,6 +40,11 @@ class KnowledgeEntry:
     related: list[str] = field(default_factory=list)
     references: list[str] = field(default_factory=list)
     created: str = ""
+    # v2.0 新增: 因果追踪字段 (向后兼容，新字段可选默认空)
+    outcomes: list[dict] = field(default_factory=list)     # [{task, result, time_saved, bugs}]
+    causal_score: float = 0.0                               # 基于 outcomes 计算
+    last_applied: str = ""                                   # ISO date
+    application_count: int = 0
 
     def __post_init__(self):
         if not self.created:
@@ -95,8 +100,8 @@ class KnowledgeEntry:
 
 # ─── Source Types ────────────────────────────────────────────
 
-VALID_CATEGORIES = {"architecture", "debugging", "pattern", "workflow", "tooling"}
-VALID_SOURCE_TYPES = {"code_change", "error_fix", "workflow_run", "user_feedback", "conversation"}
+VALID_CATEGORIES = {"architecture", "debugging", "pattern", "workflow", "tooling", "anti-pattern", "reference-project"}
+VALID_SOURCE_TYPES = {"code_change", "error_fix", "workflow_run", "user_feedback", "conversation", "reference_project"}
 
 
 # ─── Harvester ───────────────────────────────────────────────
@@ -237,6 +242,72 @@ class KnowledgeHarvester:
             code_example=code_example,
             confidence=0.7,
             references=references or ["code_change"],
+        )
+
+    def harvest_anti_knowledge(
+        self,
+        title: str,
+        summary: str,
+        details: str = "",
+        tags: list[str] | None = None,
+        references: list[str] | None = None,
+        related: list[str] | None = None,
+    ) -> KnowledgeEntry:
+        """
+        收割反知识 (anti-knowledge)。
+
+        反知识是应用后反而导致问题的知识条目，
+        记录为 anti-pattern 类别以供未来决策参考。
+        """
+        return self.harvest(
+            source_type="error_fix",
+            title=f"Anti-Pattern: {title}",
+            summary=summary,
+            category="anti-pattern",
+            tags=["anti-pattern"] + (tags or []),
+            details=details,
+            confidence=0.85,
+            related=related or [],
+            references=references or ["causal_analysis"],
+        )
+
+    def harvest_from_reference_project(
+        self,
+        title: str,
+        summary: str,
+        details: str = "",
+        code_example: str = "",
+        tags: list[str] | None = None,
+        project_path: str = "",
+    ) -> KnowledgeEntry:
+        """
+        从参考项目学习中提取知识。
+
+        Parameters
+        ----------
+        title : str
+            知识标题
+        summary : str
+            一句话概述
+        details : str
+            详细说明
+        code_example : str
+            代码示例
+        tags : list[str]
+            标签列表
+        project_path : str
+            参考项目路径
+        """
+        return self.harvest(
+            source_type="reference_project",
+            title=title,
+            summary=summary,
+            category="reference-project",
+            tags=["reference-project"] + (tags or []),
+            details=details,
+            code_example=code_example,
+            confidence=0.75,
+            references=[f"ref-project:{project_path}"] if project_path else ["reference_project"],
         )
 
     # ── Private ──

@@ -122,36 +122,70 @@ step "Step 4/6 — 安装 Agent OS 到项目"
 AGENT_SRC="$SCRIPT_DIR/.agent"
 AGENT_DST="$TARGET_DIR/.agent"
 
-# === 4.1.0 智能备份 (Smart Backup) ===
+# === 4.1.0 智能无损更新 (Smart Merge) ===
 MEMORY_RESTORED=false
 BACKUP_DIR="/tmp/agent_os_backup_$(date +%s)"
 
 if [ -d "$AGENT_DST" ]; then
     info "检测到现有 Agent OS，启动 [智能无损更新] 模式..."
     mkdir -p "$BACKUP_DIR"
-    
-    # 备份记忆 (Memory)
+
+    # 备份记忆 (Memory) — 知识库、evolution 数据、活跃上下文
     if [ -d "$AGENT_DST/memory" ]; then
         cp -r "$AGENT_DST/memory" "$BACKUP_DIR/"
-        info "已备份记忆库 (Memory) -> $BACKUP_DIR"
+        info "已备份记忆库 (Memory)"
     fi
-    
+
     # 备份配置 (Config)
     if [ -f "$AGENT_DST/config/agent_config.md" ]; then
         mkdir -p "$BACKUP_DIR/config"
         cp "$AGENT_DST/config/agent_config.md" "$BACKUP_DIR/config/"
         info "已备份配置文件 (Config)"
     fi
+
+    # 备份项目级技能 (Skills) — 仅备份目标独有的技能目录
+    if [ -d "$AGENT_DST/skills" ]; then
+        mkdir -p "$BACKUP_DIR/skills"
+        for skill_dir in "$AGENT_DST/skills"/*/; do
+            skill_name="$(basename "$skill_dir")"
+            if [ ! -d "$AGENT_SRC/skills/$skill_name" ]; then
+                cp -r "$skill_dir" "$BACKUP_DIR/skills/"
+                info "已备份项目级技能: $skill_name"
+            fi
+        done
+    fi
+
+    # 备份项目级工作流 (Workflows) — 仅备份目标独有的工作流文件
+    if [ -d "$AGENT_DST/workflows" ]; then
+        mkdir -p "$BACKUP_DIR/workflows"
+        for wf_file in "$AGENT_DST/workflows"/*.md; do
+            [ -f "$wf_file" ] || continue
+            wf_name="$(basename "$wf_file")"
+            if [ ! -f "$AGENT_SRC/workflows/$wf_name" ]; then
+                cp "$wf_file" "$BACKUP_DIR/workflows/"
+                info "已备份项目级工作流: $wf_name"
+            fi
+        done
+        # 备份工作流子目录 (如 copilot_compatible/)
+        for wf_dir in "$AGENT_DST/workflows"/*/; do
+            [ -d "$wf_dir" ] || continue
+            wf_dir_name="$(basename "$wf_dir")"
+            if [ ! -d "$AGENT_SRC/workflows/$wf_dir_name" ]; then
+                cp -r "$wf_dir" "$BACKUP_DIR/workflows/"
+                info "已备份项目级工作流目录: $wf_dir_name"
+            fi
+        done
+    fi
 fi
 
-# 4.1 复制 .agent/
+# 4.1 同步 .agent/ (覆盖更新，不删除)
 if [ "$AGENT_SRC" != "$AGENT_DST" ]; then
-    rm -rf "$AGENT_DST"
-    # 使用 rsync 替代 cp 以支持 exclude (如果 rsync 可用)，或者手动删除 .git
+    mkdir -p "$AGENT_DST"
     if command -v rsync >/dev/null 2>&1; then
-        rsync -a --exclude='.git' "$AGENT_SRC/" "$AGENT_DST/"
+        rsync -a --exclude='.git' --exclude='__pycache__' "$AGENT_SRC/" "$AGENT_DST/"
     else
-        cp -r "$AGENT_SRC" "$AGENT_DST"
+        cp -r "$AGENT_SRC"/* "$AGENT_DST/" 2>/dev/null || true
+        cp -r "$AGENT_SRC"/.* "$AGENT_DST/" 2>/dev/null || true
         rm -rf "$AGENT_DST/.git"
     fi
     ok "已更新系统核心 (.agent/) → $AGENT_DST"
@@ -162,20 +196,32 @@ fi
 # === 4.1.1 恢复备份 (Restore) ===
 if [ -d "$BACKUP_DIR" ]; then
     info "正在恢复用户数据..."
-    
+
     # 恢复记忆
     if [ -d "$BACKUP_DIR/memory" ]; then
-        cp -r "$BACKUP_DIR/memory"/* "$AGENT_DST/memory/"
+        cp -r "$BACKUP_DIR/memory"/* "$AGENT_DST/memory/" 2>/dev/null || true
         ok "记忆库已恢复 (Memory Restored)"
         MEMORY_RESTORED=true
     fi
-    
+
     # 恢复配置
     if [ -f "$BACKUP_DIR/config/agent_config.md" ]; then
         cp "$BACKUP_DIR/config/agent_config.md" "$AGENT_DST/config/agent_config.md"
         ok "配置已恢复 (Config Restored)"
     fi
-    
+
+    # 恢复项目级技能
+    if [ -d "$BACKUP_DIR/skills" ] && [ "$(ls -A "$BACKUP_DIR/skills" 2>/dev/null)" ]; then
+        cp -r "$BACKUP_DIR/skills"/* "$AGENT_DST/skills/" 2>/dev/null || true
+        ok "项目级技能已恢复 (Project Skills Restored)"
+    fi
+
+    # 恢复项目级工作流
+    if [ -d "$BACKUP_DIR/workflows" ] && [ "$(ls -A "$BACKUP_DIR/workflows" 2>/dev/null)" ]; then
+        cp -r "$BACKUP_DIR/workflows"/* "$AGENT_DST/workflows/" 2>/dev/null || true
+        ok "项目级工作流已恢复 (Project Workflows Restored)"
+    fi
+
     rm -rf "$BACKUP_DIR"
 fi
 

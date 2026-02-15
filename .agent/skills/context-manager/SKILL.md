@@ -70,6 +70,22 @@ description: Antigravity OS 记忆系统。负责读写短期记忆、长期记�
 - Decisions file: `.agent/memory/project_decisions.md`
 - Preferences file: `.agent/memory/user_preferences.md`
 - History folder: `.agent/memory/history/`
+- Evolution folder: `.agent/memory/evolution/`
+  - `knowledge_base.md` — 知识图谱索引
+  - `pattern_library.md` — 代码模式库
+  - `learning_queue.md` — 学习素材队列
+  - `reflection_log.md` — 反思日志
+  - `workflow_metrics.md` — 工作流指标
+  - `decision_log.md` — 决策记录 (v2.0)
+  - `outcome_tracker.md` — 结果追踪 (v2.0)
+  - `decision_graph.json` — 决策因果图 (v2.0)
+  - `learned_projects.md` — 已学习项目 (v2.0)
+  - `meta_insights.md` — 元学习洞察 (v2.0)
+  - `evolution_config.md` — 进化参数配置 (v2.0)
+  - `injection_log.md` — 知识注入日志 (v2.0)
+  - `gate_deviation_log.md` — 门禁偏离记录 (v2.2)
+  - `workflow_backups/` — 工作流备份目录 (v2.2)
+- Knowledge folder: `.agent/memory/knowledge/` — 分布式知识条目存储
 
 ## 状态验证规则
 调用 `update_state` 时，必须检查转换是否合法：

@@ -11,7 +11,7 @@
 <br/>
 
 [![Dispatcher v4.7](https://img.shields.io/badge/🎯_任务调度-v4.7-ff6b35?style=for-the-badge)](docs/prd/codex-dispatcher-user.md)
-[![Evolution Engine v1.0](https://img.shields.io/badge/🧬_进化引擎-v1.0-blueviolet?style=for-the-badge)](docs/prd/evolution-engine.md)
+[![Evolution Engine v2.2](https://img.shields.io/badge/🧬_进化引擎-v2.2-blueviolet?style=for-the-badge)](docs/prd/evolution-engine.md)
 [![Status](https://img.shields.io/badge/🟢_状态-可用-success?style=for-the-badge)](#-30-秒快速上手)
 [![Framework](https://img.shields.io/badge/🔌_适配-任意项目-blue?style=for-the-badge)](#-适配任何项目)
 
@@ -242,13 +242,17 @@ cp -r .vscode/ /path/to/your-project/
 | `/analyze-error` | **灭火** | 粘贴报错日志，智能分析并修复 |
 | `/suspend` | **存档** | 下班/暂停，保存当前状态并生成摘要 |
 | `/status` | **看板** | 查看当前任务进度、系统状态 |
-| `/evolve` | **进化 v2.0** | 主动巡检代码债、挖掘模式、同步文档 |
+| `/evolve` | **进化 v2.2** | 主动巡检代码债、挖掘模式、同步文档、门禁偏离分析 |
 | `/reflect` | **复盘** | 总结最近的经验教训，存入长期记忆 |
 | `/meta [指令]` | **改系统** | 修改 Agent OS 自身的行为规则 |
 | `/export` | **打包** | 导出含安装脚本的系统副本，一键分发 |
 | `/rollback` | **后悔药** | 回滚到上一个 Git 检查点 |
 | `/knowledge [Q]` | **查知识** | 查询记忆库中的知识点 |
 | `/patterns [Q]` | **查模式** | 查询代码复用模式 |
+| `/learn-project [path]` | **学项目** | 从参考项目中提取架构知识 |
+| `/regret-review` | **决策回顾** | 分析低分决策，生成纠正建议 |
+| `/meta-evolve` | **元学习** | 优化进化引擎自身的参数与策略 |
+| `/handle-deviation` | **偏离处理** | 门禁偏离时自动提议工作流自进化 |
 
 ---
 
@@ -258,8 +262,11 @@ cp -r .vscode/ /path/to/your-project/
 Project Root/
 ├── .agent/                      ← PM 大脑 (Your Partner)
 │   ├── memory/                  ← 记忆中枢 (Active Context, Project Decisions)
+│   │   └── evolution/           ← 进化引擎数据 (知识库、决策图、偏离日志)
 │   ├── workflows/               ← 自动化流程配置 (.md)
 │   ├── skills/                  ← 技能插件 (Review Board, PRD Crafter)
+│   ├── evolution/               ← 进化引擎代码 (22 个 Python 模块)
+│   ├── rules/                   ← 路由规则、门禁规则
 │   ├── config/                  ← 系统配置
 │   └── adapters/                ← 多模型适配器
 │

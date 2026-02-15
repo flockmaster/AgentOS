@@ -44,6 +44,12 @@ class ConfidenceEngine:
     UNUSED_THRESHOLD_DAYS = 30
     DEPRECATION_THRESHOLD = 0.5
 
+    # v2.0: 自适应衰减参数
+    FAST_DECAY = -0.15      # 因果评分低时加速衰减
+    SLOW_DECAY = -0.05      # 因果评分高时减缓衰减
+    CAUSAL_FAST_THRESHOLD = 0.2   # 低于此值使用加速衰减
+    CAUSAL_SLOW_THRESHOLD = 0.6   # 高于此值使用减缓衰减
+
     def __init__(self, base_dir: str | Path = ".agent/memory"):
         self.base_dir = Path(base_dir)
         self.knowledge_dir = self.base_dir / "knowledge"
@@ -127,6 +133,106 @@ class ConfidenceEngine:
         if not meta:
             return None
         return self._get_confidence(meta)
+
+    # ── v2.0 新增方法 ──
+
+    def adaptive_decay(self, days: int = 30, causal_scores: dict[str, float] | None = None) -> list[dict]:
+        """
+        自适应衰减: 根据 causal_score 调节衰减速率。
+
+        - causal_score > 0.6: 减缓衰减 (-0.05)
+        - causal_score < 0.2: 加速衰减 (-0.15)
+        - 其他情况: 标准衰减 (-0.1)
+
+        Parameters
+        ----------
+        days : int
+            未使用天数阈值
+        causal_scores : dict
+            {knowledge_id: causal_score} 映射表
+
+        Returns
+        -------
+        list[dict]
+            被衰减的条目列表
+        """
+        causal_scores = causal_scores or {}
+        cutoff = datetime.date.today() - datetime.timedelta(days=days)
+        decayed = []
+
+        for f in self.knowledge_dir.glob("k-*.md"):
+            meta = self._parse_frontmatter(f)
+            if not meta:
+                continue
+
+            created_str = meta.get("created", "")
+            try:
+                created_date = datetime.date.fromisoformat(created_str)
+            except (ValueError, TypeError):
+                continue
+
+            if created_date <= cutoff:
+                kid = meta.get("id", f.stem)
+                old_conf = self._get_confidence(meta)
+
+                # 根据因果评分选择衰减速率
+                cs = causal_scores.get(kid, 0.0)
+                if cs > self.CAUSAL_SLOW_THRESHOLD:
+                    decay = self.SLOW_DECAY
+                elif cs < self.CAUSAL_FAST_THRESHOLD and cs != 0.0:
+                    decay = self.FAST_DECAY
+                else:
+                    decay = self.UNUSED_DECAY
+
+                new_conf = max(0.0, round(old_conf + decay, 2))
+                self._set_confidence(f, new_conf)
+
+                deprecated = new_conf < self.DEPRECATION_THRESHOLD
+                decayed.append({
+                    "id": kid,
+                    "old_confidence": old_conf,
+                    "new_confidence": new_conf,
+                    "decay_rate": decay,
+                    "causal_score": cs,
+                    "deprecated": deprecated,
+                })
+
+        return decayed
+
+    def on_applied(self, kid: str) -> Optional[float]:
+        """
+        知识被实际应用 → Confidence +0.05 + 更新 last_applied。
+
+        比 on_referenced 更强的信号: 不仅被提及，而且实际影响了决策。
+
+        Returns
+        -------
+        float | None
+            新的 confidence 值
+        """
+        new_conf = self._adjust(kid, self.REFERENCE_BOOST, "applied")
+        if new_conf is not None:
+            # 更新 last_applied 时间戳
+            f = self._find_file(kid)
+            if f:
+                text = f.read_text(encoding="utf-8")
+                today = datetime.date.today().isoformat()
+                import re as _re
+                if "last_applied:" in text:
+                    text = _re.sub(
+                        r"(last_applied:\s*)\S*",
+                        f"\\g<1>{today}",
+                        text, count=1,
+                    )
+                else:
+                    # 在 confidence 行后插入 last_applied
+                    text = _re.sub(
+                        r"(confidence:\s*\S+)",
+                        f"\\1\nlast_applied: {today}",
+                        text, count=1,
+                    )
+                f.write_text(text, encoding="utf-8")
+        return new_conf
 
     # ── Private Methods ──
 
