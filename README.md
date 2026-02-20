@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌌 Antigravity Agent OS 0220
+# 🌌 Antigravity Agent OS
 
 ### 给你的 AI 编程助手装上"大脑"
 
